@@ -156,4 +156,4 @@ unpublish:
     before_script:
         - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
     script:
-        - npm unpublish @quark-uilib/$PACKAGE_NAME@$PACKAGE_VERSION
+        - npm unpublish @uilib/$PACKAGE_NAME@$PACKAGE_VERSION
