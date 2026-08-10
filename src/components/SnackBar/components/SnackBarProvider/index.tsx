@@ -33,7 +33,12 @@ const SnackBarProviderItem: React.FC<
       classNames="snack-bar"
       in={true}
       timeout={300}>
-      <SnackBar ref={nodeRef} id={id} closeSnackBar={closeSnackBar} {...value} />
+      <SnackBar
+        ref={nodeRef}
+        id={id}
+        closeSnackBar={closeSnackBar}
+        {...value}
+      />
     </CSSTransition>
   );
 };

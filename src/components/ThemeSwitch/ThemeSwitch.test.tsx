@@ -11,10 +11,9 @@ jest.mock("motion/react", () => {
 describe("ThemeSwitch", () => {
   it("exposes switch semantics for the light theme", () => {
     render(<ThemeSwitch themeSelected="light" />);
-    expect(screen.getByRole("switch", { name: "Switch theme" })).toHaveAttribute(
-      "aria-checked",
-      "false"
-    );
+    expect(
+      screen.getByRole("switch", { name: "Switch theme" })
+    ).toHaveAttribute("aria-checked", "false");
   });
 
   it("marks the switch checked for the dark theme", () => {
@@ -46,9 +45,7 @@ describe("ThemeSwitch", () => {
   it("uses native disabled behavior", async () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
-    render(
-      <ThemeSwitch themeSelected="light" disabled onChange={onChange} />
-    );
+    render(<ThemeSwitch themeSelected="light" disabled onChange={onChange} />);
     const control = screen.getByRole("switch");
 
     expect(control).toBeDisabled();

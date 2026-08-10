@@ -30,11 +30,7 @@ describe("Input", () => {
     await user.type(screen.getByRole("textbox"), "alex");
 
     expect(onChange).toHaveBeenCalledTimes(4);
-    expect(onChange).toHaveBeenLastCalledWith(
-      expect.any(Object),
-      "x",
-      "login"
-    );
+    expect(onChange).toHaveBeenLastCalledWith(expect.any(Object), "x", "login");
   });
 
   it("supports focus, blur, and keyboard callbacks", async () => {

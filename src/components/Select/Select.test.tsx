@@ -59,8 +59,7 @@ describe("Select", () => {
     );
   });
 
-  it("does not open or change when disabled", async () => {
-    const user = userEvent.setup();
+  it("does not open or change when disabled", () => {
     const onChange = jest.fn();
     render(<Select options={options} isDisabled onChange={onChange} />);
 
