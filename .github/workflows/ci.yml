@@ -30,6 +30,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci --legacy-peer-deps --no-audit --no-fund
+      - name: Generate site metadata
+        run: node src/site/build/script.js
       - run: npm run lint
       - run: npm run tsc:components
       - run: npm run tsc:table
