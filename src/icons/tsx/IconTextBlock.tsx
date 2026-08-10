@@ -1,0 +1,48 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconTextBlock = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          d="M7 2.5H17C19.4853 2.5 21.5 4.51472 21.5 7V17C21.5 19.4853 19.4853 21.5 17 21.5H7C4.51472 21.5 2.5 19.4853 2.5 17V13.75C2.5 13.3358 2.16421 13 1.75 13C1.33579 13 1 13.3358 1 13.75V17C1 20.3137 3.68629 23 7 23H17C20.3137 23 23 20.3137 23 17V7C23 3.68629 20.3137 1 17 1H7C3.68629 1 1 3.68629 1 7V9.25C1 9.66421 1.33579 10 1.75 10C2.16421 10 2.5 9.66421 2.5 9.25V7C2.5 4.51472 4.51472 2.5 7 2.5Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M6.25 8C6.25 7.0335 7.0335 6.25 8 6.25H12C12.4142 6.25 12.75 6.58579 12.75 7C12.75 7.41421 12.4142 7.75 12 7.75H8C7.86193 7.75 7.75 7.86193 7.75 8V9C7.75 9.41421 7.41421 9.75 7 9.75C6.58579 9.75 6.25 9.41421 6.25 9V8Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M11.25 7C11.25 6.58579 11.5858 6.25 12 6.25H16C16.9665 6.25 17.75 7.0335 17.75 8V9C17.75 9.41421 17.4142 9.75 17 9.75C16.5858 9.75 16.25 9.41421 16.25 9V8C16.25 7.86193 16.1381 7.75 16 7.75H12C11.5858 7.75 11.25 7.41421 11.25 7Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M12 6.25C12.4142 6.25 12.75 6.58579 12.75 7V17C12.75 17.4142 12.4142 17.75 12 17.75C11.5858 17.75 11.25 17.4142 11.25 17V7C11.25 6.58579 11.5858 6.25 12 6.25Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M9.25 17C9.25 16.5858 9.58579 16.25 10 16.25H14C14.4142 16.25 14.75 16.5858 14.75 17C14.75 17.4142 14.4142 17.75 14 17.75H10C9.58579 17.75 9.25 17.4142 9.25 17Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconTextBlock;

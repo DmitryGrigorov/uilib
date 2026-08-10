@@ -1,0 +1,171 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { SearchBoxExamples } from "./examples";
+import {
+  SearchBoxExampleLabelUsage,
+  SearchBoxExampleDefault,
+  SearchBoxExampleValueUsage
+} from "./examples/SearchBoxExamples";
+
+:::div{.notshown}
+
+# SearchBox
+
+SearchBox is a unified component for searching throughout an application.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Component roles](#component-roles)
+- [Adding a label](#adding-a-label)
+- [Value](#value)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { SearchBox } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Component roles
+
+The basic search box accepts search queries.
+
+The global search box supports advanced search parameters across the application. It is used by the Global Search pattern.
+
+The backdrop search box supports basic parameterized search within interface elements. It is used by the Backdrop pattern.
+:::
+
+:::div
+
+## Adding a label
+
+A label can be added to the search box when needed, for example to indicate that a search returned no results.
+
+Pass the `label` property to display one. The search-box divider adopts the ink that corresponds to the label type. Two status properties are available: one controls the label status and the other controls the SearchBox status.
+
+<Unstyled>
+  <SearchBoxExampleLabelUsage />
+</Unstyled>
+
+```tsx
+export const SearchBoxExampleLabel: React.FC<{
+  type?: "global" | "basic";
+  size: "l";
+  m;
+}> = ({ type, size }) => {
+  const [search, setSearch] = useState("Search query");
+  const handleChange = (
+    _e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
+    value: string
+  ): void => {
+    setSearch(value);
+  };
+
+  return (
+    <SearchBox
+      placeholder="What are you looking for?"
+      size={size}
+      style={{ maxWidth: "480px" }}
+      status="error"
+      statusText="Error Label"
+      value={search}
+      onChange={handleChange}
+      type={type}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Value
+
+Use `value` to provide text for the search field in advance.
+
+<Unstyled>
+  <SearchBoxExampleValueUsage />
+</Unstyled>
+<br />
+
+```tsx
+export const SearchBoxExampleValue: React.FC<{
+  type?: "global" | "basic";
+  size: "l";
+  m;
+}> = ({ type, size }) => {
+  const [search, setSearch] = useState("Search query");
+  const handleChange = (
+    _e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
+    value: string
+  ): void => {
+    setSearch(value);
+  };
+
+  return (
+    <SearchBox
+      placeholder="What are you looking for?"
+      size={size}
+      style={{ maxWidth: "480px" }}
+      value={search}
+      onChange={handleChange}
+      type={type}
+    />
+  );
+};
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <SearchBoxExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Property    | Type                                                                                                               | Default            | Required | Description                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ | ------------------ | -------- | ------------------------------------------------- |
+| type        | `basic`, `global`                                                                                                  | `basic`            | -        | Appearance                                        |
+| placeholder | `string`                                                                                                           | Start searching... | -        | Hint displayed inside the field                   |
+| isDisabled  | `boolean`                                                                                                          | `false`            | -        | Disables the field                                |
+| value       | `string`                                                                                                           | ""                 | -        | Field value                                       |
+| onChange    | `(event: ChangeEvent<HTMLInputElement>, value: string,identifiers:` <br/> `ISearchBoxIdentifiersHandlers) => void` | -                  | -        | Called when the field value changes               |
+| id          | `string`, `number`                                                                                                 | -                  | -        | Field ID in the DOM                               |
+| name        | `string`                                                                                                           | -                  | -        | Field name in the DOM                             |
+| onFocus     | `FocusEventHandler<HTMLInputElement>`                                                                              | -                  | -        | Called when the field receives focus              |
+| onBlur      | `FocusEventHandler<HTMLInputElement>`                                                                              | -                  | -        | Called when the field loses focus                 |
+| maxLength   | `number`                                                                                                           | -                  | -        | Maximum number of characters                      |
+| tabIndex    | `number`                                                                                                           | -                  | -        | Tab order within the interface                    |
+| inputRef    | `Ref<HTMLInputElement`                                                                                             | -                  | -        | -                                                 |
+| className   | `string`                                                                                                           | -                  | -        | Additional CSS class                              |
+| wait        | `number`                                                                                                           | 500                | -        | Delay in milliseconds before `onChange` is called |
+| size        | `TSearchBoxSize`                                                                                                   | 400px              | -        | Component size                                    |
+| viewType    | `round`, `line`                                                                                                    | `round`            | -        | Field appearance                                  |
+
+:::
+
+:::div
+
+### Size
+
+Available values:
+`l`, `m`
+:::

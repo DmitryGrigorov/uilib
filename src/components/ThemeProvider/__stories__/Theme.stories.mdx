@@ -1,0 +1,183 @@
+{/* Theme.stories.mdx */}
+
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+
+<Meta title="Documentation/Theming/Basics" />
+
+# Theming
+
+Use `ThemeProvider` to apply a theme to components.
+
+During rendering, dynamic styles are generated from the active theme and the resulting classes are added to each element's `className`.
+
+## Setting a theme
+
+```tsx
+import { ThemeProvider, DARK_THEME } from "@dmitrygrigorov/components";
+
+<ThemeProvider theme={DARK_THEME}>{/* ... */}</ThemeProvider>;
+```
+
+## Accessing the theme
+
+In function components, access the theme with the `useTheme` hook from `styled-components`.
+
+```tsx
+const theme = useTheme();
+```
+
+## Built-in themes
+
+| Name        | Description         |
+| ----------- | ------------------- |
+| LIGHT_THEME | Default light theme |
+| DARK_THEME  | Default dark theme  |
+
+## Creating a custom theme
+
+Pass your values to `createTheme`, then provide the resulting theme to `ThemeProvider`.
+
+`createTheme` extends the supplied object using `DEFAULT_THEME` as its default base theme.
+
+To theme components with base color tokens, use `DEFAULT_THEME` as the base for the new theme. It does not define separate theme variables for each component.
+
+Give each theme a unique `name`.
+
+```tsx
+import { ThemeProvider, createTheme } from "@dmitrygrigorov/components";
+
+const myTheme = createTheme({ colorIcon: "red", name: "myTheme" });
+
+<ThemeProvider theme={myTheme}>{/* ... */}</ThemeProvider>;
+```
+
+Pass a base theme object as the second argument to `createTheme`.
+
+```tsx
+import {
+  ThemeProvider,
+  createTheme,
+  DARK_THEME
+} from "@dmitrygrigorov/components";
+
+const myTheme = createTheme({ color: "red", name: "myTheme" }, DARK_THEME);
+
+<ThemeProvider theme={myTheme}>{/* ... */}</ThemeProvider>;
+```
+
+## Theming components
+
+Individual components also support theming through `ThemeProvider`.
+
+Override the required color in the theme. The available color tokens and values are listed on a separate page.
+
+```tsx
+import { ThemeProvider, createTheme, Button } from "@dmitrygrigorov/components";
+
+const myTheme = createTheme({
+  colors: {
+    componentPrimaryBlueDefault: "red"
+  },
+  name: "myTheme"
+});
+
+export const ButtonTheme = () => (
+  <ThemeProvider theme={myTheme}>
+    <Button viewType="primary">Button</Button>
+  </ThemeProvider>
+);
+```
+
+## Theme-aware components
+
+Use the table to see which components are theme-aware and which variables each one uses.
+
+## Theme structure
+
+A theme contains the tokens used to style the project.
+
+### Base color tokens
+
+Base color tokens are divided into several groups:
+
+- neutral - Neutral palette for backgrounds and supporting elements.
+- overlay - Overlay color palette.
+- orange - Primary interface color for buttons, active states, and brand accents.
+- blue - Secondary color for supporting and informational interface elements.
+- red - Used for destructive interface elements and negative messages.
+- teal - Used for positive interface elements and messages.
+- amber - Used for warning messages.
+
+See the demo site's "Color tokens" page for more detail.
+
+All component colors are derived from these base color tokens.
+
+### Fonts
+
+The theme also contains font variables used by components. Each variable defines a font property and value, and the defaults can be overridden.
+
+```tsx
+import { ThemeProvider, createTheme } from "@dmitrygrigorov/components";
+
+const myTheme = createTheme({
+  typography: {
+    fontSize2xs: "8px"
+  },
+  name: "myTheme"
+});
+
+export const FontsTheme = () => (
+  <ThemeProvider theme={myTheme}>{/* */}</ThemeProvider>
+);
+```
+
+#### List
+
+| Variable             | Value |
+| -------------------- | ----- |
+| fontFamily           | Onest |
+| fontSize2xs          | 10px  |
+| fontSizeXs           | 12px  |
+| fontSizeS            | 14px  |
+| fontSizeM            | 16px  |
+| fontSizeL            | 20px  |
+| fontSizeXl           | 24px  |
+| fontSize2xl          | 28px  |
+| fontSize3xl          | 32px  |
+| fontSize4xl          | 40px  |
+| fontSize5xl          | 56px  |
+| fontSize6xl          | 64px  |
+| lineHeight3xs        | 14px  |
+| lineHeight2xs        | 16px  |
+| lineHeightXs         | 20px  |
+| lineHeightS          | 22px  |
+| lineHeightM          | 24px  |
+| lineHeightL          | 28px  |
+| lineHeightXl         | 32px  |
+| lineHeight2xl        | 36px  |
+| lineHeight3xl        | 40px  |
+| lineHeight4xl        | 48px  |
+| lineHeight5xl        | 56px  |
+| lineHeight6xl        | 64px  |
+| fontWeightThin       | 100   |
+| fontWeightExtraLight | 200   |
+| fontWeightLight      | 300   |
+| fontWeightRegular    | 400   |
+| fontWeightMedium     | 500   |
+| fontWeightSemibold   | 600   |
+| fontWeightBold       | 700   |
+| fontWeightExtraBold  | 800   |
+| fontWeightBlack      | 900   |
+
+### Other variables
+
+The theme also includes reusable parameters that simplify project theming.
+
+- dividers - divider definitions
+- dividersColors - divider colors
+- borders - border definitions
+- shadows - shadow presets
+- blur - blur effects
+- colorIcon - default icon color when an icon does not define its own color
+
+See `src/components/Pallette/effects.ts` for full details.

@@ -1,0 +1,389 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { InputExamples } from "./examples";
+import {
+  InputExampleUsage,
+  InputErrorUsage,
+  InputWarningUsage,
+  InputSuccessUsage
+} from "./examples/InputExamples";
+import Input from "../";
+
+:::div{.notshown}
+
+# Input
+
+Input is designed for single-line text entry. Use [Textarea](?path=/docs/components-molecules-textarea--demo) for multiline text, and choose a specialized input for numbers or other data types.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Field content](#field-content)
+- [Props](#props)
+  :::
+
+:::div
+
+## Specialized inputs
+
+- [InputMask](?path=/docs/components-molecules-inputmask--demo)
+- [InputNumber](?path=/docs/components-molecules-inputnumber--demo)
+- [InputPhone](?path=/docs/components-molecules-inputphone--demo)
+- [InputDate](?path=/docs/components-molecules-inputdate--demo)
+- [InputColor](?path=/docs/components-molecules-inputcolor--demo)
+- [TextArea](?path=/docs/components-molecules-textarea--demo)
+- [Select](?path=/docs/components-molecules-select--demo)
+- [MultiSelect](?path=/docs/components-molecules-multiselect--demo)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Input } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InputExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <InputExampleUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Field type
+
+The `type` prop selects the field type.
+
+- `text` for text input
+- `password` for masked password input
+- `email` for email addresses
+- `tel` for phone numbers; prefer the purpose-built `InputPhone` component.
+  <br />
+  <br />
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const PasswordExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      placeholder="Password"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      type="password"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <Input placeholder="Password" value="password" type="password" />
+</Unstyled>
+<br />
+
+You can also use any supported HTML `input` type.
+
+### TTypeInput
+
+- `text`
+- `password`
+- `tel`
+- `number`
+- `date`
+- `file`
+- `email`
+- `url`
+- `search`
+  :::
+
+:::div
+
+## Input mode
+
+The `inputMode` prop describes the expected data and lets the browser display an appropriate virtual keyboard.
+
+### TInputMode
+
+- `decimal`
+- `numeric`
+- `email`
+- `none`
+- `search`
+- `tel`
+- `url`
+- `text`
+  :::
+
+:::div
+
+## Field content
+
+### Placeholder
+
+Use `placeholder` to explain what to enter or which format is expected.
+`placeholder` accepts a string or a two-string array. The first label appears when the field is empty and the second when it contains a value.
+
+```tsx
+<Input placeholder={["Label 1", "Label 2"]} />
+```
+
+<Unstyled>
+  <Input placeholder={["Label 1", "Label 2"]} />
+</Unstyled>
+<br />
+
+### Value
+
+Set the field value with `value`.
+
+```tsx
+<Input value="Value" />
+```
+
+<Unstyled>
+  <Input value="Value" />
+</Unstyled>
+:::
+
+:::div
+
+### Statuses
+
+Use `status` to emphasize the input and communicate validation feedback. Available values are `error`, `warning`, and `success`.
+
+#### status="error"
+
+<Unstyled>
+  <InputErrorUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      placeholder="Error label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+```
+
+#### status="warning"
+
+<Unstyled>
+  <InputWarningUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example = (): JSX.Element => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      placeholder="Warning label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+```
+
+#### status="success"
+
+<Unstyled>
+  <InputSuccessUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      placeholder="Success label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Clear button
+
+Set `isShowClearIcon` to show a clear button when the field contains a value.
+
+```tsx
+<Input value="Value" isShowClearIcon />
+```
+
+<Unstyled>
+  <Input value="Value" isShowClearIcon />
+</Unstyled>
+:::
+
+:::div
+
+### Required fields
+
+Set `isRequired` to make the field required.
+
+```tsx
+<Input placeholder="Label 1" isRequired />
+<Input placeholder="Label 1" />
+```
+
+<Unstyled>
+  <Input placeholder="Label 1" isRequired />
+  <br />
+  <Input placeholder="Label 1" />
+</Unstyled>
+:::
+
+:::div
+
+### Disabled field
+
+Set `isDisabled` to prevent input.
+
+```tsx
+<Input placeholder="Label 1" isDisabled />
+```
+
+<Unstyled>
+  <Input placeholder="Label 1" isDisabled />
+</Unstyled>
+:::
+
+:::div
+
+### Sizes
+
+Use `size` to change the field height and spacing.
+Size `m` is recommended for mobile interfaces.
+
+```tsx
+<Input placeholder="Size L" size="l" />
+<Input placeholder="Size M" size="m" />
+```
+
+<Unstyled>
+  <Input placeholder="Size L" size="l" />
+  <br />
+  <Input placeholder="Size M" size="m" />
+</Unstyled>
+:::
+
+:::div
+
+### Focus
+
+Set `isAutoFocus` to focus the field automatically.
+
+```tsx
+<Input placeholder="Focus" isAutoFocus />
+```
+
+<Unstyled>
+  <Input placeholder="Focus" isAutoFocus />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Prop            | Type                                                                                                                        | Default | Required | Description                                                                                  |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
+| id              | `string`, `number`                                                                                                          | -       | -        | Field ID in the DOM                                                                          |
+| value           | `string`                                                                                                                    | -       | -        | Field value                                                                                  |
+| isAutoFill      | `boolean`                                                                                                                   | -       | -        | Enables browser autofill suggestions                                                         |
+| isAutoFocus     | `boolean`                                                                                                                   | -       | -        | Focuses and highlights the field automatically                                               |
+| name            | `string`                                                                                                                    | -       | -        | Field name in the DOM                                                                        |
+| placeholder     | `string`, `[string, string]`                                                                                                | -       | -        | Hint displayed inside the field                                                              |
+| isDisabled      | `boolean`                                                                                                                   | `false` | -        | Disables the field                                                                           |
+| onChange        | `onChange: (event: ChangeEvent<HTMLInputElement>`<br/> `\ MouseEvent<HTMLDivElement>, value: string, id?: string) => void;` | -       | -        | Called when the field value changes                                                          |
+| onFocus         | `event: FocusEvent<HTMLInputElement>) => void`                                                                              | -       | -        | Called when the field receives focus                                                         |
+| onBlur          | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                              | -       | -        | Called when the field loses focus                                                            |
+| onKeyPress      | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                         | -       | -        | Handles key presses                                                                          |
+| onKeyDown       | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                         | -       | -        | Handles key-down events                                                                      |
+| inputMode       | [`TInputMode`](#tinputmode)                                                                                                 | -       | -        | Keyboard type: "decimal", "numeric", "email", "none", "search", "tel", "url", or "text"      |
+| type            | [`TTypeInput`](#ttypeinput)                                                                                                 | -       | -        | Input type: `text`, `password`, `email`, `search`, `tel`, `url`, `number`, `date`, or `file` |
+| maxLength       | `number`                                                                                                                    | -       | -        | Maximum character count; pasted text is truncated to this length                             |
+| pattern         | `string`                                                                                                                    | -       | -        | Validation pattern                                                                           |
+| className       | `string`                                                                                                                    | -       | -        | Additional CSS class                                                                         |
+| testId          | `string`                                                                                                                    | -       | -        | ID used by automated tests                                                                   |
+| status          | `default`, `error`, `warning`, `success`                                                                                    | -       | -        | Field status styling                                                                         |
+| statusText      | `string`                                                                                                                    | -       | -        | Text describing the status                                                                   |
+| isShowLabel     | `boolean`                                                                                                                   | `true`  | -        | Controls the label visibility                                                                |
+| isShowClearIcon | `boolean`                                                                                                                   | `true`  | -        | Controls the clear button                                                                    |
+| viewType        | `round`, `line`                                                                                                             | `round` | -        | Field appearance                                                                             |
+| list            | `string`                                                                                                                    | -       | -        | Associates the field with a `<datalist>` element                                             |
+| autoComplete    | `string`                                                                                                                    | -       | -        | Enables or disables browser autocomplete                                                     |
+| accessKey       | `string`                                                                                                                    | -       | -        | Keyboard shortcut for activating or focusing the element                                     |
+| isReadOnly      | `boolean`                                                                                                                   | -       | -        | Makes the field read-only                                                                    |
+| form            | `string`                                                                                                                    | -       | -        | Associates the control with a form element                                                   |
+
+:::

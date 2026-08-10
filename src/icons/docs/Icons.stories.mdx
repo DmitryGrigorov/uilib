@@ -1,0 +1,54 @@
+{/* Icons.stories.mdx */}
+
+import { Meta } from "@storybook/addon-docs";
+import ListIcons from "./examples";
+import { IconArrowLeft1 } from "../tsx";
+import { SnackBarProvider } from "../../components/SnackBar";
+
+<Meta title="Icons/Overview" />
+
+# Icons
+
+## Installation
+
+Install the icon package before using it.
+
+```shell
+npm i --save @dmitrygrigorov/icons
+```
+
+## Import
+
+```jsx
+import { Icon } from "@dmitrygrigorov/icons";
+```
+
+## Icon list
+
+<SnackBarProvider>
+  <ListIcons />
+</SnackBarProvider>
+
+## Usage
+
+Set the icon dimensions with the `width` and `height` properties. Use `fill` to override its color.
+
+```tsx
+import React from "react";
+import { IconArrowLeft1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <IconArrowLeft1 width={32} height={32} color="red" />
+);
+```
+
+<IconArrowLeft1 width={32} height={32} color="red" />
+
+## Available properties
+
+| Parameter | Type     | Default | Required | Description          |
+| --------- | -------- | ------- | -------- | -------------------- |
+| className | `string` | -       | -        | Additional CSS class |
+| width     | `number` | 16      | -        | Icon width           |
+| height    | `number` | 16      | -        | Icon height          |
+| color     | `string` | -       | -        | Icon color           |

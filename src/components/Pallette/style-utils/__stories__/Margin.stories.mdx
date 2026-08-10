@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="styleUtils/Margin" id="Margin" />
+
+# Margin
+
+- [Description](#description)
+- [Import](#import)
+- [Available margins](#available-margins)
+- [Usage](#usage)
+
+## Description
+
+`Margin` sets a component's outer spacing for `styled-components`. It uses the `SUPER_PIXEL` constant (4px) as its spacing unit and accepts one to four arguments.
+
+## Import
+
+```tsx
+import { Margin } from "@dmitrygrigorov/components/Pallette/style-utils";
+```
+
+## Available margins
+
+`allSide` sets the margin on all four sides.
+
+`top` sets the top margin.
+
+`bottom` sets the bottom margin.
+
+`left` sets the left margin.
+
+`right` sets the right margin.
+
+## Usage
+
+```tsx
+import { Margin } from "@dmitrygrigorov/components/Pallette/style-utils";
+import styled from "styled-components";
+export const ComponentStyled = styled.div`
+  ${Margin.allSide(2, 4)};
+  //
+  ${Margin.top(1)}
+  //
+  ${Margin.bottom(1)}
+  //
+  ${Margin.left(1)}
+  //
+  ${Margin.right(1)}
+`;
+```

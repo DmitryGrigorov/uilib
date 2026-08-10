@@ -1,0 +1,60 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Tables/Quick start" />
+
+# Quick start
+
+The table uses components and icons from `@dmitrygrigorov/components` and `@dmitrygrigorov/icons`. Install these packages alongside the table package.
+
+### Install the packages
+
+#### NPM
+
+`npm i @dmitrygrigorov/table @dmitrygrigorov/components @dmitrygrigorov/icons`
+
+#### YARN
+
+`yarn add @dmitrygrigorov/table @dmitrygrigorov/components @dmitrygrigorov/icons`
+
+### Include styles and fonts
+
+Choose one of the following ways to include the styles.
+
+#### Import them at the project root
+
+```tsx
+import React from "react";
+import "@dmitrygrigorov/components/styles/index.css";
+```
+
+#### Import them from a stylesheet
+
+```css
+@import "~@dmitrygrigorov/components/styles/index.css";
+```
+
+### Quick-start example
+
+```tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+import Table from "@dmitrygrigorov/table";
+
+const App = () => {
+  const columns = useMemo(
+    () => [{ field: "make" }, { field: "model" }, { field: "price" }],
+    []
+  );
+
+  const rowData = [
+    { make: "Toyota", model: "Celica", price: 35000 },
+    { make: "Ford", model: "Mondeo", price: 32000 },
+    { make: "Porsche", model: "Boxster", price: 72000 }
+  ];
+
+  return <Table columns={columns} rowData={rowData} />;
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```

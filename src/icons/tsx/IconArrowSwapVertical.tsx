@@ -1,0 +1,44 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconArrowSwapVertical = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M13 3.80766C13 2.21462 14.9554 1.4501 16.0359 2.62067L20.3011 7.24129C20.5821 7.54566 20.5631 8.02015 20.2587 8.30111C19.9543 8.58206 19.4799 8.56308 19.1989 8.25872L14.9337 3.63809C14.7793 3.47087 14.5 3.58008 14.5 3.80766V16.25C14.5 16.6642 14.1642 17 13.75 17C13.3358 17 13 16.6642 13 16.25V3.80766Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M13.75 18.5C14.1642 18.5 14.5 18.8358 14.5 19.25V21.25C14.5 21.6642 14.1642 22 13.75 22C13.3358 22 13 21.6642 13 21.25V19.25C13 18.8358 13.3358 18.5 13.75 18.5Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M9.75 7.5C10.1642 7.5 10.5 7.83579 10.5 8.25V20.3358C10.5 21.8949 8.615 22.6757 7.51256 21.5732L3.21967 17.2803C2.92678 16.9874 2.92678 16.5126 3.21967 16.2197C3.51256 15.9268 3.98744 15.9268 4.28033 16.2197L8.57322 20.5126C8.73071 20.6701 9 20.5585 9 20.3358V8.25C9 7.83579 9.33579 7.5 9.75 7.5Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M9.75 2C10.1642 2 10.5 2.33579 10.5 2.75V5.25C10.5 5.66421 10.1642 6 9.75 6C9.33579 6 9 5.66421 9 5.25V2.75C9 2.33579 9.33579 2 9.75 2Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconArrowSwapVertical;

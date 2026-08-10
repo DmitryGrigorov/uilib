@@ -1,0 +1,222 @@
+import {
+  BreadcrumbsExample,
+  BreadcrumbsWithDropdown
+} from "./examples/BreadcrumbsExamples";
+import { BreadcrumbsExamples } from "./examples";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+:::div{.notshown}
+
+# Breadcrumbs
+
+Breadcrumbs provide quick navigation through the interface hierarchy.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Dropdown breadcrumb](#dropdown-breadcrumb)
+- [Properties](#properties)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Breadcrumbs } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <BreadcrumbsExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+When there are more than three levels, items collapse from text plus leading icon to icon-only, starting at the first level. Use `maxNoCollapsedItems` to control how many items remain expanded; the default is 1.
+
+<Unstyled>
+  <BreadcrumbsExample />
+  <br />
+</Unstyled>
+
+```tsx
+import React from "react";
+import { Breadcrumbs } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Breadcrumbs
+    items={[
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l"
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l"
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l",
+        isDisabled: true
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l"
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l",
+        iconType: "trail"
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l",
+        viewType: "current"
+      }
+    ]}
+    maxNoCollapcedItems={3}
+  />
+);
+```
+
+:::
+
+:::div
+
+## Dropdown breadcrumb
+
+When a breadcrumb item includes `subitems`, it renders a dropdown menu.
+
+```tsx
+const BreadcrumbsWithDropdown: React.FC = () => (
+  <Breadcrumbs
+    items={[
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        text: "P2-l-1",
+        subitems: [
+          { label: "1", groupId: 1 },
+          { label: "2", groupId: 2 },
+          { label: "12", groupId: 1 },
+          { label: "123", groupId: 1 },
+          { label: "124", groupId: 1 },
+          { label: "125", groupId: 1 }
+        ]
+      },
+      {
+        text: "P2-l-2",
+        subitems: [
+          { label: "1", groupId: 1 },
+          { label: "2", groupId: 2 },
+          { label: "12", groupId: 1 },
+          { label: "123", groupId: 1 },
+          { label: "124", groupId: 1 },
+          { label: "125", groupId: 1 }
+        ]
+      },
+      {
+        icon: <IconSetting1 width={16} height={16} />,
+        subitems: [
+          { label: "1", groupId: 1 },
+          { label: "2", groupId: 2 },
+          { label: "12", groupId: 1 },
+          { label: "123", groupId: 1 },
+          { label: "124", groupId: 1 },
+          { label: "125", groupId: 1 }
+        ]
+      },
+      {
+        text: "P2-l-4",
+        subitems: [
+          { label: "1", groupId: 1 },
+          { label: "2", groupId: 2 },
+          { label: "12", groupId: 1 },
+          { label: "123", groupId: 1 },
+          { label: "124", groupId: 1 },
+          { label: "125", groupId: 1 }
+        ]
+      }
+    ]}
+  />
+);
+```
+
+<Unstyled>
+  <BreadcrumbsWithDropdown />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+| Parameter           | Type               | Default | Required | Description                                      |
+| ------------------- | ------------------ | ------------ | -------------- | ----------------------------------------------- |
+| items               | [`TItem[]`](#item) | -       | ✓        | Breadcrumb items                                 |
+| maxNoCollapsedItems | `number`           | 1       | -        | Maximum number of text-and-icon items left open  |
+| className           | `string`           | -       | -        | Class attribute value                            |
+
+:::
+
+:::div
+
+### Item
+
+| Parameter  | Type                                                | Default | Required | Description         |
+| ---------- | --------------------------------------------------- | ------------ | -------------- | ---------------------- |
+| icon       | `JSX.Element`                                       | `string`     | -              |                        |
+| viewType   | [`TViewType`](#ViewType)                            | -            | -              |                        |
+| text       | `string`                                            | -            | -              |                        |
+| iconType   | [`TIconType`](#IconType)                            | `lead`       | -              |                        |
+| onClick    | `(event: React.MouseEvent<HTMLDivElement>) => void` | -            | -              |                        |
+| isDisabled | `boolean`                                           |              | -              |                        |
+| subitems   | `IDropdownItem[]`                                   |         | -        | Dropdown menu items |
+
+:::
+
+:::div
+
+### Subitem
+
+| Parameter   | Type                                      | Default | Required |
+| ----------- | ----------------------------------------- | ------------ | -------------- |
+| label       | `ReactNode`                               | -            | -              |
+| leadContent | `JSX.Element`                             | -            | -              |
+| isDisabled  | `boolean`                                 | -            | -              |
+| onClick     | `(event: MouseEvent, item: Item) => void` | -            | -              |
+| attributes  | `JSX.IntrinsicElements["button"]`         | -            | -              |
+| groupId     | `string` \ `number`                       | -            | -              |
+| key         | `string` \ `number`                       | -            | -              |
+
+:::
+
+:::div
+
+### ViewType
+
+Available values:
+`current`
+:::
+
+:::div
+
+### IconType
+
+Available values:
+`lead`, `trail`
+:::

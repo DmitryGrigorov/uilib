@@ -1,0 +1,132 @@
+import AccordionExamples from "./examples";
+import {
+  AccordionWithDataSource,
+  AccordionOptionalAttributes
+} from "./examples/AccordionExamples";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+:::div{.notshown}
+
+# Accordion
+
+An accordion is a collapsible content section that can contain any content.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Optional attributes](#optional-attributes)
+- [Properties](#properties)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Accordion } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <AccordionExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Pass the required `title` property to define the accordion heading.
+
+Place JSX inside `Accordion` to define the content that expands and collapses.
+
+```tsx
+const contentItem = (
+  <List>
+    <List.ListItem>Item 1</List.ListItem>
+    <List.ListItem>Item 2</List.ListItem>
+    <List.ListItem>Item 3</List.ListItem>
+  </List>
+);
+
+const Example = () => {
+  return (
+    <Accordion title="Accordion" leadIcon={<IconMoreCircle />}>
+      {contentItem}
+    </Accordion>
+  );
+};
+```
+
+<Unstyled>
+  <AccordionWithDataSource />
+</Unstyled>
+:::
+
+:::div
+
+## Optional attributes
+
+`Accordion` accepts the following optional properties:
+
+- `isOpened` controls whether the accordion is expanded.
+- `leadIcon` adds an icon before the title.
+- `isDisabled` disables the accordion.
+
+```tsx
+const contentItem = (
+  <div>
+    <RadioButton label={"Radio 1"} />
+    <RadioButton label={"Radio 2"} />
+    <RadioButton label={"Radio 3"} isChecked />
+    <Button>Button</Button>
+  </div>
+);
+
+const Example = () => {
+  return (
+    <Accordion
+      isOpened
+      title="Accordion"
+      leadIcon={<IconMoreCircle />}
+      trailContent={<Tag title="18">18</Tag>}>
+      {contentItem}
+    </Accordion>
+  );
+};
+```
+
+<Unstyled>
+  <AccordionOptionalAttributes />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+### Accordion properties
+
+| Parameter      | Type                              | Default | Required | Description                                                                         |
+| -------------- | --------------------------------- | ------------ | -------------- | --------------------------------------------------------------------------------- |
+| title          | `string` \ `number`               | -       | ✓        | Heading text                                                                        |
+| isDisabled     | `boolean`                         | -       | -        | Disables the element                                                                |
+| isOpened       | `boolean`                         | -       | -        | Expands the accordion                                                               |
+| className      | `string`                          | -       | -        | Additional class                                                                    |
+| width          | `number` \ `string`               | -       | -        | Accordion width                                                                     |
+| leadIcon       | `JSX.Element`                     | -       | -        | Icon displayed before the heading                                                   |
+| trailContent   | `JSX.Element`                     | -       | -        | Additional content displayed to the right of the heading text                       |
+| children       | `ReactNode`                       | -       | -        | Child components or elements                                                        |
+| onToggle       | `(isOpen: boolean) => void;`      | -       | -        | Called when the open state changes                                                   |
+
+:::

@@ -1,0 +1,31 @@
+{
+  "name": "@dmitrygrigorov/icons-vue",
+  "version": "1.2.0",
+  "description": "1200+ generated Vue icon components",
+  "main": "index.ts",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "perDependencies": {
+    "vue": ">3.0.0"
+  },
+  "author": "Dmitry Grigorov",
+  "private": false,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DmitryGrigorov/uilib.git"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "vue",
+    "vue-icons",
+    "icons",
+    "design system"
+  ]
+}

@@ -1,0 +1,224 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  FileCardIcons,
+  FileCardFileNames,
+  FileCardLoading,
+  FileCardStatuses,
+  FileCardRemove,
+  FileCardClick,
+  FileCardEdit,
+  FileCardAppearance
+} from "./examples";
+
+:::div{.notshown}
+
+# FileCard
+
+FileCard represents a file being uploaded, downloaded, or managed.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [File details](#file-details)
+- [Loading](#loading)
+- [Status](#status)
+- [Interaction](#interaction)
+- [Editing](#editing)
+- [Rendered element](#rendered-element)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { FileCard } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <FileCardAppearance />
+</Unstyled>
+
+:::
+
+:::div
+
+## Usage
+
+```tsx
+const Example: React.FC = () => (
+  <FileCard fileName="Quarterly report" fileExtension="pdf" />
+);
+```
+
+:::
+
+:::div
+
+## File details
+
+### Icon
+
+The icon is selected from `fileExtension`. Unsupported extensions use the generic file icon.
+
+```tsx
+<FileCard fileName="Product image" fileExtension="png" />
+<FileCard fileName="Unknown document" fileExtension="ddd" />
+```
+
+<Unstyled>
+  <FileCardIcons />
+</Unstyled>
+
+### Name
+
+Use `fileName` for the visible file name. Long names are truncated within the available width.
+
+<Unstyled>
+  <FileCardFileNames />
+</Unstyled>
+
+:::
+
+:::div
+
+## Loading
+
+Use `isLoading` while the file is being transferred. A loader replaces the file icon.
+
+```tsx
+<FileCard fileName="Product image" fileExtension="png" isLoading />
+```
+
+<Unstyled>
+  <FileCardLoading />
+</Unstyled>
+
+:::
+
+:::div
+
+## Status
+
+Use `status` and `statusText` to explain the result of a file operation. `success` automatically returns to the default state after `timeoutSuccess` milliseconds.
+
+```tsx
+<FileCard
+  fileName="Quarterly report"
+  fileExtension="pdf"
+  status="error"
+  statusText="Upload interrupted"
+/>
+<FileCard
+  fileName="Quarterly report"
+  fileExtension="pdf"
+  status="success"
+  statusText="Uploaded"
+/>
+<FileCard
+  fileName="Product image"
+  fileExtension="png"
+  status="warning"
+  statusText="Low resolution"
+/>
+```
+
+<Unstyled>
+  <FileCardStatuses />
+</Unstyled>
+
+:::
+
+:::div
+
+## Interaction
+
+Use `buttonIcon` and `onButtonClick` for a trailing action such as remove or download.
+
+```tsx
+<FileCard
+  fileName="Quarterly report"
+  fileExtension="doc"
+  buttonIcon={<IconTrash1 />}
+  onButtonClick={removeFile}
+/>
+```
+
+<Unstyled>
+  <FileCardRemove />
+</Unstyled>
+
+Use `onClick` to handle interaction with the entire card.
+
+```tsx
+<FileCard
+  fileName="Quarterly report"
+  fileExtension="doc"
+  onClick={openFile}
+/>
+```
+
+<Unstyled>
+  <FileCardClick />
+</Unstyled>
+
+:::
+
+:::div
+
+## Editing
+
+Set `isEditable` to let users rename a file. Double-clicking the name opens an input; `onChangeFileName` receives the new value when the input loses focus.
+
+<Unstyled>
+  <FileCardEdit />
+</Unstyled>
+
+:::
+
+:::div
+
+## Rendered element
+
+Use `as` to change the root HTML element. It defaults to `div`; for example, render an interactive file destination as an anchor.
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| fileName | `string` | — | Yes | Visible file name |
+| fileExtension | `string` | — | No | File extension used to select the icon |
+| isLoading | `boolean` | — | No | Shows the loading state |
+| status | `TFileCardStatus` | — | No | Operation status |
+| statusText | `string` | — | No | Supporting status text |
+| onClick | `React.EventHandler<React.MouseEvent>` | — | No | Card click handler |
+| onButtonClick | `React.EventHandler<React.MouseEvent>` | — | No | Trailing-button click handler |
+| buttonIcon | `JSX.Element` | — | No | Trailing-button icon |
+| className | `string` | — | No | Additional CSS class |
+| as | `keyof JSX.IntrinsicElements` | `div` | No | Root HTML element |
+| isEditable | `boolean` | — | No | Enables file-name editing |
+| onChangeFileName | `(fileName: string) => void` | — | No | Receives the edited file name |
+| ref | `React.Ref<HTMLDivElement>` | — | No | Root DOM reference |
+| timeoutSuccess | `number` | `3600` | No | Delay before `success` returns to the default state |
+
+`TFileCardStatus` is `success` | `error` | `warning`.
+
+:::

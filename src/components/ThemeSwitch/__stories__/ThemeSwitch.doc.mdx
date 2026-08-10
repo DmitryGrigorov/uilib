@@ -1,0 +1,81 @@
+import { ThemeSwitchExamples } from "./examples";
+import { ThemeSwitchExample } from "./examples/ThemeSwitchExamples";
+import ThemeSwitch from "../";
+
+:::div{.notshown}
+
+# ThemeSwitch
+
+Theme switcher used to toggle between themes.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { ThemeSwitch } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+### Appearance
+
+<ThemeSwitchExamples />
+:::
+
+:::div
+
+## Usage
+
+The switch uses `themeSelected` to indicate the currently selected theme.
+
+```tsx
+import React, { useState } from "react";
+import { ThemeSwitch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [theme, setTheme] = useState("light");
+
+  const handleChange = (): void => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  return <ThemeSwitch themeSelected={theme} onChange={handleChange} />;
+};
+```
+
+<ThemeSwitchExample />
+:::
+
+:::div
+
+## Props
+
+| Property      | Type                                                                               | Default         | Required | Description                    |
+| ------------- | ---------------------------------------------------------------------------------- | --------------- | -------- | ------------------------------ |
+| themeSelected | `string`                                                                           | -               | ✓        | Current theme                  |
+| themes        | `[string, string]`                                                                 | `[light, dark]` | -        | Theme names                    |
+| className     | `string`                                                                           | -               | -        | Value of the `class` attribute |
+| onChange      | `(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, newTheme: string) => void` | -               | -        | State change handler           |
+| size          | [`TThemeSwitchSize`](#tthemeswitchsize)                                            | `l`             | -        | Component size                 |
+
+:::
+
+:::div
+
+### TThemeSwitchSize
+
+Available sizes: `l` | `xl`.
+:::

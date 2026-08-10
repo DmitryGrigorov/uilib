@@ -1,0 +1,608 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  DropdownExampleLabel,
+  DropdownExampleDisable,
+  DropdownExampleLeadContent,
+  DropdownExampleClick,
+  DropdownExampleGroup,
+  DropdownExampleSortGroup,
+  DropdownExampleClose,
+  DropdownExamples,
+  DropdownContextMenu,
+  CustomContentDropDown,
+  DropdownExampleNotCloseOutside
+} from "./examples";
+
+:::div{.notshown}
+
+# Dropdown
+
+A compact way to present a large set of actions in complex workflows.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Content](#content)
+- [Item label](#item-label)
+- [Disabled item](#disabled-item)
+- [Leading content](#leading-content)
+- [Click event](#click-event)
+- [Item groups](#item-groups)
+- [Menu close handler](#menu-close-handler)
+- [Properties](#properties)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Dropdown } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Preview
+
+<Unstyled>
+  <DropdownExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Content
+
+Dropdown content is described by the `items` array. The default item type supports these properties:
+
+- `label` sets the item text.
+- `leadContent` adds JSX or an icon before the text.
+- `isDisabled` disables the item.
+- `onClick` runs when the item is selected.
+- `attributes` provides HTML attributes for the item.
+- `groupId` identifies the group that contains the item.
+- `key` identifies the item.
+  :::
+
+:::div
+
+## Item label
+
+With the default [`IDropdownItem`](#types) type, use `label` in `items` to provide item text.
+For a custom item type, use `getItemLabel` to resolve the menu text.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+const items = ["P1-1", "P1-2", "P1-3"];
+
+export const DropdownExampleLabel: React.FC = () => (
+  <Dropdown items={items} getItemLabel={(item) => item}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleLabel />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Disabled item
+
+With [`IDropdownItem`](#types), set `isDisabled` on an entry in `items` to disable it.
+For a custom item type, use `getItemDisabled` to resolve the disabled state.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+interface IItem {
+  label: string;
+  isActive: boolean;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1",
+    isActive: false
+  },
+  {
+    label: "P1-2",
+    isActive: true
+  },
+  {
+    label: "P1-3",
+    isActive: false
+  }
+];
+
+export const DropdownExampleDisable: React.FC = () => (
+  <Dropdown items={items} getItemDisabled={(item) => !item.isActive}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleDisable />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Leading content
+
+With the default [`IDropdownItem`](#types) type, use `leadContent` to add content or an icon before the menu text.
+For a custom item type, use `getItemLeadContent` to resolve the leading content.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+interface IItem {
+  label: string;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1"
+  },
+  {
+    label: "P1-2"
+  },
+  {
+    label: "P1-3"
+  }
+];
+
+export const DropdownExampleLeadContent: React.FC = () => (
+  <Dropdown items={items} getItemLeadContent={() => <IconSetting1 />}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleLeadContent />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Click event
+
+Use `onItemClick` to define one shared action for every item. To define an item-specific action, use `onClick` with [`IDropdownItem`](#types), or resolve it through `getItemOnClick` for a custom item type.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+interface IItem {
+  label: string;
+  onClick?: () => void;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1",
+    onClick: () => alert("Item 1 selected")
+  },
+  {
+    label: "P1-2"
+  },
+  {
+    label: "P1-3"
+  }
+];
+
+export const DropdownExampleClick: React.FC = () => (
+  <Dropdown items={items} onItemClick={() => alert("Another item selected")}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleClick />
+</Unstyled>
+:::
+
+:::div
+
+## Item groups
+
+Menu items can be grouped. With the default [`IDropdownItem`](#types) type, set `groupId` on each item. For a custom item type, use `getItemGroupId` to resolve the group identifier.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+interface IItem {
+  label: string;
+  groupId?: string;
+  isDisabled?: boolean;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1",
+    isDisabled: true
+  },
+  {
+    label: "P1-2",
+    groupId: "1"
+  },
+  {
+    label: "P1-3",
+    isDisabled: true
+  }
+];
+
+export const DropdownExampleGroup: React.FC = () => (
+  <Dropdown items={items} getItemGroupId={(item) => String(item.isDisabled)}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleGroup />
+</Unstyled>
+:::
+
+:::div
+
+### Sorting groups
+
+Use `sortGroup` to control the order in which item groups are displayed.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+interface IItem {
+  label: string;
+  groupId?: string;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1",
+    groupId: "2"
+  },
+  {
+    label: "P1-2",
+    groupId: "1"
+  },
+  {
+    label: "P1-3",
+    groupId: "3"
+  }
+];
+
+const sortGroup = (a: number | string, b: number | string) => {
+  if (a > b) {
+    return 1;
+  }
+  if (a < b) {
+    return -1;
+  }
+  return 0;
+};
+
+export const DropdownExampleSortGroup: React.FC = () => (
+  <Dropdown items={items} sortGroup={sortGroup}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleSortGroup />
+</Unstyled>
+:::
+
+:::div
+
+## Menu close handler
+
+Use `onClickClose` to run logic whenever the menu closes. Use `onClickOutside` when the handler should run only after a click outside the dropdown.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+interface IItem {
+  label: string;
+}
+
+const items: IItem[] = [
+  {
+    label: "P1-1"
+  },
+  {
+    label: "P1-2"
+  },
+  {
+    label: "P1-3"
+  }
+];
+
+export const DropdownExampleClose: React.FC = () => (
+  <Dropdown
+    items={items}
+    onClickClose={() => alert("Menu closed")}
+    onClickOutside={() => alert("Menu closed after an outside click")}>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <DropdownExampleClose />
+</Unstyled>
+:::
+
+:::div
+
+## Dropdown as a context menu
+
+Use `DropdownList` to display a dropdown as a context menu after a right-click.
+
+```tsx
+import React, { useState, useRef, MouseEvent } from "react";
+import { DropdownList, useClickOutside } from "@dmitrygrigorov/components";
+export const DropdownContextMenu: React.FC = () => {
+  const items = [
+    {
+      label: "P1-1"
+    },
+    {
+      label: "P1-2"
+    },
+    {
+      label: "P1-3"
+    }
+  ];
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [points, setPoints] = useState({ x: 0, y: 0 });
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(dropdownRef, () => setIsOpen(false));
+
+  const handleContextMenu = (event: MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+    setIsOpen(true);
+    setPoints({ x: event.pageX, y: event.pageY });
+  };
+
+  return (
+    <>
+      <Button onContextMenu={handleContextMenu}>Open</Button>
+      {isOpen && (
+        <DropdownList
+          top={points.y}
+          left={points.x}
+          items={items}
+          ref={dropdownRef}
+          direction="bottomLeft"
+        />
+      )}
+    </>
+  );
+};
+```
+
+<Unstyled>
+  <DropdownContextMenu />
+</Unstyled>
+:::
+
+:::div
+
+## Custom content
+
+Use `content` to provide fully custom dropdown content instead of menu items.
+
+```tsx
+import {
+  Dropdown,
+  Button,
+  DropdownItem,
+  SearchBox
+} from "@dmitrygrigorov/components";
+
+export const CustomContentDropDown: React.FC = () => (
+  <Dropdown
+    content={
+      <div>
+        <SearchBox placeholder="Search" viewType="line" size="m" />
+        <DropdownItem item="Item 1" getItemLabel={(item) => item} />
+        <DropdownItem item="Item 2" getItemLabel={(item) => item} />
+        <DropdownItem item="Item 3" getItemLabel={(item) => item} />
+      </div>
+    }>
+    <Button>Open</Button>
+  </Dropdown>
+);
+```
+
+<Unstyled>
+  <CustomContentDropDown />
+</Unstyled>
+:::
+
+:::div
+
+## Keep the dropdown open after outside clicks
+
+Dropdown closes after a click outside its area. Set `isNotCloseOutside` to `true` when it should remain open while the user interacts with other elements.
+
+```tsx
+import { Dropdown, Button } from "@dmitrygrigorov/components";
+
+export const DropdownExampleNotCloseOutside: React.FC = () => {
+  const items = ["P1-1", "P1-2", "P1-3"];
+
+  return (
+    <Dropdown<string>
+      isNotCloseOutside
+      items={items}
+      getItemLabel={(item) => item}
+      getItemKey={(item) => item}>
+      <Button>Open</Button>
+    </Dropdown>
+  );
+};
+```
+
+<Unstyled>
+  <DropdownExampleNotCloseOutside />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+| Parameter          | Type                                | Default  | Required | Description                                                                                                                  |
+| ------------------ | ----------------------------------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| getItemLabel       | `TDropdownGetItemLabel<Item>`       | -        | -        | Resolves the dropdown item text. When neither `key` nor `getItemKey` is provided, the result is also used as the unique key. |
+| getItemKey         | `TDropdownGetItemKey<Item>`         | -        | -        | Resolves a unique key for a dropdown item.                                                                                   |
+| getItemDisabled    | `TDropdownGetItemDisabled<Item>`    | -        | -        | Resolves whether a menu item is disabled.                                                                                    |
+| getItemLeadContent | `TDropdownGetItemLeadContent<Item>` | -        | -        | Resolves the icon or other content displayed before the item text.                                                           |
+| getItemGroupId     | `TDropdownGetItemGroupId<Item>`     | -        | -        | Resolves the identifier of the group containing an item.                                                                     |
+| getItemOnClick     | `TDropdownGetItemOnClick<Item>`     | -        | -        | Resolves the action triggered when an item is selected.                                                                      |
+| getItemAttributes  | `TDropdownGetItemAttributes<Item>`  | -        | -        | Resolves the HTML attributes applied to a menu item.                                                                         |
+| children           | `ReactElement`                      | -        | ✓        | Trigger element used to open and position the menu.                                                                          |
+| direction          | `TDropdownDirection`                | `bottom` | -        | Preferred menu-opening direction.                                                                                            |
+| items              | `Item[]`                            | -        | -        | Menu items.                                                                                                                  |
+| onItemClick        | `TDropdownOnClick<Item>`            | -        | -        | Action triggered when a menu item is selected.                                                                               |
+| onClickOutside     | `() => void`                        | -        | -        | Action triggered by a click outside the menu.                                                                                |
+| className          | `string`                            | -        | -        | Additional CSS class.                                                                                                        |
+| sortGroup          | `TDropdownSortGroup`                | -        | -        | Function that sorts item groups.                                                                                             |
+| onClickClose       | `() => void`                        | -        | -        | Action triggered when the menu closes.                                                                                       |
+| isOpen             | `boolean`                           | -        | -        | Whether the dropdown is open.                                                                                                |
+| content            | `ReactElement`                      | -        | -        | Custom content displayed inside the dropdown.                                                                                |
+| isNotCloseOutside  | `boolean`                           | `false`  | -        | Keeps the dropdown open after outside clicks.                                                                                |
+| isDisabled         | `boolean`                           |          | -        | Prevents the dropdown from opening.                                                                                          |
+
+### Types
+
+```ts
+const direction = [
+  "bottomLeft",
+  "bottomRight",
+  "topLeft",
+  "topRight",
+  "bottom",
+  "top",
+  "left",
+  "right"
+] as const;
+
+export type TDropdownDirection = (typeof direction)[number];
+
+export type TDropdownOnClick<Item> = (event: MouseEvent, item: Item) => void;
+
+export type TDropdownGetItemLabel<Item> = (item: Item) => ReactNode;
+
+export type TDropdownGetItemKey<Item> = (
+  item: Item
+) => string | number | undefined;
+
+export type TDropdownGetItemDisabled<Item> = (
+  item: Item
+) => boolean | undefined;
+
+export type TDropdownGetItemLeadContent<Item> = (
+  item: Item
+) => JSX.Element | undefined;
+
+export type TDropdownGetItemGroupId<Item> = (
+  item: Item
+) => string | number | undefined;
+
+export type TDropdownGetItemOnClick<Item> = (
+  item: Item
+) => TDropdownOnClick<Item> | undefined;
+
+export type TDropdownGetItemAttributes<Item> = (
+  item: Item
+) =>
+  | Omit<Partial<JSX.IntrinsicElements["button"]>, "ref" | "color" | "rel">
+  | undefined;
+
+export type TDropdownSortGroup = (
+  a: string | number,
+  b: string | number
+) => number;
+
+export interface IDropdownMappersItem<Item> {
+  getItemLabel?: TDropdownGetItemLabel<Item>;
+  getItemKey?: TDropdownGetItemKey<Item>;
+  getItemDisabled?: TDropdownGetItemDisabled<Item>;
+  getItemLeadContent?: TDropdownGetItemLeadContent<Item>;
+  getItemGroupId?: TDropdownGetItemGroupId<Item>;
+  getItemOnClick?: TDropdownGetItemOnClick<Item>;
+  getItemAttributes?: TDropdownGetItemAttributes<Item>;
+}
+
+export interface IDropdownItem {
+  label: ReactNode;
+  leadContent?: JSX.Element;
+  isDisabled?: boolean;
+  onClick?: TDropdownOnClick<IDropdownItem>;
+  attributes?: JSX.IntrinsicElements["button"];
+  groupId?: string | number;
+  key?: string | number;
+}
+
+export interface IDropdownProps<Item = IDropdownItem>
+  extends IDropdownMappersItem<Item> {
+  children: ReactElement;
+  direction?: TDropdownDirection;
+  items?: Item[];
+  onItemClick?: TDropdownOnClick<Item>;
+  onClickOutside?: () => void;
+  className?: string;
+  sortGroup?: TDropdownSortGroup;
+  onClickClose?: () => void;
+  width?: string;
+  height?: string;
+  isOpen?: boolean;
+  content?: ReactElement;
+  isNotCloseOutside?: boolean;
+  isDisabled?: boolean;
+}
+
+export type TDropdownListProps<Item> = Omit<
+  IDropdownProps<Item>,
+  "children" | "height"
+> & {
+  top?: number;
+  left?: number;
+};
+
+export type TDropdownPortalProps<Item> = Omit<
+  TDropdownListProps<Item>,
+  "children"
+> & {
+  direction: TDropdownDirection;
+  anchorRect: DOMRect;
+  height?: string;
+  onClickOutsideClose: () => void;
+  anchorRef: React.RefObject<HTMLDivElement>;
+};
+```
+
+:::

@@ -1,0 +1,417 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { InputNumberExamples } from "./examples";
+import {
+  InputNumberExampleUsage,
+  InputNumberSuffixUsage,
+  InputNumberStepUsage
+} from "./examples/InputNumberExamples";
+
+import InputNumber from "../";
+
+:::div{.notshown}
+
+# InputNumber
+
+A number input is an interface element for entering numeric data.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Field content](#field-content)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InputNumber } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InputNumberExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <InputNumberExampleUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { NumberFormatValues } from "react-number-format";
+import { InputNumber } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState<number | undefined>();
+
+  return (
+    <InputNumber
+      placeholder="Example"
+      value={value}
+      onValueChange={(values: NumberFormatValues) => setValue(values.value)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Field content
+
+### Placeholder
+
+Use `placeholder` to explain what to enter or which format is expected.
+`placeholder` accepts a string or a two-string array. The first label appears when the field is empty and the second when it contains a value.
+
+<Unstyled>
+  <InputNumber placeholder={["Label 1", "Label 2"]} />
+</Unstyled>
+
+```tsx
+<InputNumber placeholder={["Label 1", "Label 2"]} />
+```
+
+:::
+
+:::div
+
+### Value
+
+Set the field value with `value`.
+
+<Unstyled>
+  <InputNumber value={55} />
+</Unstyled>
+
+```tsx
+<InputNumber value={55} />
+```
+
+:::
+
+:::div
+
+### Statuses
+
+Use `status` to emphasize the input and communicate validation feedback. Available values are `error`, `warning`, and `success`.
+
+#### status="error"
+
+<Unstyled>
+  <InputNumber
+    placeholder="Error label"
+    value={55}
+    status="error"
+    statusText="Error text"
+  />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputNumber } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState(55);
+
+  return (
+    <InputNumber
+      placeholder="Error label"
+      value={value}
+      onChange={(_e, val: number) => setValue(val)}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+```
+
+#### status="warning"
+
+<Unstyled>
+  <InputNumber
+    placeholder="Warning label"
+    value={55}
+    status="warning"
+    statusText="Warning text"
+  />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputNumber } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState<number | undefined>();
+
+  return (
+    <InputNumber
+      placeholder="Warning label"
+      value={value}
+      onChange={(_e, val: number) => setValue(val)}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+```
+
+#### status="success"
+
+<Unstyled>
+  <InputNumber
+    placeholder="Success label"
+    value={55}
+    status="success"
+    statusText="Success text"
+  />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputNumber } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState<number | undefined>();
+
+  return (
+    <InputNumber
+      placeholder="Success label"
+      value={value}
+      onChange={(_e, val: number) => setValue(val)}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Clear button
+
+Set `isShowClearIcon` to show a clear button when the field contains a value.
+
+<Unstyled>
+  <InputNumber value={55} isShowClearIcon />
+</Unstyled>
+
+```tsx
+<InputNumber value={55} isShowClearIcon />
+```
+
+:::
+
+:::div
+
+### Required fields
+
+Set `isRequired` to make the field required.
+
+<Unstyled>
+  <InputNumber placeholder="Label 1" isRequired />
+  <br />
+  <InputNumber placeholder="Label 1" />
+</Unstyled>
+
+```tsx
+<InputNumber placeholder="Label 1" isRequired />
+<InputNumber placeholder="Label 1" />
+```
+
+:::
+
+:::div
+
+### Disabled field
+
+Set `isDisabled` to prevent input.
+
+<Unstyled>
+  <InputNumber placeholder="Label 1" isDisabled />
+</Unstyled>
+
+```tsx
+<InputNumber placeholder="Label 1" isDisabled />
+```
+
+:::
+
+:::div
+
+### Sizes
+
+Use `size` to change the field height and spacing.
+Size `m` is recommended for mobile interfaces.
+
+<Unstyled>
+  <InputNumber placeholder="Size L" size="l" />
+  <br />
+  <InputNumber placeholder="Size M" size="m" />
+</Unstyled>
+
+```tsx
+<InputNumber placeholder="Size L" size="l" />
+<InputNumber placeholder="Size M" size="m" />
+```
+
+:::
+
+:::div
+
+### Focus
+
+Set `isAutoFocus` to focus the field automatically.
+
+<Unstyled>
+  <InputNumber
+    placeholder="Focus"
+    isAutoFocus={true}
+    onChange={(e) => console.log(e)}
+    onValueChange={(e) => console.log(e)}
+  />
+</Unstyled>
+
+```tsx
+<InputNumber placeholder="Focus" isAutoFocus />
+```
+
+:::
+
+:::div
+
+### Suffix
+
+Use a suffix to give the numeric value additional context.
+
+<Unstyled>
+  <InputNumberSuffixUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { NumberFormatValues } from "react-number-format";
+import InputNumber from "../../index";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState<number | undefined>();
+
+  return (
+    <InputNumber
+      placeholder="Number suffix"
+      value={value}
+      suffix=" ₽"
+      onValueChange={(values: NumberFormatValues) => setValue(values.value)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Step controls
+
+Step controls increase or decrease the value by the configured increment.
+
+<Unstyled>
+  <InputNumberStepUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { NumberFormatValues } from "react-number-format";
+import InputNumber from "../../index";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState<number | undefined>();
+
+  return (
+    <InputNumber
+      placeholder="Number suffix"
+      value={value}
+      step={1}
+      onValueChange={(values: NumberFormatValues) => setValue(values.value)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Props
+
+| Prop                | Type                                                               | Default | Required | Description                                              |
+| ------------------- | ------------------------------------------------------------------ | ------- | -------- | -------------------------------------------------------- |
+| value               | `string` \ `number`                                                | -       | -        | Field value                                              |
+| decimalScale        | `number`                                                           | -       | -        | Number of decimal places                                 |
+| type                | [`TType`](#ttype)                                                  | -       | -        | Input type                                               |
+| id                  | `string`                                                           | -       | -        | Field ID in the DOM                                      |
+| maxLength           | `number`                                                           | -       | -        | Maximum character count                                  |
+| max                 | `number`                                                           | -       | -        | Maximum numeric value                                    |
+| min                 | `number`                                                           | -       | -        | Minimum numeric value                                    |
+| name                | `string`                                                           | -       | -        | Field name in the DOM                                    |
+| suffix              | `string`                                                           | -       | -        | Number suffix                                            |
+| thousandSeparator   | `string`                                                           | -       | -        | Thousands separator                                      |
+| decimalSeparator    | `string`                                                           | -       | -        | Decimal separator                                        |
+| isFixedDecimalScale | `boolean`                                                          | -       | -        | Keeps a fixed number of decimal places                   |
+| step                | `number`                                                           | -       | -        | Increment used by the step controls                      |
+| isAutoFocus         | `boolean`                                                          | -       | -        | Focuses and highlights the field automatically           |
+| onChange            | `(event: SyntheticEvent, value: string, id?: string) => void;`     | -       | -        | Called when the field changes                            |
+| onBlur              | `(event: FocusEvent<HTMLInputElement>, value: string) => void`     | -       | -        | Called when the field loses focus                        |
+| onKeyPress          | `(event: KeyboardEvent<HTMLInputElement>) => void;`                | -       | -        | Handles key presses                                      |
+| onValueChange       | `(values: `[`NumberFormatValues`](#numberformatvalues)`) => void;` | -       | -        | Called when the numeric value changes                    |
+| viewType            | `round`, `line`                                                    | `round` | -        | Field appearance                                         |
+| list                | `string`                                                           | -       | -        | Associates the field with a `<datalist>` element         |
+| autoComplete        | `string`                                                           | -       | -        | Enables or disables browser autocomplete                 |
+| accessKey           | `string`                                                           | -       | -        | Keyboard shortcut for activating or focusing the element |
+| isReadOnly          | `boolean`                                                          | -       | -        | Makes the field read-only                                |
+| form                | `string`                                                           | -       | -        | Associates the control with a form element               |
+
+:::
+
+:::div
+
+### TType
+
+Available types: `tel` | `text`.
+:::
+
+:::div
+
+### NumberFormatValues
+
+```tsx
+{
+  floatValue: number | undefined;
+  formattedValue: number;
+  value: string;
+}
+```
+
+:::

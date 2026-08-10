@@ -1,0 +1,301 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import TreeExamples from "./examples";
+import {
+  TreeWithOptionalAttributes,
+  TreeWithSwitchRadioButtonCheckBox,
+  TreeWithDataSource,
+  TreeWithDragAndDrop,
+  TreeWithEdit
+} from "./examples/TreeExamples";
+
+:::div{.notshown}
+
+# Tree
+
+Displays information in a hierarchical structure, such as folders in a file system.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Editing titles](#editing-titles)
+- [Drag and drop](#dragdrop)
+- [Optional attributes](#optional-attributes)
+- [Custom title content](#custom-title-content)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Tree, TreeItem } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <TreeExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Pass the tree data through `dataSource`.
+
+Every `dataSource` item must have a unique string `id`, such as a UUID. IDs must be unique across the entire tree.
+
+```tsx
+const dataSource = [
+  {
+    id: '1',
+    title: "Heading-11",
+    trailContent: <IconMoreCircle />,
+    elements: [
+      { id: '11', title: "Heading-111" },
+      { id: '12', title: "Heading-112" }
+    ]
+  }
+];
+
+const Example = () => {
+  return (
+    <Tree dataSource={dataSource}>
+  );
+}
+```
+
+<Unstyled>
+  <TreeWithDataSource />
+</Unstyled>
+:::
+
+:::div
+
+## Editing titles
+
+Enable `isEditAllowed` to make titles editable. Use `onTitleChanged` to receive the updated title.
+
+```tsx
+const dataSource = [
+  {
+    id: "1",
+    title: "Heading-11",
+    trailContent: <IconMoreCircle />,
+    elements: [
+      {
+        id: "11",
+        title: "Heading-111",
+        elements: [{ id: "111", title: "Heading 1111" }]
+      },
+      { id: "12", title: "Heading-112" }
+    ]
+  }
+];
+
+const Example = () => {
+  return <Tree dataSource={dataSource} isEditAllowed></Tree>;
+};
+```
+
+<Unstyled>
+  <TreeWithEdit />
+</Unstyled>
+:::
+
+:::div
+
+## Drag&Drop
+
+Enable `isDragAllowed` to let users rearrange the tree by dragging items onto other items. You can also provide the `onHandleDragStart`, `onHandleDragEnd`, `onHandleDragEnter`, `onHandleDragOver`, `onHandleDragLeave`, and `onHandleDrop` event handlers.
+
+```tsx
+import { TreeSourceItem } from "@dmitrygrigorov/components";
+const dataSource = [
+  {
+    id: "1",
+    title: "Heading-1",
+    leadContent: <IconMoreCircle />,
+    elements: [
+      {
+        id: "11",
+        title: "Heading-11",
+        isDisabled: true,
+        isOpened: true,
+        elements: [{ id: "111", title: "Heading 111" }]
+      },
+      { id: "12", title: "Heading-12" }
+    ]
+  },
+  {
+    id: "2",
+    title: "Heading-2",
+    leadContent: <IconMoreCircle />,
+    elements: [
+      {
+        id: "21",
+        title: "Heading-21",
+        elements: [{ id: "_211", title: "Heading 211" }]
+      },
+      { id: "22", title: "Heading-22" }
+    ]
+  }
+];
+
+const dragStartListener = (item: TreeSourceItem) => {
+  // Run custom logic when dragging begins
+};
+
+const Example = () => {
+  return (
+    <Tree
+      dataSource={dataSource}
+      onHandleDragStart={dragStartListener}
+      isDragAllowed
+      isEditAllowed></Tree>
+  );
+};
+```
+
+<Unstyled>
+  <TreeWithDragAndDrop />
+</Unstyled>
+:::
+
+:::div
+
+## Optional attributes
+
+Every item at any nesting level can define these optional properties:
+
+- `isOpened` - controls whether a tree or branch is expanded; defaults to `false`
+- `leadContent` - content before the item title
+- `trailContent` - content after the item title
+- `isDisabled` - disables the item
+
+```tsx
+const dataSource = [
+  {
+    id: "1",
+    title: "Heading",
+    trailContent: <IconMoreCircle />,
+    elements: [
+      {
+        id: "11",
+        title: "Heading 1",
+        leadContent: <CheckBox />,
+        elements: [
+          { id: "111", title: "Heading-1.1", isDisabled: true },
+          { id: "112", title: "Heading-1.2" }
+        ]
+      },
+      { id: "12", title: "Heading 2" }
+    ]
+  }
+];
+
+const Example = () => {
+  return <Tree dataSource={dataSource} />;
+};
+```
+
+<Unstyled>
+  <TreeWithOptionalAttributes />
+</Unstyled>
+:::
+
+:::div
+
+## Custom title content
+
+Pass any JSX element to `leadContent` to render custom content before an item title.
+
+```tsx
+const Example = () => {
+  return (
+    <Tree
+      dataSource={[
+        {
+          title: "Heading12",
+          id: "2",
+          elements: [
+            {
+              id: "21",
+              title: "Heading 2.1"
+            },
+            {
+              id: "22",
+              title: "Heading 2.2 with Checkbox",
+              leadContent: <CheckBox />
+            },
+            {
+              id: "23",
+              title: "Heading 2.3 with Radio Button",
+              leadContent: <RadioButton />
+            }
+          ]
+        }
+      ]}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <TreeWithSwitchRadioButtonCheckBox />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+### Tree props
+
+| Property          | Type                                                 | Default             | Required | Description                            |                               |
+| ----------------- | ---------------------------------------------------- | ------------------- | -------- | -------------------------------------- | ----------------------------- |
+| dataSource        | `TreeSourceItem[]`                                   | []                  | ✓        | Tree items                             |
+| className         | `string`                                             | -                   | -        | Additional class                       |
+| isDisabled        | `boolean`                                            | false               | -        | Disables every tree item               |
+| width             | `number` \ `string`                                  | -                   | -        | Tree width                             |
+| onItemClick       | `(item: TreeSourceItem) => void`                     | -                   | -        | Handles an item click                  |
+| onHandleDragStart | `(item: TreeSourceItem) => void`                     | -                   | -        | Handles the start of a drag            |
+| onHandleDragEnd   | `() => void`                                         | -                   | -        | Handles the end of a drag              |
+| onHandleDragEnter | `(item: TreeSourceItem) => void`                     | -                   | -        | Handles `dragenter` on an item         |
+| onHandleDragOver  | `(item: TreeSourceItem                               | undefined) => void` | -        | -                                      | Handles `dragover` on an item |
+| onHandleDragLeave | `(tree: TreeSourceItem) => void`                     | -                   | -        | Handles `dragleave` on an item         |
+| onHandleDrop      | `(item: TreeSourceItem) => void`                     | -                   | -        | Handles a drop on an item              |
+| onTitleChanged    | `(item: TreeSourceItem, newTitle: string ) => void`  | -                   | -        | Handles an item title change           |
+| onItemCollapse    | `(item: TreeSourceItem, newStatus: boolean) => void` | -                   | -        | Handles expanding or collapsing a node |
+| onChange          | `(changedData: TreeSourceItem[]) => void`            | -                   | -        | Handles any change to the tree data    |
+| isDragAllowed     | `boolean`                                            | -                   | -        | Enables drag and drop                  |
+| isEditAllowed     | `boolean`                                            | -                   | -        | Enables title editing                  |
+
+:::
+
+:::div
+
+### TreeSourceItem props
+
+| Property     | Type               | Default | Required | Description                                                                                                                   |
+| ------------ | ------------------ | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| id           | `string`           | -       | ✓        | Unique item ID                                                                                                                |
+| title        | `string`           | -       | ✓        | Item title                                                                                                                    |
+| isDisabled   | `boolean`          | false   | -        | Disables an item or node. When a parent is disabled, all descendants are disabled regardless of their own `isDisabled` value. |
+| isOpened     | `boolean`          | -       | -        | Expands the tree or node                                                                                                      |
+| leadContent  | `JSX.Element`      | -       | -        | Content before the title                                                                                                      |
+| trailContent | `JSX.Element`      | -       | -        | Content at the end of the item                                                                                                |
+| className    | `string`           | -       | -        | Additional class                                                                                                              |
+| elements     | `TreeSourceItem[]` | -       | -        | Child items                                                                                                                   |
+
+:::

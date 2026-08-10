@@ -1,0 +1,337 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TagExampleChoice,
+  TagExampleClosable,
+  TagExampleAvatar,
+  TagExampleFilter,
+  TagExampleDefaultDisabled,
+  TagExampleLeadIcon,
+  TagExampleIconClosable,
+  TagExampleStroke
+} from "./examples/TagExamples";
+
+import { TagExamples } from "./examples";
+
+:::div{.notshown}
+
+# Tag
+
+A tag is a standalone control for quick, simple filtering or sorting. It can be used independently or as part of a larger pattern.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Avatar](#avatar)
+- [Pressed](#pressed)
+- [Disabled](#disabled)
+- [Closing](#closing)
+- [Props](#props)
+- [Icons](#icons)
+- [Stroke](#stroke)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Tag } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <TagExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag
+      leadIcon={<IconSetting1 />}
+      isClosable
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleFilter />
+</Unstyled>
+:::
+
+:::div
+
+## Avatar
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconUser } from "@dmitrygrigorov/icons";
+
+export const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag
+      avatarProps={{ icon: <IconUser />, status: "online" }}
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleAvatar />
+</Unstyled>
+:::
+
+:::div
+
+## Pressed
+
+Set `isPressed` to highlight a tag.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return <Tag isPressed={isPressed}>P2-l</Tag>;
+};
+```
+
+<Unstyled>
+  <TagExampleChoice />
+</Unstyled>
+:::
+
+:::div
+
+## Disabled
+
+Set `isDisabled` to disable the tag, show the appropriate cursor, and prevent interaction.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+    return (
+    <Tag
+      isClosable
+      isDisabled
+      leadIcon={<IconSetting1 />}
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+};
+```
+
+<Unstyled>
+  <TagExampleDefaultDisabled />
+</Unstyled>
+:::
+
+:::div
+
+## Closing
+
+Set `isClosable` to add an icon that closes the tag when clicked.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag isClosable isPressed={isPressed} onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleClosable />
+</Unstyled>
+<br />
+<br />
+
+### `closeIcon`
+
+Use `closeIcon` with `isClosable` to provide a custom close icon.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconCloseSquare } from "@dmitrygrigorov/icons";
+
+export const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag
+      isClosable
+      closeIcon={<IconCloseSquare />}
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleIconClosable />
+</Unstyled>
+:::
+
+:::div
+
+## Icons
+
+Use `leadIcon` to add a leading icon.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag
+      isDisabled
+      leadIcon={<IconSetting1 />}
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleLeadIcon />
+</Unstyled>
+:::
+
+:::div
+
+## Stroke
+
+Set `isStroke` to make the tag background transparent.
+
+```tsx
+import React, { useState } from "react";
+import { Tag } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const handleClick = (): void => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <Tag
+      isClosable
+      isStroke
+      size={size}
+      leadIcon={<IconSetting1 />}
+      isPressed={isPressed}
+      onClick={handleClick}>
+      P2-l
+    </Tag>
+  );
+};
+```
+
+<Unstyled>
+  <TagExampleStroke />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Property     | Type                                                   | Default        | Required | Description                                                  |
+| ------------ | ------------------------------------------------------ | -------------- | -------- | ------------------------------------------------------------ |
+| children     | `string`                                               | -              | ✓        | Tag text                                                     |
+| avatarProps  | `Object`                                               | -              | -        | [`Avatar`](?path=/docs/components-avatar--avatar-text) props |
+| leadIcon     | `JSX.Element` // `string`                              | -              | -        | Leading icon                                                 |
+| isPressed    | `boolean`                                              | `false`        | -        | Whether the tag is pressed                                   |
+| isDisabled   | `boolean`                                              | `false`        | -        | Disables the tag                                             |
+| closeIcon    | `JSX.Element` // `string`                              | `close-circle` | -        | Tag close icon                                               |
+| isClosable   | `boolean`                                              | -              | -        | Makes the tag closable                                       |
+| size         | [`TTagSize`](#ttagsize)                                | `m`            | -        | Tag size                                                     |
+| className    | `string`                                               | -              | -        | Value of the `class` attribute                               |
+| onClick      | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -              | -        | Click handler.                                               |
+| onClickCLose | `(event: React.MouseEvent<HTMLDivElement>) => void`    | -              | -        | `closeIcon` click handler.                                   |
+| as           | `ElementType`                                          | -              | -        | Element used to render the tag in the DOM                    |
+| isStroke     | `boolean`                                              | -              | -        | Applies the Stroke appearance                                |
+
+:::
+
+:::div
+
+### TTagSize
+
+Available sizes: `xs` | `s` | `m`.
+:::

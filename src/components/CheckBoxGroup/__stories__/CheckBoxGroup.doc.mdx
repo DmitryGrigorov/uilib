@@ -1,0 +1,325 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+import {
+  CheckBoxGroupExampleDefault,
+  CheckBoxGroupExampleDisabled,
+  CheckBoxGroupExampleDirectionColumn,
+  CheckBoxGroupExampleDirectionRow,
+  CheckBoxGroupExampleStatusSuccess,
+  CheckBoxGroupExampleStatusWarning,
+  CheckBoxGroupExampleStatusError
+} from "./examples/CheckBoxGroupExample";
+import CheckBoxGroupExample from "./examples";
+
+:::div{.notshown}
+
+# CheckBoxGroup
+
+A checkbox group is used when users can select multiple options from a list.
+For a single option, use the standard [CheckBox](?path=/docs/components-protons-checkbox--demo) component.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Content](#content)
+- [Disabled checkboxes](#disabled-checkboxes)
+- [Usage](#usage)
+- [Properties](#properties)
+- [Status](#status)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { CheckBoxGroup } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <CheckBoxGroupExample />
+</Unstyled>
+:::
+
+:::div
+
+## Content
+
+Describe each checkbox in the `options` array. Every option can define its `label`, `value`, and whether it is interactive through `isDisabled`.
+
+```tsx
+import { useState } from "react";
+import { CheckBoxGroup } from "@dmitrygrigorov/components";
+
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+const Example = () => {
+  const [value, setValue] = useState([]);
+
+  return (
+    <CheckBoxGroup
+      options={OPTIONS}
+      value={value}
+      onChange={(event, _value) => setValue(_value)}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleDefault />
+</Unstyled>
+:::
+
+:::div
+
+## Disabled checkboxes
+
+Add `isDisabled` to disable the entire checkbox group.
+
+```tsx
+import { useState } from "react";
+import { CheckBoxGroup } from "@dmitrygrigorov/components";
+
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+const Example = () => {
+  const [value, setValue] = useState([]);
+
+  return (
+    <CheckBoxGroup
+      options={OPTIONS}
+      value={value}
+      onChange={(event, _value) => setValue(_value)}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleDisabled />
+</Unstyled>
+:::
+
+:::div
+
+## Checkbox layout
+
+Use `direction` to arrange checkboxes in a column or a row.
+:::
+
+:::div
+
+### Column (`column`, default)
+
+```tsx
+<CheckBoxGroup options={OPTIONS} direction="column" />
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleDirectionColumn />
+</Unstyled>
+:::
+
+:::div
+
+### Row (`row`)
+
+```tsx
+<CheckBoxGroup options={OPTIONS} direction="row" />
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleDirectionRow />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import { CheckBoxGroup } from "@dmitrygrigorov/components";
+
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+const Example = () => {
+  const [value, setValue] = useState([]);
+
+  return (
+    <CheckBoxGroup
+      options={OPTIONS}
+      value={value}
+      onChange={(event, _value) => setValue(_value)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Status
+
+Use `status` to emphasize the group with `error`, `warning`, or `success` feedback.
+
+### status="error"
+
+```tsx
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+<CheckBoxGroup
+  value="one"
+  status="error"
+  statusText="error label"
+  headerText="Error group"
+  options={OPTIONS}
+/>;
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleStatusError />
+</Unstyled>
+
+### status="warning"
+
+```tsx
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+<CheckBoxGroup
+  options={OPTIONS}
+  direction="column"
+  value={[]}
+  status="warning"
+  statusText="warning label"
+  headerText="Warning group"
+/>;
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleStatusWarning />
+</Unstyled>
+
+### status="success"
+
+```tsx
+const OPTIONS = [
+  {
+    label: "CheckBox 1",
+    value: "one"
+  },
+  {
+    label: "CheckBox 2",
+    value: "two",
+    isDisabled: true
+  }
+];
+
+<CheckBoxGroup
+  options={OPTIONS}
+  direction="column"
+  value={[]}
+  status="success"
+  statusText="success label"
+  headerText="Success group"
+/>;
+```
+
+<Unstyled>
+  <CheckBoxGroupExampleStatusSuccess />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+| Parameter         | Type                                                                            | Default  | Required | Description                         |
+| ----------------- | ------------------------------------------------------------------------------- | ------------ | -------------- | -------------------------------------- |
+| options           | `ICheckGroupOption`                                                             | -        | ✓        | Checkbox options                    |
+| value             | `(string,number)[]`                                                             | `-`      | ✓        | Selected values                     |
+| isDisabled        | `boolean`                                                                       | -        | -        | Disables the checkbox group         |
+| name              | `string`                                                                        | -        | -        | `<input>` name in the DOM           |
+| onChange          | (\{event: ChangeEvent\<`HTMLInputElement`>, value: (string,number)[]}) => void; | -        | -        | Called when selected values change  |
+| className         | `string`                                                                        | -        | -        | Additional CSS class                |
+| direction         | `column, row`                                                                   | `column` | -        | Checkbox layout direction           |
+| classNameCheckBox | `string`                                                                        | -        | -        | Additional checkbox CSS class       |
+| status            | `default`, `error`, `warning`, `success`                                        | -        | -        | Status highlighting                 |
+| statusText        | `string`                                                                        | -        | -        | Status text                         |
+| headerText        | `string`                                                                        | -        | -        | Group heading text                  |
+
+:::
+:::div
+
+### ICheckGroupOption
+
+| Parameter  | Type                | Default | Required | Description       |
+| ---------- | ------------------- | ------------ | -------------- | ----------------- |
+| value      | `(string,number)[]` | -       | ✓        | Checkbox value    |
+| isDisabled | `boolean`           | -       | -        | Disables checkbox |
+| label      | `string`            | -       | ✓        | Checkbox text     |
+
+:::

@@ -1,0 +1,430 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { SelectExamples } from "./examples";
+import {
+  SelectExample,
+  SelectError,
+  SelectWarning,
+  SelectSuccess,
+  SelectDisabled,
+  SelectAvatar
+} from "./examples/SelectExamples";
+
+:::div{.notshown}
+
+# Select
+
+A dropdown list for choosing one of several options.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [List content](#list-content)
+- [Placeholders](#placeholders)
+- [Statuses](#statuses)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Select } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## List content
+
+Pass dropdown items through the `options` array. By default, each option object contains these fields:
+
+- `value: string` - unique option value
+- `label: string` - option label
+
+```tsx
+const options = [
+  {
+    label: "One",
+    value: "one"
+  },
+  {
+    label: "Two",
+    value: "two"
+  }
+];
+```
+
+You can also provide custom option shapes by configuring [`fieldNames`](#using-custom-options).
+
+### Using custom options
+
+For custom `options`, pass a `fieldNames` object that points to the value and label keys in each option.
+
+```tsx
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const options = [
+  {
+    id: "Moscow",
+    country: {
+      city: "Moscow"
+    }
+  },
+  {
+    id: "Paris",
+    country: {
+      city: "Paris"
+    }
+  },
+  {
+    id: "Prague",
+    country: {
+      city: "Prague"
+    }
+  },
+  {
+    id: "Amsterdam",
+    country: {
+      city: "Amsterdam"
+    },
+    isDisabled: true
+  }
+];
+
+const SelectFieldNamesExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder="Select a city"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      fieldNames={{ value: "id", label: "country.city" }}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Placeholders
+
+Use `placeholder` for the text shown when no option is selected. It accepts either a string or a two-item string array. With an array, the second value is shown when the field is focused or has a selected option.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectPlaceholderExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SelectExample />
+</Unstyled>
+:::
+
+:::div
+
+## Statuses
+
+Use `status` to highlight errors, warnings, or successfully completed fields. When omitted, the field uses its default appearance. Pair it with `statusText` to display a supporting message.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectStatusErrorExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+
+const SelectStatusWarningExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+
+const SelectStatusSuccessExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SelectError />
+  <SelectWarning />
+  <SelectSuccess />
+</Unstyled>
+:::
+
+:::div
+
+## Disabled state
+
+Set `isDisabled` on `Select` to disable the entire control.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectDisabledExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SelectDisabled />
+</Unstyled>
+
+Set `isDisabled: true` on an item in `options` to disable only that option.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectDisabledExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SelectExample />
+</Unstyled>
+:::
+
+:::div
+
+## TypeScript support
+
+Provide the option type to `Select`. For custom option shapes, also provide the string paths to the `value` and `label` fields as generic parameters.
+
+```tsx
+interface IOption {
+  label: string;
+  city: string;
+}
+
+const options = [
+  { label: "Moscow", city: "Moscow" },
+  { label: "Paris", city: "Paris" },
+  { label: "Prague", city: "Prague" },
+  { label: "Amsterdam", city: "Amsterdam", isDisabled: true },
+  { label: "Berlin", city: "Berlin" },
+  { label: "London", city: "London" },
+  { label: "Riga", city: "Riga" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectPlaceholderExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select<IOption, "city", "label">
+      placeholder={["Select a city", "City"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={options}
+      fieldNames={{ label: "label", value: "city" }}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Avatars
+
+For user selection, set `type="avatar"` to display avatars in both the menu and the field.
+
+```tsx
+const optionsUsers = [
+  { label: "User1", value: "User1" },
+  {
+    label: "User2",
+    value: "User2",
+    url: AvatarImg
+  },
+  { label: "User3", value: "User3", url: AvatarImg },
+  { label: "User4", value: "User4" }
+];
+
+import React, { useState } from "react";
+import { Select } from "@dmitrygrigorov/components";
+
+const SelectAvatarExample: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Select
+      placeholder="Select users"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      options={optionsUsers}
+      type="avatar"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SelectAvatar />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <SelectExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Property        | Type                                                                                                                          | Default                              | Required | Description                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| id              | `string`, `number`                                                                                                            | -                                    | -        | Field ID in the DOM                                                                                                   |
+| value           | `string`                                                                                                                      | ✔                                   | -        | Selected option object or its value key                                                                               |
+| isAutoFocus     | `boolean`                                                                                                                     | -                                    | -        | Focuses the field automatically                                                                                       |
+| name            | `string`                                                                                                                      | -                                    | -        | Field name in the DOM                                                                                                 |
+| placeholder     | `string`                                                                                                                      | Filled Label                         | -        | Placeholder text                                                                                                      |
+| isDisabled      | `boolean`                                                                                                                     | `false`                              | -        | Disables the field                                                                                                    |
+| onChange        | `onChange: (event: ChangeEvent<HTMLSelectElement>` <br/> `\ MouseEvent<HTMLDivElement>, value: string, id?: string) => void;` | ✔                                   | -        | Handles value changes                                                                                                 |
+| onFocus         | `(event: FocusEvent<HTMLSelectElement>) => void`                                                                              | -                                    | -        | Handles focus                                                                                                         |
+| onBlur          | `(event: FocusEvent<HTMLSelectElement>, value: string) => void`                                                               | -                                    | -        | Handles blur                                                                                                          |
+| onKeyDown       | `(event: KeyboardEvent<HTMLSelectElement>) => void;`                                                                          | -                                    | -        | Handles keyboard input                                                                                                |
+| className       | `string`                                                                                                                      | -                                    | -        | Additional CSS class                                                                                                  |
+| testId          | `string`                                                                                                                      | -                                    | -        | Test ID                                                                                                               |
+| status          | `default`, `error`, `warning`, `success`                                                                                      | -                                    | -        | Visual status                                                                                                         |
+| statusText      | `string`                                                                                                                      | -                                    | -        | Status message                                                                                                        |
+| fieldNames      | `{value: string; label: string}`                                                                                              | `{ value: "value", label: "label" }` | -        | Maps `options` fields to value and label keys. Dot notation supports nested objects, for example `value.value.value`. |
+| width           | `string`                                                                                                                      | 100%                                 | -        | Select width                                                                                                          |
+| options         | `TOption[]`                                                                                                                   | []                                   | -        | Available options                                                                                                     |
+| onInputChange   | `(newValue: string, actionMeta: InputActionMeta) => void`                                                                     | -                                    | -        | Handles input changes                                                                                                 |
+| menuIsOpen      | `boolean`                                                                                                                     | false                                | -        | Controls whether the menu is open                                                                                     |
+| defaultValue    | `TOption[]`                                                                                                                   | -                                    | -        | Initial value                                                                                                         |
+| isClearable     | `boolean`                                                                                                                     | true                                 | -        | Allows the selected value to be cleared                                                                               |
+| isSearchable    | `boolean`                                                                                                                     | true                                 | -        | Enables search                                                                                                        |
+| onInnerMenuOpen | `(clientRect: ClientRect) => void`                                                                                            | -                                    | -        | Runs when the menu opens                                                                                              |
+| isRequired      | `boolean`                                                                                                                     | false                                | -        | Marks the field as required                                                                                           |
+| iconLeft        | `React.ReactNode`                                                                                                             | -                                    | -        | Left icon                                                                                                             |
+| type            | `basic`, `avatar`                                                                                                             | basic                                | -        | Enables basic or avatar options                                                                                       |
+| viewType        | `round`, `line`                                                                                                               | `round`                              | -        | Field appearance                                                                                                      |
+
+:::

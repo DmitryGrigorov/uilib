@@ -1,0 +1,201 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TextAreaExamplePlaceholder,
+  TextAreaExampleValue,
+  TextAreaExampleStatus,
+  TextAreaExampleRequired,
+  TextAreaExampleRowsCols
+} from "./examples/TextAreaExamples";
+import { TextAreaExamples } from "./examples";
+
+:::div{.notshown}
+
+# TextArea
+
+A field for entering multiple lines of text.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Field content](#field-content)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { TextArea } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Field content
+
+### Placeholder
+
+Use `placeholder` to add a hint that explains what the user should enter.
+
+```tsx
+<TextArea placeholder="Enter text" />
+```
+
+<Unstyled>
+  <TextAreaExamplePlaceholder placeholder="Enter text" />
+</Unstyled>
+:::
+
+:::div
+
+### Value
+
+Set the field value with `value`.
+
+```tsx
+import React, { useState } from "react";
+import { TextArea } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [text, setText] = useState("Text");
+
+  const handleChange = (_: ChangeEvent, value: string) => {
+    setText(value);
+  };
+
+  return <TextArea value={text} onChange={handleChange} />;
+};
+```
+
+<Unstyled>
+  <TextAreaExampleValue value="Text" />
+</Unstyled>
+:::
+
+:::div
+
+### Statuses
+
+Use a status to emphasize the field and indicate an error, warning, or successful value. Set `status` to `default`, `error`, `warning`, or `success`. If omitted, the field uses its default appearance.
+
+```tsx
+<TextArea status="error" />
+<TextArea status="warning" />
+<TextArea status="success" />
+<TextArea />
+```
+
+<Unstyled>
+  <TextAreaExampleStatus status="error" />
+  <br />
+  <TextAreaExampleStatus status="warning" />
+  <br />
+  <TextAreaExampleStatus status="success" />
+  <br />
+  <TextAreaExampleStatus status="default" />
+</Unstyled>
+
+<br />
+<br />
+
+Use `statusText` to display explanatory text alongside the status styling.
+
+```tsx
+<TextArea status="error" statusText="Error" />
+<TextArea status="warning" statusText="Warning" />
+<TextArea status="success" statusText="Success" />
+```
+
+<Unstyled>
+  <TextAreaExampleStatus status="error" statusText="Error" />
+  <br />
+  <TextAreaExampleStatus status="warning" statusText="Warning" />
+  <br />
+  <TextAreaExampleStatus status="success" statusText="Success" />
+</Unstyled>
+:::
+
+:::div
+
+### Required
+
+Set `isRequired` to mark the field as required. When a `placeholder` is present, an asterisk appears beside it.
+
+```tsx
+<TextArea isRequired placeholder="This field is required" />
+```
+
+<Unstyled>
+  <TextAreaExampleRequired
+    isRequired={true}
+    placeholder="This field is required"
+  />
+</Unstyled>
+:::
+
+:::div
+
+### Rows and columns
+
+Set `cols` to control the field width and `rows` to control its height for longer text.
+
+```tsx
+<TextArea
+  rows={7}
+  cols={15}
+  value="Long text. Long text. Long text. Long text. Long text. Long text."
+/>
+```
+
+<Unstyled>
+  <TextAreaExampleRowsCols rows={7} cols={15} />
+</Unstyled>
+
+You can also set a height range with `minRows` and `maxRows`. These properties require `isAutoSize={true}` and let the field grow automatically as the user types, up to the maximum height.
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <TextAreaExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Property        | Type                                                                                                                                          | Default      | Required | Description                                                |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | -------- | ---------------------------------------------------------- |
+| id              | `string`, `number`                                                                                                                            | -            | -        | Field ID in the DOM                                        |
+| value           | `string`                                                                                                                                      | null         | ✔       | Field value                                                |
+| isAutoFocus     | `boolean`                                                                                                                                     | -            | -        | Focuses the field automatically                            |
+| name            | `string`                                                                                                                                      | -            | -        | Field name in the DOM                                      |
+| placeholder     | `string`                                                                                                                                      | Filled Label | -        | Hint displayed inside the field                            |
+| isDisabled      | `boolean`                                                                                                                                     | `false`      | -        | Disables the field                                         |
+| onChange        | `onChange: (event: ChangeEvent<HTMLTextAreaElement> \ MouseEvent<HTMLDivElement>, value: Date, {from: Date, to: Date}, id?: string) => void;` | ✔           | -        | Called when the field value changes                        |
+| onFocus         | `event: FocusEvent<HTMLInputElement>) => void`                                                                                                | -            | -        | Called when the field receives focus                       |
+| onBlur          | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                                                | -            | -        | Called when the field loses focus                          |
+| onKeyPress      | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                                           | -            | -        | Called when a key is pressed                               |
+| onKeyDown       | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                                           | -            | -        | Called when a key is pressed                               |
+| className       | `string`                                                                                                                                      | -            | -        | Additional CSS class                                       |
+| status          | `default`, `error`, `warning`, `success`                                                                                                      | -            | -        | Status styling                                             |
+| statusText      | `string`                                                                                                                                      | -            | -        | Status text                                                |
+| isReadOnly      | `boolean`                                                                                                                                     | -            | -        | Makes the field read-only                                  |
+| size            | `string`                                                                                                                                      | -            | -        | Text-area size                                             |
+| isShowClearIcon | `boolean`                                                                                                                                     | -            | -        | Displays the clear button                                  |
+| rows            | `number`                                                                                                                                      | -            | -        | Number of rows; cannot be used with `minRows` or `maxRows` |
+| cols            | `number`                                                                                                                                      | -            | -        | Number of columns                                          |
+| minRows         | `number`                                                                                                                                      | -            | 1        | Minimum visible rows; cannot be used with `rows`           |
+| maxRows         | `number`                                                                                                                                      | -            | -        | Maximum visible rows; cannot be used with `rows`           |
+| iconLeft        | `JSX.Element`                                                                                                                                 | -            | -        | Leading icon                                               |
+| statusLabel     | `string`                                                                                                                                      | -            | -        | Status label text                                          |
+
+:::

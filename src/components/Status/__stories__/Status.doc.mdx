@@ -1,0 +1,441 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { StatusExamples } from "./examples";
+import {
+  StatusCompleted,
+  StatusCompletedFilled,
+  StatusProcessing,
+  StatusProcessingFilled,
+  StatusSuccess,
+  StatusSuccessFilled,
+  StatusWarning,
+  StatusWarningFilled,
+  StatusError,
+  StatusErrorFilled,
+  StatusErrorTrailIcon,
+  StatusErrorLeadIcon,
+  StatusErrorAllIcons,
+  StatusClear,
+  StatusFilled,
+  StatusPurple,
+  StatusDisabled,
+  StatusPressed,
+  StatusHover
+} from "./examples/StatusExamples";
+
+:::div{.notshown}
+
+# Status
+
+#### Used in input fields and notifications
+
+Use Status when a component needs to communicate its current state.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+- [Status](#status)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Status } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <StatusExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+### TypeScript
+
+```tsx
+import React from "react";
+import { Status } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Status
+    isFilled
+    status="completed"
+    leadIcon={<IconSetting1 />}
+    trailIcon={<IconSetting1 />}>
+    Label
+  </Status>
+);
+```
+
+<Unstyled>
+  <StatusCompleted />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Status
+
+Statuses communicate different component states.
+
+### Completed
+
+Use `Completed` to indicate that an action has finished.
+
+```tsx
+<Status
+  status="completed"
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusCompleted />
+</Unstyled>
+
+### Processing
+
+Use `Processing` to indicate that a request or action is in progress.
+
+```tsx
+<Status
+  status="processing"
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusProcessing />
+</Unstyled>
+
+### Error
+
+Use `Error` to indicate a component error.
+
+```tsx
+<Status status="error" leadIcon={<IconSetting1 />} trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusError />
+</Unstyled>
+
+### Success
+
+Use `Success` to indicate that a request or action completed successfully.
+
+```tsx
+<Status
+  status="success"
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusSuccess />
+</Unstyled>
+
+### Warning
+
+Use `Warning` to display a warning, for example when a password is weak.
+
+```tsx
+<Status
+  status="warning"
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusWarning />
+</Unstyled>
+<br />
+<br />
+
+### Status
+
+Available values:
+`completed`, `processing`, `error`, `success`, `warning`
+:::
+
+:::div
+
+## Using a color palette instead of a status
+
+Use `colorType` instead of `status` to style the component with a named color palette.
+Available colors: `blue`, `cyan`, `green`, `yellow`, `purple`, `teal`, `gray`, `midgrad`, `red`.
+
+```tsx
+export const StatusPurple: React.FC = () => (
+  <Status colorType="purple">Label</Status>
+);
+```
+
+<StatusPurple />
+<br />
+:::
+
+:::div
+
+## Filled status
+
+Set `isFilled` to fill the component background with the status color.
+
+```tsx
+<Status isFilled status="completed">
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusFilled />
+</Unstyled>
+<br />
+
+### Completed Filled
+
+```tsx
+<Status
+  status="completed"
+  isFilled
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusCompletedFilled />
+</Unstyled>
+<br />
+
+### Processing Filled
+
+```tsx
+<Status
+  status="processing"
+  isFilled
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusProcessingFilled />
+</Unstyled>
+<br />
+
+### Success Filled
+
+```tsx
+<Status
+  status="success"
+  isFilled
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusSuccessFilled />
+</Unstyled>
+<br />
+
+### Warning Filled
+
+```tsx
+<Status
+  status="warning"
+  isFilled
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusWarningFilled />
+</Unstyled>
+<br />
+
+### Error Filled
+
+```tsx
+<Status
+  status="error"
+  isFilled
+  leadIcon={<IconSetting1 />}
+  trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusErrorFilled />
+</Unstyled>
+<br />
+<br />
+:::
+
+:::div
+
+## Icons
+
+Use `leadIcon` to add an icon before the label.
+
+```tsx
+<Status leadIcon={<IconSetting1 />} trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusErrorAllIcons />
+</Unstyled>
+<br />
+
+### Leading icon only
+
+```tsx
+<Status status="completed" leadIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusErrorLeadIcon />
+</Unstyled>
+<br />
+
+### Trailing icon only
+
+```tsx
+<Status status="completed" trailIcon={<IconSetting1 />}>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusErrorTrailIcon />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Without icons
+
+```tsx
+<Status status="completed">Label</Status>
+```
+
+<Unstyled>
+  <StatusClear />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Disabled
+
+Set `isDisabled` to disable the status. This property is available only with `isFilled`.
+
+```tsx
+<Status isFilled isDisabled>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusDisabled />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Pressed
+
+Set `isPressed` to highlight the status. This property is available only with `isFilled`.
+
+```tsx
+<Status isFilled isPressed>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusPressed />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Hover styles
+
+Set `canHover` to enable hover styles. This property is available only with `isFilled`.
+
+```tsx
+<Status isFilled canHover>
+  Label
+</Status>
+```
+
+<Unstyled>
+  <StatusHover />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Props
+
+| Property   | Type                                                             | Default | Required | Description                                                                               |
+| ---------- | ---------------------------------------------------------------- | ------- | -------- | ----------------------------------------------------------------------------------------- |
+| children   | `string`                                                         | -       | ✓        | Label text                                                                                |
+| className  | `string`                                                         | -       | -        | Additional class                                                                          |
+| isFilled   | `boolean`                                                        | -       | -        | Fills the component background                                                            |
+| status     | [`CompStatus`](#status)                                          | -       | -        | Component status style                                                                    |
+| trailIcon  | `JSX.Element`                                                    | -       | -        |                                                                                           |
+| icon       | `JSX.Element`                                                    | `false` | -        | Whether to show an icon; available for `info`, `error`, `success`, and `warning` statuses |
+| as         | `React.ElementType`                                              | `p`     | -        | HTML element rendered in the DOM                                                          |
+| colorType  | [`TColorTypeStatus`](#using-a-color-palette-instead-of-a-status) | `blue`  | -        | Component color palette                                                                   |
+| isDisabled | `boolean`                                                        | -       | -        | Disables the component                                                                    |
+| isPressed  | `boolean`                                                        | `false` | -        | Pressed state                                                                             |
+| canHover   | `boolean`                                                        | -       | -        | Enables component hover styles                                                            |
+
+:::

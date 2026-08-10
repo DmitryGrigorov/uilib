@@ -1,0 +1,104 @@
+import {
+    CheckBoxStateExample
+} from "./examples/CheckBoxExamplesLight";
+
+import CheckBoxesExample from "./examples";
+
+import CheckBox from "../index";
+
+:::div{.notshown}
+# CheckBox
+
+Use a checkbox when users can select multiple options from a list.
+:::
+
+:::div
+## Navigation
+- [Import](#import)
+- [States](#states)
+- [Text](#text)
+- [Usage](#usage)
+- [Properties](#properties)
+:::
+
+:::div
+## Import
+
+```tsx
+import { CheckBox } from "@dmitrygrigorov/components";
+```
+:::
+
+:::div
+## States
+
+CheckBox indicates whether an option is selected. Use `isChecked` to set the selected state.
+Use `isIndeterminate` for a state that is neither selected nor empty.
+Use `isDisabled` when the user must not change the selection.
+
+```tsx
+<CheckBox label="Unchecked" />
+<CheckBox label="Checked" isChecked />
+<CheckBox label="Intermediate" isIndeterminate />
+<CheckBox label="Disabled" isDisabled />
+```
+
+<CheckBoxStateExample />
+:::
+
+:::div
+## Text
+
+Pass text through the `label` property to display it beside the checkbox.
+
+```tsx
+<CheckBox label="Checkox" />
+```
+
+<CheckBox label="Checkox" />
+:::
+
+:::div{.notshown}
+## Appearance
+
+<CheckBoxesExample />
+:::
+
+:::div
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { CheckBox } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event, value): void => {
+    setChecked(value);
+  };
+
+  return (
+    <CheckBox isChecked={checked} onChange={handleChange} />
+  );
+}
+```
+:::
+
+:::div
+## Properties
+
+| Parameter       | Type                                                                     | Default | Required | Description                                                    |
+|-----------------|--------------------------------------------------------------------------|--------------|----------------|--------------------------------------------------------------------------|
+| label           | `string`                                                                 | -       | -        | Text displayed beside the checkbox                             |
+| isChecked       | `boolean`                                                                | -       | -        | Whether the checkbox is selected                               |
+| isIndeterminate | boolean                                                                  | -       | -        | Enables the indeterminate state                                |
+| isDisabled      | boolean                                                                  | -       | -        | Disables checkbox selection                                    |
+| name            | `string`                                                                 | -       | -        | `<input>` name in the DOM                                      |
+| onChange        | (\{event: ChangeEvent\<`HTMLInputElement`>, isChecked: boolean,}) => void; | -       | -        | Called when the checked state changes                          |
+| className       | `string`                                                                 | -       | -        | Additional CSS class                                           |
+| tabIndex        | `number`                                                                 | -       | -        | Keyboard tab order                                             |
+| inputRef        | `Ref<HTMLInputElement>`                                                  | -       | -        | Reference to the `<input>` DOM element                         |
+| onFocus         | `FocusEventHandler<HTMLInputElement>`                                    | -       | -        | Focus event handler                                            |
+| onBlur          | `FocusEventHandler<HTMLInputElement>`                                    | -       | -        | Blur event handler                                             |
+:::

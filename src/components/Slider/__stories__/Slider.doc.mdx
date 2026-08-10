@@ -1,0 +1,542 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  SliderExampleBasic,
+  SliderExampleBasicRange,
+  SliderExampleMinMax,
+  SliderExampleStepSingle,
+  SliderExampleStepArray,
+  SliderExampleWithoutTooltip,
+  SliderExampleTooltipFormatter,
+  SliderExampleLeadText,
+  SliderExampleTrailText,
+  SliderExampleDirectionVertical,
+  SliderExampleDisabled,
+  SliderExampleStatus,
+  SliderExampleReset
+} from "./examples/SliderExamples";
+import SlidersExample from "./examples";
+
+:::div{.notshown}
+
+# Slider
+
+A control for selecting and displaying a single value or an interval within a range.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Slider values](#slider-values)
+- [Labels and tooltips](#labels-and-tooltips)
+- [Orientation](#orientation)
+- [Disabled slider](#disabled-slider)
+- [Statuses](#statuses)
+- [Size](#size)
+- [Resetting values](#resetting-values)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Slider } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Slider values
+
+### Single value
+
+Pass a number to `value` to let the user select a single value.
+
+```tsx
+import { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+const SliderExample = () => {
+  const [value, setValue] = useState(25);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleBasic />
+</Unstyled>
+<br />
+<br />
+
+### Range
+
+To select a range, pass a two-number array to `value` and enable `isRange`. With TypeScript, also pass `true` as the component generic to indicate range mode.
+
+```tsx
+import { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleBasicRange = () => {
+  const [value, setValue] = useState<[number, number]>([20, 70]);
+
+  return (
+    <Slider<true>
+      leadText={`Value ${value[0]} - ${value[1]}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isRange
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleBasicRange />
+</Unstyled>
+
+<br />
+<br />
+
+### Minimum and maximum
+
+Set the slider limits with `min` and `max`. They default to `0` and `100`.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleMinMax: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      min={20}
+      max={55}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleMinMax />
+</Unstyled>
+<br />
+<br />
+
+### Value constraints
+
+Use `step` to constrain the selectable values to an interval or an explicit set.
+
+### Step interval
+
+Pass an integer to `step` to move the thumb between values separated by that interval.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleStepSingle: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      step={10}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleStepSingle />
+</Unstyled>
+<br />
+<br />
+
+### Explicit values
+
+Pass an array to `step` to restrict the slider to that exact set of values.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleStepArray: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      step={[10, 50, 80]}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleStepArray />
+</Unstyled>
+:::
+
+:::div
+
+## Labels and tooltips
+
+### Tooltip
+
+The tooltip displays each thumb's value and is enabled by default. Set `isTooltip={false}` to hide it.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleWithoutTooltip: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isTooltip={false}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleWithoutTooltip />
+</Unstyled>
+<br />
+
+### Custom tooltip
+
+Format the tooltip text with `tooltipFormatter`.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleTooltipFormatter: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      tooltipFormatter={(val) => `${val || 0}%`}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleTooltipFormatter />
+</Unstyled>
+<br />
+
+### Leading text
+
+Add a label before the slider with `leadText`.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleLeadText: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText="Example label"
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isTooltip={false}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleLeadText />
+</Unstyled>
+<br />
+
+### Trailing text
+
+Add a label after the slider with `trailText`.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleTrailText: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      trailText="Example label"
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isTooltip={false}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleTrailText />
+</Unstyled>
+:::
+
+:::div
+
+## Orientation
+
+Set `direction` to `horizontal` or `vertical`. The default is `horizontal`.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleDirectionVertical: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      trailText="Example label"
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isTooltip={false}
+      direction="vertical"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleDirectionVertical />
+</Unstyled>
+:::
+
+:::div
+
+## Disabled slider
+
+Set `isDisabled` to prevent interaction with the slider.
+
+```tsx
+import React, { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleDisabled: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider value={value} onChange={(_, val) => setValue(val)} isDisabled />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleDisabled />
+</Unstyled>
+:::
+
+:::div
+
+## Statuses
+
+Use `status` to apply the `info`, `success`, `warning`, or `error` color treatment. Status does not change slider behavior.
+
+```tsx
+export const SliderExampleStatus: React.FC = () => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <>
+      <Slider
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        status="info"
+      />
+      <Slider
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        status="success"
+      />
+      <Slider
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        status="warning"
+      />
+      <Slider
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        status="error"
+      />
+    </>
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleStatus status="info" />
+  <SliderExampleStatus status="success" />
+  <SliderExampleStatus status="warning" />
+  <SliderExampleStatus status="error" />
+</Unstyled>
+:::
+
+:::div
+
+## Size
+
+Set `size` to `m` or `s`. The default is `m`.
+
+```tsx
+import { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+const SliderExampleSize = () => {
+  const [value, setValue] = useState(25);
+
+  return (
+    <>
+      <Slider
+        leadText={`Value ${value}`}
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        size="m"
+      />
+      <Slider
+        leadText={`Value ${value}`}
+        value={value}
+        onChange={(_, val) => setValue(val)}
+        size="s"
+      />
+    </>
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleBasic size="m" />
+  <SliderExampleBasic size="s" />
+</Unstyled>
+:::
+
+:::div
+
+## Resetting values
+
+Enable `isReset` to show a control that restores `defaultValue`.
+
+```tsx
+import { useState } from "react";
+import { Slider } from "@dmitrygrigorov/components";
+
+export const SliderExampleReset: React.FC = ({ size }) => {
+  const [value, setValue] = useState(20);
+
+  return (
+    <Slider
+      leadText={`Value ${value}`}
+      value={value}
+      onChange={(_, val) => setValue(val)}
+      isReset
+    />
+  );
+};
+```
+
+<Unstyled>
+  <SliderExampleReset />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <SlidersExample />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Property         | Type                                            | Default      | Required | Description                        |
+| ---------------- | ----------------------------------------------- | ------------ | -------- | ---------------------------------- |
+| direction        | `horizontal`, `vertical`                        | `horizontal` | -        | Slider orientation                 |
+| isDisabled       | `boolean`                                       | `false`      | -        | Disables the component             |
+| value            | `TSliderValue<Range>`                           | -            | ✔       | Current value                      |
+| isDisabled       | `boolean`                                       | `false`      | -        | Disables the field                 |
+| onChange         | `TOnChangeSlider<Range>`                        | -            | ✔       | Handles value changes              |
+| className        | `string`                                        | -            | -        | Additional CSS class               |
+| status           | `info`, `error`, `warning`, `success`           | -            | -        | Visual status                      |
+| width            | `string`                                        | 100%         | -        | Component width                    |
+| height           | `string`                                        | -            | -        | Component height                   |
+| size             | `m`, `s`                                        | `m`          | -        | Component size                     |
+| step             | `number` <code>&#124;</code> `[number, number]` | 1            | -        | Step interval or selectable values |
+| isRange          | `boolean`                                       | `false`      | -        | Enables range selection            |
+| isTooltip        | `boolean`                                       | `true`       | -        | Shows value tooltips               |
+| tooltipFormatter | `TSliderTooltipFormatter`                       | -            | -        | Formats tooltip text               |
+| min              | `number`                                        | 0            | -        | Minimum value                      |
+| max              | `number`                                        | 100          | -        | Maximum value                      |
+| leadText         | `string`                                        | -            | -        | Leading text                       |
+| trailText        | `string`                                        | -            | -        | Trailing text                      |
+| defaultValue     | `TSliderValue<Range>`                           | 0            | -        | Reset value                        |
+| isReset          | `boolean`                                       | `false`      | -        | Shows the reset control            |
+
+:::
+
+:::div
+
+```ts
+export type TSliderValue<Range> = Range extends true
+  ? [number, number]
+  : number;
+```
+
+:::
+
+:::div
+
+```ts
+export type TOnChangeSlider<Range> = (
+  event: Event | TouchEvent | MouseEvent | KeyboardEvent | ChangeEvent | null,
+  value: TSliderValue<Range>
+) => void;
+```
+
+:::
+
+:::div
+
+```ts
+export type TSliderTooltipFormatter = (value: number | undefined) => string;
+```
+
+:::

@@ -1,0 +1,178 @@
+import ProgressBarExamples from "./examples";
+import ProgressBar from "../";
+
+:::div{.notshown}
+
+# ProgressBar
+
+A progress indicator shows that an element is loading or that a process consists of multiple steps.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Variants](#variants)
+- [Progress](#progress)
+- [Label](#label)
+- [Size](#size)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { ProgressBar } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<ProgressBarExamples />
+:::
+
+:::div
+
+## Usage
+
+<ProgressBar progress={20} variant="info" label="Info label" type="Linear" />
+
+```tsx
+import React from "react";
+import { ProgressBar } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => (
+  <ProgressBar progress={20} variant="info" label="Info label" type="Linear" />
+);
+```
+
+:::
+
+:::div
+
+## Variants
+
+Use variants to emphasize success, warning, or error states.
+
+```tsx
+ <ProgressBar progress={20} variant="info" />
+ <ProgressBar progress={30} variant="success" />
+ <ProgressBar progress={40} variant="warning" />
+ <ProgressBar progress={50} variant="error" />
+```
+
+<ProgressBar progress={20} variant="info" />
+<br />
+<ProgressBar progress={30} variant="success" />
+<br />
+<ProgressBar progress={40} variant="warning" />
+<br />
+<ProgressBar progress={50} variant="error" />
+:::
+
+:::div
+
+## Progress
+
+Set the current progress with `progress`.
+
+```tsx
+<ProgressBar progress={80} variant="info" />
+```
+
+<ProgressBar progress={80} variant="info" />
+
+Set `type="LinearSectioned"` to show progress in 20% segments.
+
+```tsx
+<ProgressBar progress={47} variant="info" type="LinearSectioned" />
+```
+
+<ProgressBar progress={47} variant="info" type="LinearSectioned" />
+:::
+
+:::div
+
+## Label
+
+Use `label` to display text below the progress indicator.
+
+```tsx
+<ProgressBar
+  progress={80}
+  variant="error"
+  label="An error occurred while loading"
+/>
+```
+
+<ProgressBar
+  progress={80}
+  variant="error"
+  label="An error occurred while loading"
+/>
+:::
+
+:::div
+
+## Size
+
+`ProgressBar` supports `s` and `m` sizes through `size`; the default is `s`. With size `m`, set `isText` to display the percentage.
+
+```tsx
+ <ProgressBar
+    progress={20}
+    size="m"
+    isText
+    variant="info"
+    label="Info label"
+    type="Linear"
+ />
+
+ <ProgressBar
+    progress={20}
+    size="m"
+    variant="info"
+    label="Info label"
+    type="Linear"
+    isText
+  />
+```
+
+<ProgressBar
+  progress={80}
+  variant="info"
+  size="m"
+  label="Info label"
+  type="Linear"
+/>
+<ProgressBar
+  progress={80}
+  isText
+  variant="info"
+  size="m"
+  label="Info label"
+  type="Linear"
+/>
+:::
+
+:::div
+
+## Props
+
+| Property | Type                          | Default | Required | Description                                                                       |
+| -------- | ----------------------------- | ------- | -------- | --------------------------------------------------------------------------------- |
+| progress | number                        | 0       | ✓        | Progress percentage.                                                              |
+| variant  | Info, Success, Warning, Error | Info    | ✓        | ProgressBar variant that changes its color palette.                               |
+| type     | Linear, LinearSectioned       | Linear  | ✓        | Progress fill type. `Linear` is continuous; `LinearSectioned` uses 20% segments.  |
+| label    | string                        | -       | -        | Text below the ProgressBar. When set, it shows the icon for the selected variant. |
+| size     | s \| m                        | s       | -        | Changes the component size                                                        |
+| isText   | boolean                       | -       | -        | Displays the percentage for a size `m` ProgressBar                                |
+
+:::

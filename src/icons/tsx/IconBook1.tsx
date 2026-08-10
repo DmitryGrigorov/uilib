@@ -1,0 +1,44 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconBook1 = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M6.25 2.5C5.2835 2.5 4.5 3.2835 4.5 4.25C4.5 5.2165 5.2835 6 6.25 6H15.75C18.3734 6 20.5 8.12665 20.5 10.75V21.75C20.5 22.1642 20.1642 22.5 19.75 22.5C19.3358 22.5 19 22.1642 19 21.75V10.75C19 8.95507 17.5449 7.5 15.75 7.5H6.25C4.45507 7.5 3 6.04493 3 4.25C3 2.45507 4.45507 1 6.25 1H16.75C18.8211 1 20.5 2.67893 20.5 4.75C20.5 5.16421 20.1642 5.5 19.75 5.5C19.3358 5.5 19 5.16421 19 4.75C19 3.50736 17.9926 2.5 16.75 2.5H6.25Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3.75 4C4.16421 4 4.5 4.33579 4.5 4.75V17.75C4.5 19.5449 5.95507 21 7.75 21H19.75C20.1642 21 20.5 21.3358 20.5 21.75C20.5 22.1642 20.1642 22.5 19.75 22.5H7.75C5.12665 22.5 3 20.3734 3 17.75V4.75C3 4.33579 3.33579 4 3.75 4Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 11.75C7 11.3358 7.33579 11 7.75 11H16.75C17.1642 11 17.5 11.3358 17.5 11.75C17.5 12.1642 17.1642 12.5 16.75 12.5H7.75C7.33579 12.5 7 12.1642 7 11.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 15.75C7 15.3358 7.33579 15 7.75 15H12.75C13.1642 15 13.5 15.3358 13.5 15.75C13.5 16.1642 13.1642 16.5 12.75 16.5H7.75C7.33579 16.5 7 16.1642 7 15.75Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconBook1;

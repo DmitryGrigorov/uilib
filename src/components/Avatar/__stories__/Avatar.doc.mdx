@@ -1,0 +1,149 @@
+import { AvatarExamples } from "./examples";
+import {
+  AvatarExampleStatus,
+  AvatarExampleSize,
+  AvatarExampleUser,
+  AvatarClick
+} from "./examples/AvatarExamples";
+
+:::div{.notshown}
+
+# Avatar
+
+Avatar represents a user profile. Use it independently or as part of a larger account, list, or navigation pattern.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Appearance](#appearance)
+- [Size](#size)
+- [Status](#status)
+- [Interaction](#interaction)
+- [User data](#user-data)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { Avatar } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Usage
+
+```tsx
+const Example = () => <Avatar status="online" text="AC" />;
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<AvatarExamples />
+
+:::
+
+:::div
+
+## Size
+
+Use `size` to change the avatar dimensions.
+
+```tsx
+<Avatar status="online" text="AC" size="xl" />
+<Avatar status="online" text="AC" size="l" />
+<Avatar status="online" text="AC" size="m" />
+<Avatar status="online" text="AC" size="s" />
+<Avatar status="online" text="AC" size="xs" />
+```
+
+<AvatarExampleSize />
+
+### TAvatarSize
+
+Available sizes: `xl`, `l`, `m`, `s`, `xs`.
+
+:::
+
+:::div
+
+## Status
+
+Use `status` to communicate availability or account state.
+
+```tsx
+<Avatar status="online" size="xl" text="AC" />
+<Avatar status="offline" size="xl" text="AC" />
+<Avatar status="busy" size="xl" text="AC" />
+<Avatar status="disabled" size="xl" text="AC" />
+```
+
+<AvatarExampleStatus />
+
+### TAvatarStatus
+
+Available values: `online`, `offline`, `busy`, `disabled`.
+
+:::
+
+:::div
+
+## Interaction
+
+Add `onClick` to make the avatar interactive. Interactive avatars also receive hover feedback.
+
+```tsx
+<Avatar status="online" size="xl" icon={<IconUser />} onClick={() => null} />
+```
+
+<AvatarClick size="xl" />
+
+:::
+
+:::div
+
+## User data
+
+Use `text` for initials or `image` for a profile image.
+
+```tsx
+<Avatar status="online" size="xl" text="AC" />
+<Avatar status="online" size="xl" image="/avatar.svg" />
+```
+
+<AvatarExampleUser />
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| className | `string` | — | No | Additional CSS class |
+| isDisabled | `boolean` | — | No | Disables the avatar |
+| onClick | `MouseEventHandler<HTMLButtonElement>` | — | No | Click handler |
+| image | `string` | — | No | Profile-image path |
+| text | `string` | — | No | Initials shown instead of an image |
+| icon | `React.ElementType` | — | No | Icon shown instead of an image |
+| hoverIcon | `React.ElementType` | `IconEdit2` | No | Icon shown on hover |
+| disabledIcon | `React.ElementType` | `IconForbidden1` | No | Icon shown when disabled |
+| status | `TAvatarStatus` | — | No | Availability status |
+| size | `TAvatarSize` | `xl` | No | Component size |
+
+:::

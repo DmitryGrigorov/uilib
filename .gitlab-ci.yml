@@ -1,0 +1,159 @@
+image: node:18.16.0-buster
+
+workflow:
+    rules:
+        - if: $CI_COMMIT_REF_NAME == "dev"
+          variables:
+            DEPLOY_TO:  "10.0.1.19"
+            COMPOSE_PATH: "/home/ubuntu/projects/storybook"
+            SERVICE: "ui-lib"
+        - if: '$CI_COMMIT_BRANCH && $CI_PIPELINE_SOURCE == "push" && $CI_OPEN_MERGE_REQUESTS'
+          when: never
+        - when: always
+
+stages:
+    - install
+    - lint
+    - test
+    - build
+    - docker
+    - deploy
+    - release
+    - prerelease
+    - unpublish
+
+variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    PACKAGE_NAME:
+        value: "components"
+        options:
+            - "components"
+            - "table"
+            - "icons"
+            - "icons-vue"
+            - "dotfiles"
+        description: "Select prefix package"
+    PACKAGE_VERSION:
+        description: "The package version for unpublish"
+
+#----------------------- Deploy ----------------------
+
+
+#----------------------- Cache -----------------------
+
+cache:
+    untracked: true
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        - node_modules/
+        - storybook-static/
+
+#----------------------- Install packages ----------------
+
+install:
+    stage: install
+    script:
+        - npm set registry http://10.0.0.10:4873/
+        - npm config set strict-ssl false
+        - npm install
+
+
+#----------------------- Build ---------------------------
+
+build:
+    stage: build
+    dependencies:
+        - test
+    script:
+        - npm run build
+        - npm run site:build
+
+#----------------------- Lint ----------------------------
+
+lint:
+    stage: lint
+    script:
+        - npm run lint
+        - npm run tsc:check
+
+#-----------------------Test----------------------------
+
+test:
+    stage: test
+    before_script:
+        - apt-get update
+        - apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2
+            libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4
+            libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0
+            libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1
+            libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1
+            libxss1 libxtst6 ca-certificates fonts-liberation libnss3 lsb-release
+            xdg-utils wget libgbm1
+        - node node_modules/puppeteer/install.js
+    script:
+        - npm run test
+    only:
+        - merge_requests
+        - dev
+#----------------------- Deploy -----------------------
+
+docker:
+    stage: docker
+    image: docker:latest
+    before_script:
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    script:
+        - docker build -t $IMAGE_TAG .
+        - docker push $IMAGE_TAG
+    only:
+        refs:
+            - dev
+
+
+#---------------------------Release---------------------
+release:
+    stage: release
+    when: manual
+    only:
+        refs:
+            - dev
+            - /^(([0-9]+)\.)?([0-9]+)\.x/
+    before_script:
+        - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+        - make build_components
+        - make build_icons
+        - make build_table
+    script:
+        - npm run semantic-release
+
+
+#---------------------------PreRelease---------------------
+prerelease:
+    stage: prerelease
+    when: manual
+    variables:
+        RELEASE_NO_CI: "true"
+        BRANCH_NAME: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+    rules:
+        - if: $CI_OPEN_MERGE_REQUESTS
+    before_script:
+        - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+        - make build_components
+        - make build_icons
+        - make build_table
+    script:
+        - npm run semantic-release
+
+#-----------------------Unpublish prelease version--------------------
+unpublish:
+    stage: unpublish
+    when: manual
+    variables:
+        RELEASE_NO_CI: "true"
+        BRANCH_NAME: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+    rules:
+        - if: $CI_OPEN_MERGE_REQUESTS
+    before_script:
+        - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+    script:
+        - npm unpublish @quark-uilib/$PACKAGE_NAME@$PACKAGE_VERSION

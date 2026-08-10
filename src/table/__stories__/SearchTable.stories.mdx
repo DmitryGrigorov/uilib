@@ -1,0 +1,114 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TableSearch,
+  TableSearchWithValueGetter
+} from "./examples/TableSearch";
+
+<Meta title="Tables/Global table search" />
+
+# Global table search
+
+## Usage
+
+To enable search, set `isSearch` and choose its location by passing `header` or `footer` to `positionSearch`.
+
+```tsx
+export const TableSearch: React.FC = () => {
+  const columns = useMemo(
+    () => [
+      {
+        field: "postId"
+      },
+      {
+        field: "id"
+      },
+      {
+        field: "name"
+      },
+      {
+        field: "email"
+      }
+    ],
+    []
+  );
+
+  const [comments, setComments] = useState<any[]>([]);
+
+  const loadData = async (): Promise<void> => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/comments"
+    );
+    const data = (await response.json()) as any[];
+    setComments(data);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  return (
+    <Table
+      paginationPageSize={10}
+      title="Title"
+      isPagination
+      isSearch
+      positionSearch="footer"
+      columns={columns}
+      rowData={comments}
+      size="m"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <TableSearch />
+</Unstyled>
+
+Pass a string to `search` to provide an **initial search value** and control search externally.
+
+```tsx
+ <Table
+  paginationPageSize={10}
+  title="Title"
+  isPagination
+  isSearch
+  positionSearch="footer"
+  columns={columns}
+  rowData={comments}
+  size="m"
+  search="initial search value"
+>
+```
+
+<Unstyled>
+  <TableSearch search="initial search value" />
+</Unstyled>
+
+## Building the searchable value
+
+Column values are converted to strings and compared with the query. When a value cannot be meaningfully converted to a string, provide a `valueGetter` in the column definition. The query is then compared with the value returned by `valueGetter`.
+
+<Unstyled>
+  <TableSearchWithValueGetter />
+</Unstyled>
+
+## Available properties
+
+| Property          | Type                                   | Description                                  |
+| ----------------- | -------------------------------------- | -------------------------------------------- |
+| isSearch          | `boolean`                              | Whether global search is displayed           |
+| positionSearch    | `header` - `footer`                    | Where the search field is displayed          |
+| search            | `string`                               | Initial search value                         |
+| onSearch          | `(params: ITableSearchParams) => void` | Callback fired when the search value changes |
+| placeholderSearch | `string`                               | Search-field placeholder                     |
+
+## Additional types
+
+```tsx
+export interface ITableSearchParams {
+  value: string;
+  field?: string;
+}
+```

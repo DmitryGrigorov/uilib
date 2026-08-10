@@ -1,0 +1,157 @@
+# Critical Error
+
+A critical-error page is shown when the user cannot access the application.
+
+- [Description](#description)
+- [Markup imports](#markup-imports)
+- [Page markup](#page-markup)
+- [Style imports](#style-imports)
+- [Page styles](#page-styles)
+
+## Description
+
+This template contains a responsive application-error page. It has two main areas: a body with the error details and a footer with recovery actions. The footer can contain buttons, links, or supporting media. The layout adapts to the available viewport size.
+
+### Markup imports
+
+```tsx
+import React from "react";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+import H from "../typography/H";
+import P2 from "../typography/P2";
+import { LIGHT_COLORS } from "../Pallette/Colors";
+import Button from "../Button";
+import { Body, ActionsAccess, Footer, ErrorPageMain } from "./style";
+```
+
+### Page markup
+
+```tsx
+<ErrorPageMain>
+  <Body className="body">
+    <div className="text-container">
+      <div className="header-text-container">
+        <H type="cancer" fontFamily="Neue Machina" as="div">
+          System
+        </H>
+        <H
+          type="cancer"
+          fontFamily="Neue Machina"
+          color={LIGHT_COLORS.cyan2}
+          as="div">
+          is temporarily ^-^
+        </H>
+        <H type="cancer" fontFamily="Neue Machina" as="div">
+          unavailable
+        </H>
+      </div>
+
+      <div className="error-code-container">
+        <H
+          type="libra"
+          fontFamily="Onest"
+          className="text-of-error"
+          as="span">
+          Error:
+        </H>{" "}
+        <H
+          type="libra"
+          fontFamily="Neue Machina"
+          className="error-code"
+          color={LIGHT_COLORS.blue2}
+          as="span">
+          503
+        </H>
+      </div>
+
+      <div className="solving-problem-text">
+        We are already working to resolve the issue.
+      </div>
+
+      <H
+        type="capricornus"
+        fontFamily="Onest"
+        className="error-description-header"
+        color={LIGHT_COLORS.cyan1}
+        as="div">
+        More about this error
+      </H>
+
+      <div className="error-description">
+        A 503 response means the server is not ready to process the request.
+        This often happens during maintenance or while the service is
+        overloaded. The system should return to normal soon; try reloading the
+        page again later.
+      </div>
+    </div>
+  </Body>
+
+  <Footer className="footer">
+    <ActionsAccess className="actions-access">
+      <P2 type="corvus" size={16} color={LIGHT_COLORS.cyan3}>
+        You can:
+      </P2>
+      <Button
+        width="100%"
+        icon={<IconSetting1 />}
+        id="button-reload"
+        onClick={() => location.reload()}>
+        Reload the page
+      </Button>
+    </ActionsAccess>
+  </Footer>
+</ErrorPageMain>
+```
+
+### Style imports
+
+```tsx
+import styled from "styled-components";
+import { LIGHT_THEME } from "../Pallette/themes";
+import { LIGHT_COLORS } from "../Pallette/Colors";
+```
+
+### Page styles
+
+```tsx
+export const ErrorPageMain = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.neutral1};
+`;
+
+export const Body = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 40px 20px;
+`;
+
+export const ActionsAccess = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 586px;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: ${LIGHT_COLORS.neutral1};
+`;
+```

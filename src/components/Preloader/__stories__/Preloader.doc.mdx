@@ -1,0 +1,151 @@
+import PreloaderExamples from "./examples";
+import Preloader from "../";
+
+:::div{.notshown}
+
+# Preloader
+
+A preloader indicates that an element is loading.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Label](#label)
+- [Displaying progress](#displaying-progress)
+- [Types](#types)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Preloader } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<PreloaderExamples />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React from "react";
+import { Preloader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => <Preloader progress={20} />;
+```
+
+:::
+
+:::div
+
+## Label
+
+Set `type="loading"` to replace the spinning icon with text passed as `children`.
+
+```tsx
+import React from "react";
+import { Preloader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => (
+  <Preloader progress={20} type="loading">
+    Loading...
+  </Preloader>
+);
+```
+
+<Preloader progress={20} type="loading">
+  Loading...
+</Preloader>
+:::
+
+:::div
+
+## Displaying progress
+
+Use `progress` to show how close the process is to completion as a percentage.
+
+```tsx
+import React from "react";
+import { Preloader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => <Preloader progress={20} type="star" />;
+```
+
+<Preloader progress={20} type="star" />
+<br />
+<br />
+
+Set `isShowLabel` to display a text label with the progress bar.
+
+```tsx
+import React from "react";
+import { Preloader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => (
+  <Preloader progress={20} type="star" isShowLabel />
+);
+```
+
+<br />
+<br />
+
+<Preloader progress={20} type="star" isShowLabel />
+
+Omit `progress` when no progress bar is needed.
+
+```tsx
+import React from "react";
+import { Preloader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => <Preloader type="star" />;
+```
+
+<Preloader type="star" />
+:::
+
+:::div
+
+## Types
+
+Use `type` to select a Preloader variant.
+
+```tsx
+<Preloader progress={20} type="star" />
+<Preloader progress={20} type="circular" />
+<Preloader progress={20} type="loading">Loading</Preloader>
+```
+
+<Preloader progress={20} type="star" />
+<Preloader progress={20} type="circular" />
+<Preloader progress={20} type="loading">
+  Loading
+</Preloader>
+:::
+
+:::div
+
+## Props
+
+| Property    | Type                          | Default  | Required | Description                                                          |
+| ----------- | ----------------------------- | -------- | -------- | -------------------------------------------------------------------- |
+| progress    | number                        | 0        | -        | Progress percentage.                                                 |
+| type        | `star`, `circular`, `loading` | circular | -        | Preloader type, which selects the primary icon or loading animation. |
+| width       | string                        | -        | -        | Component width                                                      |
+| height      | string                        | -        | -        | Component height                                                     |
+| isShowLabel | boolean                       | false    | -        | Whether to show the progress label.                                  |
+
+:::

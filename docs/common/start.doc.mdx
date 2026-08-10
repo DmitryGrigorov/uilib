@@ -1,0 +1,29 @@
+# Quick start
+
+### Install the package
+
+`npm i @dmitrygrigorov/components` or `yarn add @dmitrygrigorov/components`
+
+### Include styles and fonts
+
+Choose either of the following ways to include the styles.
+
+#### Import from the application root
+
+```tsx
+import React from "react";
+import { Button } from "@dmitrygrigorov/components";
+import "@dmitrygrigorov/components/styles/index.css";
+
+const App: React.FC = () => (
+  <div>
+    <Button viewType="primary">Button</Button>
+  </div>
+);
+```
+
+#### Import from a stylesheet
+
+```css
+@import "~@dmitrygrigorov/components/styles/index.css";
+```

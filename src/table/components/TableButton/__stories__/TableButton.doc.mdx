@@ -1,0 +1,95 @@
+import { TableButtonExamples } from "./examples";
+import {
+  TableButtonTextIconDefault,
+  TableButtonTextIconS
+} from "./examples/TableButtonExamples";
+import { TableButtonIconDefault } from "./examples/TableButtonExamples";
+
+# TableButton
+
+TableButton lets users perform actions on a table.
+
+## Navigation
+
+- [Usage](#usage)
+- [Adding icons](#adding-icons)
+- [Changing the size](#changing-the-size)
+- [Properties](#properties)
+
+## Preview
+
+<TableButtonExamples />
+
+## Usage
+
+<TableButtonIconDefault />
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { TableButton } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return <TableButton onClick={handleClick}>P1-s</TableButton>;
+};
+```
+
+## Adding icons
+
+Pass an icon through the `icon` prop. You can use an icon from `@dmitrygrigorov/icons` or provide a custom icon.
+
+<TableButtonTextIconDefault />
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { TableButton } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  return (
+    <TableButton icon={IconSetting1} onClick={handleClick}>
+      P1-s
+    </TableButton>
+  );
+};
+```
+
+## Changing the size
+
+Use the `size` prop to control the button size.
+
+<TableButtonTextIconS />
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { TableButton } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  return (
+    <TableButton icon={IconSetting1} size="s" onClick={handleClick}>
+      P1-s
+    </TableButton>
+  );
+};
+```
+
+### Size
+
+Available values:
+`s`, `xs`
+
+## Properties
+
+| Parameter  | Type                                                  | Default | Required | Description                   |
+| ---------- | ----------------------------------------------------- | ------- | -------- | ----------------------------- |
+| children   | `string`                                              | -       | -        | Button text                   |
+| icon       | `JSX.Element`                                         | -       | -        | Icon                          |
+| href       | `string`                                              | -       |          |                               |
+| size       | [`TSize`](#size)                                      | `s`     | -        | Element size                  |
+| isDisabled | `boolean`                                             | `false` | -        | Disables the button           |
+| className  | `string`                                              | -       | -        | `class` attribute value       |
+| isPressed  | `boolean`                                             | -       | -        | Whether the button is pressed |
+| onClick    | `(event: React.FormEvent<HTMLButtonElement>) => void` | -       | -        | Click handler                 |

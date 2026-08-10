@@ -1,0 +1,40 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconMenuStairsClassic = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M9.25 7C9.25 6.58579 9.58579 6.25 10 6.25H22C22.4142 6.25 22.75 6.58579 22.75 7C22.75 7.41421 22.4142 7.75 22 7.75H10C9.58579 7.75 9.25 7.41421 9.25 7Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M5.25 12C5.25 11.5858 5.58579 11.25 6 11.25H18C18.4142 11.25 18.75 11.5858 18.75 12C18.75 12.4142 18.4142 12.75 18 12.75H6C5.58579 12.75 5.25 12.4142 5.25 12Z"
+          fill="currentColor"
+        />
+        <path
+          d="M4.5 17C4.5 16.5858 4.16421 16.25 3.75 16.25H2C1.58579 16.25 1.25 16.5858 1.25 17C1.25 17.4142 1.58579 17.75 2 17.75H3.75C4.16421 17.75 4.5 17.4142 4.5 17Z"
+          fill="currentColor"
+        />
+        <path
+          d="M6 17C6 17.4142 6.33579 17.75 6.75 17.75H14C14.4142 17.75 14.75 17.4142 14.75 17C14.75 16.5858 14.4142 16.25 14 16.25H6.75C6.33579 16.25 6 16.5858 6 17Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconMenuStairsClassic;

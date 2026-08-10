@@ -1,0 +1,217 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { SkeletonExamples } from "./examples";
+import {
+  SkeletonDemoExample,
+  SkeletonCircleExample,
+  SkeletonRectangleExample,
+  SkeletonTextExample,
+  SkeletonTextWidthHeaderExample,
+  SkeletonSmallTextExample,
+  SkeletonSmallTextHeaderExample,
+  SkeletonTabExample,
+  SkeletonTagExample,
+  SkeletonListExample
+} from "./examples/SkeletonExamples";
+
+:::div{.notshown}
+
+# Skeleton
+
+Skeleton placeholders form a preview of the page and are replaced by content as the interface loads.
+:::
+
+:::div
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Variants](#variants)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Skeleton } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<SkeletonExamples />
+:::
+
+:::div
+
+## Usage
+
+To use `Skeleton`, pass an available type such as `rectangle` to `type`, then set its dimensions with `width` and `height`.
+
+**Each `Skeleton` type is described in more detail under [Variants](#variants).**
+
+```tsx
+import React from "react";
+import styled from "styled-components";
+import { Skeleton } from "@dmitrygrigorov/components";
+
+const SkeletonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+`;
+
+const SkeletonDemoExample: React.FC = () => (
+  <SkeletonWrapper>
+    <Skeleton type="smallText" width={210} rows={2} />
+    <Skeleton type="circle" diameter={40} />
+    <Skeleton type="rectangle" width={210} height={60} />
+    <Skeleton type="rectangle" width={210} height={60} />
+  </SkeletonWrapper>
+);
+```
+
+<Unstyled>
+  <SkeletonDemoExample />
+</Unstyled>
+
+<br />
+
+:::div
+
+## Variants
+
+`Skeleton` supports `rectangle` \| `circle` \| `text` \| `list` \| `smallText` \| `tab` \| `tag`. Each type has its own properties. The variants fall into two groups: [Basic variants](#basic-variants) and [Composed variants](#composed-variants).
+
+### Basic variants
+
+`Skeleton` has two basic types: `rectangle` and `circle`. Other variants are composed from them.
+
+Set a `rectangle` variant's dimensions with `height` and `width`. <br/>
+Set a `circle` variant's size with `diameter`.
+
+```tsx
+<Skeleton type="rectangle" height={30} width={800} />
+<Skeleton type="circle" diameter={80} />
+```
+
+<Unstyled>
+  <SkeletonRectangleExample />
+</Unstyled>
+
+<Unstyled>
+  <SkeletonCircleExample />
+</Unstyled>
+
+<br />
+
+### Composed variants
+
+`list` \| `text` \| `smallText` \| `tab` \| `tag` are composed variants built from `rectangle` and `circle`.
+
+For `text` and `smallText`, set the width with `width`, the number of rows with `rows`, and enable `isHeader` to display a heading.<br/>
+
+#### Text
+
+```tsx
+<Skeleton type="text" rows={3} width={800} />
+<Skeleton type="text" rows={4} width={800} isHeader />
+```
+
+<Unstyled>
+  <SkeletonTextExample />
+</Unstyled>
+<Unstyled>
+  <SkeletonTextWidthHeaderExample />
+</Unstyled>
+
+#### SmallText
+
+```tsx
+<Skeleton type="smallText" rows={3} width={800} />
+<Skeleton type="smallText" rows={2} width={800} isHeader />
+```
+
+<Unstyled>
+  <SkeletonSmallTextExample />
+</Unstyled>
+<Unstyled>
+  <SkeletonSmallTextHeaderExample />
+</Unstyled>
+
+For `tab` and `tag`, set the width with `width` and the number of items with `count`.<br/>
+
+#### Tab
+
+<Unstyled>
+  <SkeletonTabExample />
+</Unstyled>
+
+#### Tag
+
+<Unstyled>
+  <SkeletonTagExample />
+</Unstyled>
+
+For `list`, set the number of rows with `count`.
+
+#### List
+
+<Unstyled>
+  <SkeletonListExample />
+</Unstyled>
+:::
+
+<br />
+
+## Props
+
+### Type Rectangle
+
+| Property  | Type                 | Default     | Required | Description      |
+| --------- | -------------------- | ----------- | -------- | ---------------- |
+| type      | `TSkeletonType`      | `rectangel` | ✓        | Skeleton type    |
+| width     | `string` \| `number` | `100%`      | -        | Component width  |
+| height    | `string` \| `number` | -           | ✓        | Component height |
+| className | `string`             | `string`    | -        | Component class  |
+
+### Type Circle
+
+| Property  | Type                 | Default  | Required | Description        |
+| --------- | -------------------- | -------- | -------- | ------------------ |
+| type      | `TSkeletonType`      | `circle` | ✓        | Skeleton type      |
+| diameter  | `string` \| `number` | -        | ✓        | Component diameter |
+| className | `string`             | `string` | -        | Component class    |
+
+### Text & SmallText
+
+| Property  | Type                 | Default               | Required | Description        |
+| --------- | -------------------- | --------------------- | -------- | ------------------ |
+| type      | `TSkeletonType`      | `text` \| `smallText` | ✓        | Skeleton type      |
+| rows      | `number`             | -                     | ✓        | Number of rows     |
+| width     | `string` \| `number` | `100%`                | -        | Component width    |
+| isHeader  | `string` \| `number` | -                     | -        | Displays a heading |
+| className | `string`             | `string`              | -        | Component class    |
+
+### Tab & Tag
+
+| Property  | Type                 | Default        | Required | Description     |
+| --------- | -------------------- | -------------- | -------- | --------------- |
+| type      | `TSkeletonType`      | `tab` \| `tag` | ✓        | Skeleton type   |
+| width     | `string` \| `number` | `100%`         | -        | Component width |
+| count     | `number`             | -              | ✓        | Number of items |
+| className | `string`             | `string`       | -        | Component class |
+
+### List
+
+| Property  | Type                 | Default  | Required | Description     |
+| --------- | -------------------- | -------- | -------- | --------------- |
+| type      | `TSkeletonType`      | `list`   | ✓        | Skeleton type   |
+| width     | `string` \| `number` | `100%`   | -        | Component width |
+| rows      | `string` \| `number` | -        | ✓        | Number of rows  |
+| className | `string`             | `string` | -        | Component class |

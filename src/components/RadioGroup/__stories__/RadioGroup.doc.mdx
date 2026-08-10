@@ -1,0 +1,225 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+import {
+  RadioGroupStatusError,
+  RadioGroupStatusWarning,
+  RadioGroupStatusSuccess
+} from "./examples/RadioGroupStatus";
+import RadioGroupDisabled from "./examples/RadioGroupDisabled";
+import RadioGroupOptions from "./examples/RadioGroupOptions";
+import RadioGroupExample from "./examples";
+
+:::div{.notshown}
+
+# RadioGroup
+
+A group of radio buttons with one `name`, allowing the user to select one option.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Content](#content)
+- [Disabled option](#disabled-option)
+- [Disabled group](#disabled-group)
+- [Status](#status)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { RadioGroup } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <RadioGroupExample />
+</Unstyled>
+
+:::
+
+:::div
+
+## Content
+
+Describe group items in `options`, or pass [RadioButton](?path=/docs/components-radiobutton--default) components as children. Each option accepts `value`, `label`, and optional `isDisabled`.
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two", isDisabled: true }
+];
+
+<RadioGroup value={null} options={OPTIONS} />;
+```
+
+```tsx
+<RadioGroup value={null}>
+  <RadioButton label="one" value="one" />
+  <RadioButton label="two" value="two" isDisabled />
+</RadioGroup>
+```
+
+:::
+
+:::div
+
+## Disabled option
+
+Set `isDisabled` on an item in `options` to prevent that option from being selected.
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two", isDisabled: true },
+  { value: "three", label: "three" }
+];
+
+<RadioGroup value="one" options={OPTIONS} />;
+```
+
+<Unstyled>
+  <RadioGroupOptions />
+</Unstyled>
+
+:::
+
+:::div
+
+## Disabled group
+
+Set `isDisabled` to disable the entire group.
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two" },
+  { value: "three", label: "three" }
+];
+
+<RadioGroup value="one" options={OPTIONS} isDisabled />;
+```
+
+<Unstyled>
+  <RadioGroupDisabled />
+</Unstyled>
+
+:::
+
+:::div
+
+## Status
+
+Use `status` to emphasize the group with `error`, `warning`, or `success` styling.
+
+### status="error"
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two", isDisabled: true },
+  { value: "three", label: "three" }
+];
+
+<RadioGroup
+  value="one"
+  status="error"
+  statusText="error label"
+  headerText="Error group"
+  options={OPTIONS}
+/>;
+```
+
+<Unstyled>
+  <RadioGroupStatusError />
+</Unstyled>
+
+### status="warning"
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two", isDisabled: true },
+  { value: "three", label: "three" }
+];
+
+<RadioGroup
+  value="one"
+  status="warning"
+  statusText="warning label"
+  headerText="Warning group"
+  options={OPTIONS}
+/>;
+```
+
+<Unstyled>
+  <RadioGroupStatusWarning />
+</Unstyled>
+
+### status="success"
+
+```tsx
+const OPTIONS = [
+  { value: "one", label: "one" },
+  { value: "two", label: "two", isDisabled: true },
+  { value: "three", label: "three" }
+];
+
+<RadioGroup
+  value="one"
+  status="success"
+  statusText="success label"
+  headerText="Success group"
+  options={OPTIONS}
+/>;
+```
+
+<Unstyled>
+  <RadioGroupStatusSuccess />
+</Unstyled>
+
+:::
+
+:::div
+
+## Props
+
+| Property        | Type                                                          | Default | Required | Description                                         |
+| --------------- | ------------------------------------------------------------- | ------- | -------- | --------------------------------------------------- |
+| value           | `string, number`                                              | -       | -        | Value                                               |
+| isDisabled      | `boolean`                                                     | -       | -        | Disables all radio buttons                          |
+| name            | `string`                                                      | -       | -        | Accessible `<input>` name                           |
+| onChange        | `(event: ChangeEvent<any>, value: string) => void; `          | -       | -        | Change callback                                     |
+| onClick         | `(event: MouseEvent<HTMLDivElement>, value: string) => void;` | -       | -        | Click handler                                       |
+| className       | `string`                                                      | -       | -        | Class name                                          |
+| classNameButton | `string`                                                      | -       | -        | Class used to style `RadioButton` from `RadioGroup` |
+| options         | `IRadioGroupOption[]`                                         | -       | -        | Radio-button data                                   |
+| children        | `IRadioGroupOption[]`                                         | -       | -        | RadioButton children                                |
+| status          | `default`, `error`, `warning`, `success`                      | -       | -        | Status styling                                      |
+| statusText      | `string`                                                      | -       | -        | Status text                                         |
+| headerText      | `string`                                                      | -       | -        | Group heading text                                  |
+
+:::
+
+:::div
+
+### IRadioGroupOption
+
+| Property   | Type                  | Default | Required | Description               |
+| ---------- | --------------------- | ------- | -------- | ------------------------- |
+| value      | `string, number`      | -       | -        | Value                     |
+| isDisabled | `boolean`             | -       | -        | Disables the radio button |
+| label      | `string, JSX.Element` | -       | -        | Button text               |
+
+:::

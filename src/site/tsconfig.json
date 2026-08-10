@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "../../build-site/",
+    "baseUrl": "../../",
+    "noEmit": false,
+    "jsx": "react",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.stories.tsx"
+  ]
+}

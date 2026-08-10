@@ -1,0 +1,55 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="hooks/useDebounce" id="useDebounce" />
+
+# useDebounce
+
+- [Description](#description)
+- [Import](#import)
+- [Types](#types)
+- [Usage](#usage)
+- [Properties](#properties)
+
+## Description
+The `useDebounce` hook delays a function when it is called repeatedly and runs only the latest invocation after the specified interval. For example, it can prevent a search handler from running after every keystroke and invoke it only after the user stops typing.
+
+## Import
+
+```tsx
+import { useDebounce } from "@dmitrygrigorov/components";
+```
+
+## Types
+
+```tsx
+type TUseDebounce = <T extends (...args: any) => void>(
+  func: T,
+  wait?: number
+) => (...args: Parameters<T>) => void;
+```
+
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { useDebounce } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  const [text, setText] = useState("");
+  const setTextDebounce = useDebounce(setText, 500);
+
+  return (
+    <input
+      onChange={(event) => setTextDebounce(event.target.value)}
+    />
+  )
+}
+```
+
+## Properties
+
+| Parameter | Type       | Default | Required | Description                                                    |
+|----------|------------|--------------|----------------|----------------------------------------------------------------------|
+| func     | `Function` | -       | ✓        | Function to invoke                                              |
+| wait     | `number`   | 0       | -        | Delay in milliseconds before the function is invoked            |
+

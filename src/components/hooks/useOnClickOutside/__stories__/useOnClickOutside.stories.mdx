@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="utils/useOnClickOutside" id="useOnClickOutside" />
+
+
+# useOnClickOutside
+
+- [Description](#description)
+- [Import](#import)
+- [Usage](#usage)
+- [Properties](#properties)
+
+
+
+## Description
+`useOnClickOutside` invokes a handler when the user clicks outside an element.
+
+## Import
+
+```tsx
+import { useOnClickOutside } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+```tsx
+import React, {
+  useRef,
+  useState
+} from "react";
+import { useOnClickOutside } from "@dmitrygrigorov/components"
+
+const Example = () => {
+  const [isComponentShown, setComponentShown] = useState<boolean>(false);
+
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  const componentHandler = (): void => {
+    setComponentShown(false);
+  };
+
+  useOnClickOutside(componentRef, componentHandler, isComponentShown);
+}
+
+```
+
+
+## Properties
+
+| Parameter | Type                              | Default | Required | Description                                  |
+|----------|-----------------------------------|--------------|----------------|--------------------------------------------------|
+| ref      | `React.RefObject<HTMLDivElement>` | -       | ✓        | Reference to the component                   |
+| handler  | `Func`                            | -       | -        | Function invoked after an outside click      |
+| isOpen   | `boolean`                         | -       | -        | Whether the component is currently visible   |

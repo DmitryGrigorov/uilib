@@ -1,0 +1,251 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { ButtonExamples } from "./examples";
+import {
+  ButtonTextPlusIconPrimary,
+  ButtonTextPlusIconSecondary,
+  ButtonTextPrimary,
+  ButtonTextPlusIconLink,
+  ButtonTextPlusIconGhost,
+  ButtonTextPrimaryS,
+  ButtonIcon,
+  ButtonBusy,
+  ButtonTextPlusIconPrimaryColor,
+  ButtonTextPlusIconSecondaryColor
+} from "./examples/ButtonExamples";
+
+:::div{.notshown}
+
+# Button
+
+Button lets users trigger an action or navigate to another destination.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Color](#color)
+- [Icons](#icons)
+- [Size](#size)
+- [View types](#view-types)
+- [Loading](#loading)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { Button } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <ButtonExamples />
+</Unstyled>
+
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <ButtonTextPrimary />
+</Unstyled>
+
+```tsx
+<Button viewType="primary" onClick={handleClick}>
+  Create project
+</Button>
+```
+
+:::
+
+:::div
+
+## Color
+
+Use `color` to change the semantic color of a primary or secondary button.
+
+### Primary
+
+Primary buttons support `red`, `green`, and `yellow`.
+
+<Unstyled>
+  <ButtonTextPlusIconPrimaryColor />
+</Unstyled>
+
+```tsx
+<Button icon={<IconSetting1 />} viewType="primary" color="red">
+  Delete project
+</Button>
+```
+
+### Secondary
+
+Secondary buttons support `gray`.
+
+<Unstyled>
+  <ButtonTextPlusIconSecondaryColor />
+</Unstyled>
+
+```tsx
+<Button icon={<IconSetting1 />} viewType="secondary" color="gray">
+  Settings
+</Button>
+```
+
+:::
+
+:::div
+
+## Icons
+
+Pass an icon through `icon`. Use `viewType="icon"` when the button should contain only an icon, and provide an accessible label.
+
+<Unstyled>
+  <ButtonTextPlusIconPrimary />
+</Unstyled>
+
+```tsx
+<Button icon={<IconSetting1 />} viewType="primary" onClick={handleClick}>
+  Settings
+</Button>
+```
+
+:::
+
+:::div
+
+## Size
+
+Use `size` to control button height. Width follows the content and standard horizontal padding unless `width` is provided.
+
+<Unstyled>
+  <ButtonTextPrimaryS />
+</Unstyled>
+
+```tsx
+<Button viewType="primary" size="s">
+  Compact action
+</Button>
+```
+
+### TButtonSize
+
+Available sizes: `l`, `m`, `s`, `xs`.
+
+:::
+
+:::div
+
+## View types
+
+Use `viewType` to express action hierarchy.
+
+### Primary
+
+Use the primary style for the most important action in a surface.
+
+<Unstyled>
+  <ButtonTextPlusIconPrimary />
+</Unstyled>
+
+### Secondary
+
+Use the secondary style for supporting actions.
+
+<Unstyled>
+  <ButtonTextPlusIconSecondary />
+</Unstyled>
+
+### Link
+
+Use the link style with `href` for navigation.
+
+<Unstyled>
+  <ButtonTextPlusIconLink />
+</Unstyled>
+
+```tsx
+<Button viewType="link" href="https://example.com">
+  View documentation
+</Button>
+```
+
+### Ghost
+
+Use the ghost style for low-emphasis actions.
+
+<Unstyled>
+  <ButtonTextPlusIconGhost />
+</Unstyled>
+
+### Icon
+
+<Unstyled>
+  <ButtonIcon />
+</Unstyled>
+
+```tsx
+<Button viewType="icon" icon={<IconSetting1 />} aria-label="Open settings" />
+```
+
+### TViewType
+
+Available values: `primary`, `secondary`, `ghost`, `link`, `icon`.
+
+:::
+
+:::div
+
+## Loading
+
+Use `isLoading` while an action is in progress. The button displays a loader and blocks additional interaction.
+
+<Unstyled>
+  <ButtonBusy />
+</Unstyled>
+
+```tsx
+<Button viewType="primary" isLoading>
+  Please wait…
+</Button>
+```
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| children | `React.ReactNode` | — | No | Button content |
+| icon | `JSX.Element` | — | No | Button icon |
+| viewType | [`TViewType`](#tviewtype) | — | Yes | Visual hierarchy |
+| size | [`TButtonSize`](#tbuttonsize) | `l` | No | Component size |
+| href | `string` | — | No | Destination for link buttons |
+| isDisabled | `boolean` | `false` | No | Disables interaction |
+| className | `string` | — | No | Additional CSS class |
+| onClick | `(event: React.MouseEvent<HTMLButtonElement>) => void` | — | No | Click handler |
+| color | `green` \| `yellow` \| `red` \| `gray` | — | No | Semantic button color |
+| isPressed | `boolean` | `false` | No | Pressed state |
+| isLoading | `boolean` | `false` | No | Shows a loader and blocks interaction |
+| target | `React.HTMLAttributeAnchorTarget` | — | No | Link browsing context |
+| width | `string` | — | No | Explicit width |
+| rel | `React.HTMLAttributeReferrerPolicy` | — | No | Relationship to the linked resource |
+
+:::

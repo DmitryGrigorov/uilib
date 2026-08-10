@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="styleUtils/Padding" id="Padding" />
+
+# Padding
+
+- [Description](#description)
+- [Import](#import)
+- [Available padding](#available-padding)
+- [Usage](#usage)
+
+## Description
+
+`Padding` sets a component's inner spacing for `styled-components`. It uses the `SUPER_PIXEL` constant (4px) as its spacing unit and accepts one to four arguments.
+
+## Import
+
+```tsx
+import { Padding } from "@dmitrygrigorov/components/Pallette/style-utils";
+```
+
+## Available padding
+
+`allSide` sets padding on all four sides.
+
+`top` sets the top padding.
+
+`bottom` sets the bottom padding.
+
+`left` sets the left padding.
+
+`right` sets the right padding.
+
+## Usage
+
+```tsx
+import { Padding } from "@dmitrygrigorov/components/Pallette/style-utils";
+import styled from "styled-components";
+export const ComponentStyled = styled.div`
+  ${Padding.allSide(2, 4)};
+  //
+  ${Padding.top(1)}
+  //
+  ${Padding.bottom(1)}
+  //
+  ${Padding.left(1)}
+  //
+  ${Padding.right(1)}
+`;
+```

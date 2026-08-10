@@ -1,0 +1,16 @@
+{
+  "extends": "./packages/dotfiles/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "sourceMap": false,
+    "skipLibCheck": false,
+    "types": ["react", "jest", "node"],
+    "paths": {
+      "@dmitrygrigorov/components": ["src/components"],
+      "@dmitrygrigorov/components/*": ["src/components/*"],
+      "@dmitrygrigorov/icons": ["src/icons"],
+      "@dmitrygrigorov/icons/*": ["src/icons/*"],
+      "@dmitrygrigorov/*": ["src/*"]
+    }
+  }
+}

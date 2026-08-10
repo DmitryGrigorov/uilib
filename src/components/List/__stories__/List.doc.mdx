@@ -1,0 +1,487 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { IconSetting1, IconInformation } from "@dmitrygrigorov/icons";
+import ListHeader from "../components/ListHeader";
+import ListItem from "../components/ListItem";
+import { ListExamples } from "./examples";
+import {
+  ListExampleBasic,
+  ListExampleBasicWithItemTrailIcon,
+  ListExampleBasicPressed,
+  ListExampleArrow,
+  ListExampleCollapse,
+  ListExampleBasicCheckBox,
+  ListExampleBasicRadio,
+  ListExampleBasicSwitch,
+  ListExampleBasicAvatar
+} from "./examples/ListExamples";
+
+# List
+
+A list is an interface element for presenting information.
+
+- [Import](#import)
+- [Usage](#usage)
+- [ListHeader](#listheader)
+- [Props](#props)
+
+## Import
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+List supports five presentations: basic, radio buttons, checkboxes, switches, and avatars. Omit the `header` prop to render a list without a heading.
+
+### Basic List
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const dataSource = [
+  {
+    label: "Item"
+  },
+  {
+    label: "Item2"
+  },
+  {
+    label: "Item3"
+  }
+];
+
+const Example = () => (
+  <List header={{ content: "Basic type" }} dataSource={dataSource} />
+);
+```
+
+Customize items with `trailIcon` and `leadIcon` in `dataSource`, or use `renderItem` for full control. The render function receives the corresponding `dataSource` item.
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const dataSource = [
+  {
+    label: "Item",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item2",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item3",
+    trailIcon: <IconSetting1 />
+  }
+];
+
+const Example = () => {
+  const renderItem = (item: IListItemDataSource) => {
+    return <div>{item.label}</div>;
+  };
+  return (
+    <List
+      header={{ content: "Basic type" }}
+      dataSource={dataSource}
+      renderItem={renderItem}
+    />
+  );
+};
+```
+
+Use `dataSource` for simple lists. For more complex layouts, pass list items as `List` children.
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const Example = () => {
+  return (
+    <List
+      header={{
+        content: "Basic type"
+      }}>
+      <List.ListItem>Item</List.ListItem>
+      <List.ListItem>Item2</List.ListItem>
+      <List.ListItem>Item3</List.ListItem>
+    </List>
+  );
+};
+```
+
+<Unstyled>
+  <ListExampleBasic />
+</Unstyled>
+
+### RadioButtons
+
+Use `List.ListRadioButtons` to create a radio-button list. Pass [`dataSource`](#ilistitemradiobuttondatasource-supports-ilistitemdatasource-props), and provide a required `value` for every item.
+Set `defaultValue` to one of the item values to select it initially.
+When an item is clicked, `onChange` receives the event and the selected `value`.
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const dataSource = [
+  {
+    label: "Item1",
+    value: "Item1",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item2",
+    value: "Item2",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item3",
+    value: "Item3",
+    trailIcon: <IconSetting1 />
+  }
+];
+
+const Example = () => {
+  const handleChange = (event, value) => {
+    console.log(value);
+  };
+
+  return (
+    <List.ListRadioButtons
+      dataSource={dataSource}
+      defaultValue="Item1"
+      onChange={handleChange}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <ListExampleBasicRadio />
+</Unstyled>
+
+### CheckBox
+
+Use `List.ListCheckBoxes` to create a checkbox list. Pass [`dataSource`](#ilistitemcheckboxdatasource-supports-ilistitemdatasource-props), and provide a required `value` for every item.
+Set `defaultValue` to an array of item values to select them initially.
+When an item is clicked, `onChange` receives the event and the selected values. Set `isShowSelectAll` to add a select-all item.
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const dataSource = [
+  {
+    label: "Item1",
+    value: "Item1",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item2",
+    value: "Item2",
+    trailIcon: <IconSetting1 />
+  },
+  {
+    label: "Item3",
+    value: "Item3",
+    trailIcon: <IconSetting1 />
+  }
+];
+
+const Example = () => {
+  const handleChange = (event, value) => {
+    console.log(value);
+  };
+
+  return (
+    <List.ListCheckBoxes
+      dataSource={dataSource}
+      defaultValue={["Item1"]}
+      onChange={handleChange}
+      viewType="arrow"
+      isShowSelectAll
+    />
+  );
+};
+```
+
+<Unstyled>
+  <ListExampleBasicCheckBox />
+</Unstyled>
+
+### Switch
+
+Use `List.ListSwitch` for collections of toggleable settings. Pass [`dataSource`](#ilistitemswitchdatasource-supports-ilistitemdatasource-props), and provide a required `value` for every item.
+Set `defaultValue` to an array of item values to enable them initially.
+When an item is clicked, `onChange` receives the event and the enabled values. Set `isShowSelectAll` to add a select-all item.
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const dataSource = [
+  {
+    label: "Item1",
+    value: "Item1",
+    leadIcon: <IconSetting1 />
+  },
+  {
+    label: "Item2",
+    value: "Item2",
+    leadIcon: <IconSetting1 />
+  },
+  {
+    label: "Item3",
+    value: "Item3",
+    leadIcon: <IconSetting1 />
+  }
+];
+
+const Example = () => {
+  const handleChange = (event, value) => {
+    console.log(value);
+  };
+
+  return (
+    <List.ListSwitch
+      dataSource={dataSource}
+      defaultValue={["Item1"]}
+      onChange={handleChange}
+      isShowSelectAll
+    />
+  );
+};
+```
+
+<Unstyled>
+  <ListExampleBasicSwitch />
+</Unstyled>
+
+### ListHeader
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const Example = () => (
+  <List.ListHeader leadIcon={<IconSetting1 />}>Heading</List.ListHeader>
+);
+```
+
+<Unstyled>
+  <ListHeader leadIcon={<IconSetting1 />}>{"Heading"}</ListHeader>
+</Unstyled>
+
+### ListItem
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const Example = () => (
+  <List.ListItem leadIcon={<IconSetting1 />} trailIcon={<IconInformation />}>
+    List item
+  </List.ListItem>
+);
+```
+
+<Unstyled>
+  <ListItem leadIcon={<IconSetting1 />} trailIcon={<IconInformation />}>
+    List item
+  </ListItem>
+</Unstyled>
+
+### List Avatar
+
+```tsx
+import { List } from "@dmitrygrigorov/components";
+
+const Example = () => {
+  return (
+    <List
+      header={
+        {
+          content: "List Header",
+          avatar: {
+            status: "online",
+            text: "LA"
+          },
+          trailIcon: {<IconSetting1 />}
+        }
+      }
+    >
+      <List.ListItemAvatar
+        status="offline"
+        text="I1"
+        trailIcon={<IconSetting1 />}>
+        Item1
+      </List.ListItemAvatar>
+      <List.ListItemAvatar
+        status="offline"
+        text="I2"
+        trailIcon={<IconSetting1 />}>
+        Item2
+      </List.ListItemAvatar>
+      <List.ListItemAvatar
+        status="offline"
+        text="I3"
+        trailIcon={<IconSetting1 />}>
+        Item3
+      </List.ListItemAvatar>
+    </List>
+  );
+}
+```
+
+<Unstyled>
+  <ListExampleBasicAvatar />
+</Unstyled>
+
+## Appearance
+
+<Unstyled>
+  <ListExamples />
+</Unstyled>
+
+## Props
+
+### IListBasicProps — shared list props
+
+| Prop          | Type                                                      | Default | Required | Description                            |
+| ------------- | --------------------------------------------------------- | ------- | -------- | -------------------------------------- |
+| header        | `IHeader`                                                 | -       | -        | List header configuration              |
+| viewType      | `TListViewType`                                           | `basic` | -        | List type                              |
+| classNameItem | `string`                                                  | -       | -        | Additional item class                  |
+| styleItem     | `CSSProperties`                                           | -       | -        | -                                      |
+| className     | `string`                                                  | -       | -        | Additional CSS class                   |
+| style         | `CSSProperties`                                           | -       | -        | -                                      |
+| onClickItem   | `MouseEventHandler<HTMLLIElement>`                        | -       | -        | Handles item clicks                    |
+| renderItem    | `(item: IListItemDataSource, index: number) => ReactNode` | -       | -        | Custom renderer for `dataSource` items |
+| isSelected    | `boolean`                                                 | -       | -        | Marks the list as selected             |
+| isDisabled    | `boolean`                                                 | -       | -        | Disables the list                      |
+| width         | `number`                                                  | -       | -        | List width                             |
+| height        | `number`                                                  | -       | -        | List height                            |
+| size          | `TListSize`                                               | `l`     | -        | List size                              |
+
+### IHeader
+
+| Prop      | Type                                | Default | Required | Description            |
+| --------- | ----------------------------------- | ------- | -------- | ---------------------- |
+| content   | `string, JSX.Element`               | -       | ✓        | List heading content   |
+| leadIcon  | `JSX.Element`                       | -       | -        | Leading heading icon   |
+| className | `string`                            | -       | -        | Additional CSS class   |
+| style     | `CSSProperties`                     | -       | -        | -                      |
+| onClick   | `MouseEventHandler<HTMLDivElement>` | -       | -        | Handles heading clicks |
+| avatar    | `IListAvatar`                       | -       | -        | Avatar configuration   |
+
+### IListItemBasicDataSource
+
+| Prop              | Type          | Default | Required | Description                |
+| ----------------- | ------------- | ------- | -------- | -------------------------- |
+| label             | `string`      | -       | ✓        | Item content               |
+| isDisabled        | `boolean`     | -       | -        | Disables the item          |
+| trailIcon         | `JSX.Element` | -       | -        | Trailing icon              |
+| isSelectedDefault | `boolean`     | -       | -        | Selects the item initially |
+| leadIcon          | `JSX.Element` | -       | -        | Leading icon               |
+
+### IListItemDataSource supports [`IListItemBasicDataSource`](#ilistitembasicdatasource) props
+
+| Prop              | Type      | Default | Required | Description                |
+| ----------------- | --------- | ------- | -------- | -------------------------- |
+| isSelectedDefault | `boolean` | -       | -        | Selects the item initially |
+
+### TListViewType
+
+Available values: `basic` | `arrow` | `collapse`.
+
+### TListSize
+
+Available sizes: `l` | `m`.
+
+### Basic list props, in addition to [shared props](#ilistbasicprops--shared-list-props)
+
+| Prop              | Type                                                      | Default | Required | Description                |
+| ----------------- | --------------------------------------------------------- | ------- | -------- | -------------------------- |
+| onClickItem       | `MouseEventHandler<HTMLDivElement>`                       | -       | -        | Handles item clicks        |
+| onDoubleClickItem | `MouseEventHandler<HTMLDivElement>`                       | -       | -        | Handles item double-clicks |
+| renderItem        | `(item: IListItemDataSource, index: number) => ReactNode` | -       | -        | Renders list items         |
+
+### Checkbox list props, in addition to [shared props](#ilistbasicprops--shared-list-props)
+
+| Prop            | Type                                                                             | Default | Required | Description                           |
+| --------------- | -------------------------------------------------------------------------------- | ------- | -------- | ------------------------------------- |
+| defaultValue    | `(string,number)[]`                                                              | -       | -        | Initially selected checkbox values    |
+| isShowSelectAll | `boolean`                                                                        | -       | -        | Adds a "Select all" item at the start |
+| onChange        | `(event: MouseEvent<HTMLLIElement>, value: (string,number)[]) => void`           | -       | -        | Called when checkbox states change    |
+| onClickItem     | `(event: MouseEvent<HTMLLIElement>\ChangeEvent, value: string \ number) => void` | -       | -        | Handles item clicks                   |
+
+### IListItemCheckBoxDataSource supports [`IListItemDataSource`](#ilistitembasicdatasource) props
+
+Checkbox-list `dataSource` items do not support `leadIcon`.
+
+| Prop  | Type             | Default | Required | Description    |
+| ----- | ---------------- | ------- | -------- | -------------- |
+| value | `string, number` | -       | ✓        | Checkbox value |
+| name  | `string`         | -       | -        | Checkbox name  |
+
+### Radio-button list props, in addition to [shared props](#ilistbasicprops--shared-list-props)
+
+| Prop         | Type                                                                 | Default | Required | Description                       |
+| ------------ | -------------------------------------------------------------------- | ------- | -------- | --------------------------------- |
+| defaultValue | `string`                                                             | -       | -        | Initially selected value          |
+| onChange     | `(event: MouseEvent<HTMLLIElement>, value: string) => void`          | -       | -        | Called when the selection changes |
+| onClickItem  | `(event: MouseEvent<HTMLLIElement>, value: string \ number) => void` | -       | -        | Handles item clicks               |
+
+### IListItemRadioButtonDataSource supports [`IListItemDataSource`](#ilistitembasicdatasource) props
+
+Radio-button-list `dataSource` items do not support `leadIcon`.
+
+| Prop  | Type     | Default | Required | Description  |
+| ----- | -------- | ------- | -------- | ------------ |
+| value | `string` | -       | ✓        | Button value |
+| name  | `string` | -       | -        | Button name  |
+
+### Switch-list props, in addition to [shared props](#ilistbasicprops--shared-list-props)
+
+| Prop            | Type                                                                   | Default | Required | Description                           |
+| --------------- | ---------------------------------------------------------------------- | ------- | -------- | ------------------------------------- |
+| defaultValue    | `(string, number)[]`                                                   | -       | -        | Initially enabled switch values       |
+| isShowSelectAll | `boolean`                                                              | -       | -        | Adds a "Select all" item at the start |
+| onChange        | `(event: MouseEvent<HTMLLIElement>, value: (string,number)[]) => void` | -       | -        | Called when switch states change      |
+| onClickItem     | `(event: MouseEvent<HTMLLIElement>, value: string \ number) => void`   | -       | -        | Handles item clicks                   |
+
+### IListItemSwitchDataSource supports [`IListItemDataSource`](#ilistitembasicdatasource) props
+
+Switch-list `dataSource` items do not support `traiIcon`.
+
+| Prop  | Type             | Default | Required | Description  |
+| ----- | ---------------- | ------- | -------- | ------------ |
+| value | `string, number` | -       | ✓        | Switch value |
+| name  | `string`         | -       | -        | Switch name  |
+
+### ListItem
+
+| Prop          | Type                                                                | Default | Required | Description                         |
+| ------------- | ------------------------------------------------------------------- | ------- | -------- | ----------------------------------- |
+| trailIcon     | [`TListTrailIcon`](#tlisttrailicon-and-tlistleadicon)               | -       | -        | Trailing icon                       |
+| className     | `string`                                                            | -       | -        | Additional CSS class                |
+| style         | `CSSProperties`                                                     | -       | -        | Additional styles                   |
+| isSelected    | `boolean`                                                           | -       | -        | Whether the item is selected        |
+| onClick       | `(event: MouseEvent<HTMLLIElement>, value?: string\number) => void` | -       | -        | Click handler                       |
+| isDisabled    | `boolean`                                                           | -       | -        | Whether the item is disabled        |
+| leadIcon      | `TListLeadIcon`                                                     | -       | -        | Leading icon                        |
+| onDoubleClick | `MouseEventHandler<HTMLLIElement>`                                  | -       | -        | Double-click handler                |
+| leadContent   | `JSX.Element`                                                       | -       | -        | Leading content instead of an icon  |
+| trailContent  | `JSX.Elenent`                                                       | -       | -        | Trailing content instead of an icon |
+| size          | [`TListSize`](#tlistsize)                                           | `l`     | -        | Item size                           |
+| children      | `ReactChild`                                                        | -       | -        |                                     |
+
+#### TListTrailIcon and TListLeadIcon
+
+Accepted values are an icon name from `@dmitrygrigorov/icons` or a `JSX.Element`.
+
+### ListItemAvatar
+
+Supports the standard [ListItem](#listitem) props except `leadIcon` and `leadContent`.
+
+| Prop   | Type           | Default | Required | Description                                         |
+| ------ | -------------- | ------- | -------- | --------------------------------------------------- |
+| status | `AvatarStatus` | -       | ✓        | Avatar status                                       |
+| image  | `string`       | -       | -        | Avatar image URL                                    |
+| text   | `string`       | -       | -        | Fallback text shown when no image is available      |
+| isIcon | `boolean`      | -       | -        | Whether to show an icon instead of an image or text |

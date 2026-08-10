@@ -1,0 +1,170 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { DingDing } from "../DingDing";
+import { DingDingExamples } from "./examples";
+
+:::div{.notshown}
+
+# DingDing
+
+DingDing notifies a signed-in user about account activity.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Sizes](#sizes)
+- [Notification count](#notification-count)
+- [Selected state](#selected-state)
+- [Disabled state](#disabled-state)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { DingDing } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <DingDingExamples />
+</Unstyled>
+
+:::
+
+:::div
+
+## Usage
+
+```tsx
+const Example: React.FC = () => <DingDing size="l" />;
+```
+
+<Unstyled>
+  <DingDing size="l" />
+</Unstyled>
+
+:::
+
+:::div
+
+## Sizes
+
+Use `size` to control the component dimensions.
+
+```tsx
+<DingDing size="l" />
+<DingDing size="m" />
+<DingDing size="s" />
+```
+
+<Unstyled>
+  <div style={{ display: "flex", gap: "24px" }}>
+    <DingDing size="l" />
+    <DingDing size="m" />
+    <DingDing size="s" />
+  </div>
+</Unstyled>
+
+:::
+
+:::div
+
+## Notification count
+
+Use `notificationCount` to show the number of unread notifications. The count is hidden at size `s`.
+
+```tsx
+<DingDing size="l" notificationCount={1} />
+<DingDing size="s" notificationCount={1} />
+```
+
+<Unstyled>
+  <div style={{ display: "flex", gap: "24px" }}>
+    <DingDing size="l" notificationCount={1} />
+    <DingDing size="s" notificationCount={1} />
+  </div>
+</Unstyled>
+
+:::
+
+:::div
+
+## Selected state
+
+Use `isSelected` when the notification panel is open or the control is otherwise active.
+
+```tsx
+<DingDing size="l" isSelected />
+<DingDing size="l" notificationCount={1} isSelected />
+```
+
+<Unstyled>
+  <div style={{ display: "flex", gap: "24px" }}>
+    <DingDing size="l" isSelected />
+    <DingDing size="l" notificationCount={1} isSelected />
+  </div>
+</Unstyled>
+
+:::
+
+:::div
+
+## Disabled state
+
+Use `isDisabled` to prevent interaction.
+
+```tsx
+<DingDing size="l" isDisabled />
+```
+
+<Unstyled>
+  <DingDing size="l" isDisabled />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| className | `string` | — | No | Additional CSS class |
+| colorNotificationCount | [`TColorNotificationCountDingDing`](#tcolornotificationcountdingding) | `blue` | No | Notification-count color |
+| isDisabled | `boolean` | `false` | No | Disables the component |
+| size | [`TSizeDingDing`](#tsizedingding) | — | Yes | Component size |
+| notificationCount | `number` | — | No | Number of unread notifications |
+| onClick | `MouseEventHandler<HTMLButtonElement>` | — | No | Click handler |
+| isSelected | `boolean` | — | No | Shows the selected state |
+
+:::
+
+:::div
+
+### TColorNotificationCountDingDing
+
+Available values: `blue` | `red`.
+
+:::
+
+:::div
+
+### TSizeDingDing
+
+Available sizes: `m` | `l` | `s`.
+
+:::

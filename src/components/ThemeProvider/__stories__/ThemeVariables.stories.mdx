@@ -1,0 +1,24 @@
+{/* Theme.stories.mdx */}
+
+import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
+import { LIGHT_THEME, DARK_THEME } from "../../Pallette/themes";
+
+<Meta title="Documentation/Theming/Variables" />
+
+# Theme variables
+
+Variables used by each theme-aware component.
+
+<ColorPalette>
+  {Object.keys(LIGHT_THEME.colors).map((variable) => (
+    <div key={variable}>
+      <ColorItem
+        title={variable}
+        colors={{
+          Light: LIGHT_THEME.colors[variable],
+          Dark: DARK_THEME.colors[variable]
+        }}
+      />
+    </div>
+  ))}
+</ColorPalette>

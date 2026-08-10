@@ -1,0 +1,396 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { StepsExamples } from "./examples";
+import {
+  StepsUseExample,
+  StepsWidthAllStateSizeL,
+  StepsWidthImplicitStatus,
+  StepsWidthHelpersFunction,
+  StepsWithDisabledExample,
+  StepsHorizontalSizeM,
+  StepsHorizontalSizeL,
+  StepsHorizontalSizeS,
+  StepsVerticalAllSize
+} from "./examples/StepsExamples";
+
+:::div{.notshown}
+
+# Steps
+
+Helps users understand and move through short, multi-step workflows. `Steps` adapts to the available layout width and is best suited to flows with three to five steps.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Size](#size)
+- [Direction](#direction)
+- [Step description](#step-description)
+- [Status](#status)
+- [Disabled step](#disabled-step)
+- [Implicit status assignment](#implicit-status-assignment)
+- [Helper functions](#helper-functions)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Steps } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <StepsExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Clicking a `Steps` item can move the user between steps. By default, every step after the current one is disabled (`isDisabled`). Set the active step with the one-based `current` property, and provide the step data through `steps`.
+
+```tsx
+import React, { useState } from "react";
+import { Steps } from "@dmitrygrigorov/components";
+
+const ITEMS = [
+  { key: 1, title: "Step 1", description: "P2-l-1" },
+  { key: 2, title: "Step 2", description: "P2-l-2" },
+  { key: 3, title: "Step 3", description: "P2-l-3" },
+  { key: 4, title: "Step 4", description: "P2-l-4" },
+  { key: 5, title: "Step 5", description: "P2-l-5" }
+];
+
+const StepsUseExample: () => React.FC = () => {
+  const [current, setCurrent] = useState(3);
+
+  return (
+    <>
+      <Steps size="l" steps={ITEMS} direction="horizontal" current={current} />
+      <ButtonWrapper>
+        <Button size="s" onClick={() => setCurrent(Math.max(current - 1, 1))}>
+          Back
+        </Button>
+        <Button
+          size="s"
+          onClick={() => setCurrent(Math.min(current + 1, ITEMS.length))}>
+          Next
+        </Button>
+      </ButtonWrapper>
+    </>
+  );
+};
+```
+
+<Unstyled>
+  <StepsUseExample />
+</Unstyled>
+:::
+
+:::div
+
+### Size
+
+`Steps` supports three sizes: `l`, `m`, and `s`. Set the size with the `size` property.
+
+```tsx
+<Steps size="l" items={ITEMS} current={3} />
+<Steps size="m" items={ITEMS} current={3} />
+<Steps size="s" items={ITEMS} current={3} />
+```
+
+<Unstyled>
+  <StepsHorizontalSizeL />
+  <StepsHorizontalSizeM />
+  <StepsHorizontalSizeS />
+</Unstyled>
+:::
+
+:::div
+
+### Direction
+
+`Steps` can be **horizontal** or **vertical**. Set `direction` to `horizontal` or `vertical` respectively.
+
+```tsx
+<Steps
+  size="l"
+  direction="horizontal"
+  steps={ITEMS}
+  current={3}
+/>
+<Steps
+  size="l"
+  direction="vertical"
+  steps={ITEMS}
+  current={3}
+/>
+<Steps
+  size="m"
+  direction="vertical"
+  steps={ITEMS}
+  current={3}
+/>
+<Steps
+  size="s"
+  direction="vertical"
+  steps={ITEMS}
+  current={3}
+/>
+```
+
+<Unstyled>
+  <StepsHorizontalSizeL />
+  <StepsVerticalAllSize />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+### Step description
+
+Each step can include supporting text, such as a short description. Set it with the `description` field in `steps`. Descriptions are displayed only when `Steps` uses size `l`.
+
+```tsx
+const ITEMS = [
+  { key: 1, title: "Step 1", description: "P2-l-1" },
+  { key: 2, title: "Step 2", description: "P2-l-2" },
+  { key: 3, title: "Step 3", description: "P2-l-3" },
+  { key: 4, title: "Step 4", description: "P2-l-4" },
+  { key: 5, title: "Step 5", description: "P2-l-5" }
+];
+
+<Steps size="l" direction="horizontal" current={3} items={ITEMS} />;
+```
+
+<Unstyled>
+  <StepsHorizontalSizeL />
+</Unstyled>
+:::
+
+:::div
+
+### Status
+
+Each `Steps` item can have a visual status, set with the `status` field.
+
+- `completed` - the step was completed successfully
+- `warning` - the step was completed with a non-critical issue
+- `error` - the step was completed incorrectly
+- `waiting` - the step is waiting for user action
+- `default` - the step is available but has not been visited
+
+```tsx
+import { Steps, IStepsItem } from "@dmitrygrigorov/components";
+
+const ITEMS: IStepsItem[] = [
+  { key: 1, title: "Success" },
+  { key: 2, title: "Warning", status: "warning" },
+  { key: 3, title: "Error", status: "error" },
+  { key: 4, title: "Waiting", status: "waiting" },
+  { key: 5, title: "Current" },
+  { key: 6, title: "Default", status: "default" },
+  { key: 7, title: "Disabled", isDisabled: true }
+];
+
+<Steps size="l" direction="horizontal" current={5} items={ITEMS} />;
+```
+
+<Unstyled>
+  <StepsWidthAllStateSizeL />
+</Unstyled>
+:::
+
+:::div
+
+### Disabled step
+
+Set `isDisabled` to prevent interaction with a step and apply its disabled appearance. `isDisabled` takes precedence over `status`.
+
+```tsx
+const ITEMS = [
+  { key: 22, title: "Step 1", isDisabled: true },
+  { key: 23, title: "Step 2", isDisabled: true, status: "error" },
+  { key: 34, title: "Step 3" },
+  { key: 45, title: "Step 4" }
+];
+
+<Steps size="l" direction="horizontal" current={3} items={ITEMS} />;
+```
+
+<Unstyled>
+  <StepsWithDisabledExample />
+</Unstyled>
+
+In this example, `current` is `3`. `Step 1` is explicitly disabled. `Step 2` has both `isDisabled` and an `error` status, demonstrating that `isDisabled` takes precedence. `Step 3` is current, while `Step 4` is implicitly disabled because it follows the current step. See [Implicit status assignment](#implicit-status-assignment) for details.
+:::
+
+:::div
+
+### Implicit status assignment
+
+When a step has neither an explicit `status` nor `isDisabled`, steps after `current` are disabled automatically, while steps before it receive the `completed` status.
+
+**Implicit assignment has lower priority than an explicitly defined `status` or `isDisabled` value.**
+
+```tsx
+const ITEMS = [
+  { key: 1, title: "Step 1" },
+  { key: 2, title: "Step 2" },
+  { key: 3, title: "Step 3" },
+  { key: 4, title: "Step 4" },
+  { key: 5, title: "Step 5" }
+];
+
+<Steps size="l" direction="horizontal" current={3} steps={ITEMS} />;
+```
+
+<Unstyled>
+  <StepsWidthImplicitStatus />
+</Unstyled>
+
+In the example above, `current` is `3` and no item in `ITEMS` defines `status` or `isDisabled`. The implicit assignment logic marks earlier steps as `completed` and later steps as disabled.
+:::
+
+:::div
+
+### Helper functions
+
+`Steps` accepts helper functions that receive an item and run for each step.
+
+- `getItemDisabled` - returns `boolean` or `undefined` for `isDisabled`
+- `getItemTitle` - returns `string` or `undefined` for `title`
+- `getItemKey` - returns `string`, `number`, or `undefined` for `key`
+- `getItemStatus` - returns a `status` value or `undefined` for an item
+- `getItemOnClick` - returns a step-specific click handler or `undefined`
+- `onItemClick` - handles a click and receives the click event and selected item
+- `onChangeCurrent` - handles current-step changes and receives the new item
+
+Use these functions to derive individual step properties from application logic.
+
+**The helper function types are listed under [Other types](#other-types).**
+
+```tsx
+const ITEMS = [
+  { key: 1, title: "Step 1" },
+  { key: 2, title: "Step 2" },
+  { key: 3, title: "Step 3" },
+  { key: 4, title: "Step 4" },
+  { key: 5, title: "Step 5" }
+];
+
+const StepsWidthHelpersFunction: React.FC = () => {
+  const changeTitleForSomeStep = (item: IStepsItem): string | undefined => {
+    if (item.title === "Step 1") {
+      return "Updated step";
+    }
+    return undefined;
+  };
+
+  const handlerItemClick = (_: React.MouseEvent, item: IStepsItem): void => {
+    if (item.key === 3) {
+      item.status = "error";
+    }
+  };
+
+  return (
+    <Steps
+      size="l"
+      onItemClick={handlerItemClick}
+      getItemTitle={changeTitleForSomeStep}
+      current={3}
+      direction="horizontal"
+      steps={ITEMS}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <StepsWidthHelpersFunction />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+### Props Steps
+
+| Property        | Type                   | Default | Required | Description                                 |
+| --------------- | ---------------------- | ------- | -------- | ------------------------------------------- |
+| direction       | `TStepsDirection`      | -       | ✓        | Sets the horizontal or vertical direction   |
+| size            | `TStepsSize`           | -       | ✓        | Sets the component size                     |
+| current         | `number`               | -       | ✓        | One-based index of the current step         |
+| onItemClick     | `TStepOnClick`         | -       | -        | Handles a step click                        |
+| onChangeCurrent | `TStepOnChangeCurrent` | -       | -        | Handles a change to the current step        |
+| getItemDisabled | `TStepGetItemDisabled` | -       | -        | Derives `isDisabled` for each step          |
+| getItemTitle    | `TStepGetItemTitle`    | -       | -        | Derives `title` for each step               |
+| getItemStatus   | `TStepGetItemStatus`   | -       | -        | Derives `status` for each step              |
+| getItemKey      | `TStepGetItemKey`      | -       | -        | Derives the unique `key` for each step      |
+| getItemOnClick  | `TStepGetItemOnClick`  | -       | -        | Returns a click handler for each step       |
+| steps           | `IStepsItem[]`         | -       | ✓        | Step data                                   |
+| className       | `string`               | -       | -        | CSS class for `Steps`                       |
+| classNameItem   | `string`               | -       | -        | CSS class for each step item                |
+| width           | `string`               | -       | -        | Width used when `direction` is `horizontal` |
+| height          | `string`               | -       | -        | Height used when `direction` is `vertical`  |
+
+:::
+
+:::div
+
+### Props IStepsItem
+
+| Property    | Type                      | Default | Required | Description            |
+| ----------- | ------------------------- | ------- | -------- | ---------------------- |
+| title       | `string` \| `JSX.Element` | -       | -        | Step title             |
+| isDisabled  | `boolean`                 | -       | -        | Disables the step      |
+| status      | `TStepsStatus`            | -       | -        | Step display status    |
+| description | `string`                  | -       | -        | Short step description |
+| key         | `number`                  | -       | ✓        | Unique key             |
+
+:::
+
+:::div
+
+### TStepsSize
+
+Available sizes: `l` | `m` | `s`
+:::
+
+:::div
+
+### TStepsStatus
+
+Available values: `completed` | `warning` | `error` | `waiting` | `default`
+:::
+
+:::div
+
+### Other types
+
+```tsx
+export type TStepOnChangeCurrent = (item: IStepsItem) => void;
+export type TStepGetItemStatus = (item: IStepsItem) => TStepsStatus | undefined;
+export type TStepOnClick = (event: MouseEvent, item: IStepsItem) => void;
+export type TStepGetItemKey = (item: IStepsItem) => string | number | undefined;
+export type TStepGetItemTitle = (item: IStepsItem) => string | undefined;
+export type TStepGetItemDisabled = (item: IStepsItem) => boolean | undefined;
+export type TStepGetItemOnClick = (
+  item: IStepsItem
+) => TStepOnClick | undefined;
+```
+
+:::

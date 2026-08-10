@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="hooks/useMultipleResizeObserver" id="useMultipleResizeObserver" />
+
+# useMultipleResizeObserver
+
+- [Description](#description)
+- [Import](#import)
+- [Usage](#usage)
+- [Properties](#properties)
+
+## Description
+`useMultipleResizeObserver` tracks size changes for multiple elements.
+
+## Import
+
+```tsx
+import { useMultipleResizeObserver } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+```tsx
+import { useMultipleResizeObserver } from "@dmitrygrigorov/components";
+import React, { RefObject, useRef } from "react"; import { render } from "react-dom";
+
+const getElement = ( el: HTMLElement )  => {
+  return {
+    el
+  };
+};
+
+const Example: React.FC = () => {
+  const refs = useRef()
+  const element = useMultipleResizeObserver(refs, getElement);
+  return (
+    <input ref={element}/>
+    )
+};
+```
+
+## Properties
+
+| Parameter | Type                        | Default   | Required | Description                                                                 |
+|----------|-----------------------------|--------------|----------------|---------------------------------------------------------------------------------|
+| refs     | `Array<RefObject<Element>>` | -         | ✓        | References to the elements being observed                                  |
+| mapper   | `(el: Element)`             | `null`    | ✓        | Runs when an element changes size and returns the changed element           |
+| callback | `(entry: DOMRectReadOnly)`  | undefined | -        | Optional callback for additional work after a size change                   |
+

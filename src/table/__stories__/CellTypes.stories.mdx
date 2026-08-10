@@ -1,0 +1,1027 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TableCells,
+  TableCellsRating,
+  TableCellsStatus,
+  TableCellsTags,
+  TableCellsNumber,
+  TableCellsProgress,
+  TableCellsNumberFormatted,
+  TableCellsImage,
+  TableCellsMultiAvatar,
+  TableCellsAvatar,
+  TableCellsBoolean
+} from "./examples/CellTypes";
+
+<Meta title="Tables/Cell types" />
+
+# Cell types
+
+Tables support several cell types.
+
+## Usage
+
+Set `columnTypes: <cellType>` in a column definition to choose a cell type. When omitted, the table uses `basic`.
+
+## `basic` cell type
+
+The `basic` cell is the general-purpose default. Use `cellIcon` to display an icon on the left and `cellTrailContent` to display trailing content on the right.
+
+```tsx
+import React from "react";
+import Table from "@dmitrygrigorov/table";
+import { TColumn } from "@dmitrygrigorov/table";
+
+export const TableCells: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com"
+    },
+    {
+      id: "2",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com"
+    },
+    {
+      id: "3",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com"
+    }
+  ];
+
+  return <Table title="Cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCells />
+</Unstyled>
+
+## `status` cell type
+
+Set `columnTypes: "status"` in the column definition to use status cells. Configure their status-specific behavior with `cellParamsGetter`.
+
+#### `cellParamsGetter`
+
+`cellParamsGetter` can be a function that receives `TCellStatusParamsGetterParams`, allowing each status cell to be configured independently. When all cells share the same properties, pass a `TCellParamsStatus` object instead.
+
+```tsx
+type TCellStatusParamsGetterParams<TData = any, TValue = string> = {
+  value: TValue | null | undefined;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TData, TValue>;
+};
+
+interface IColumnStatus<TData = any, TValue = string>
+  extends Omit<IColumnBasic<TData, TValue>, "columnTypes"> {
+  columnTypes: "status";
+  cellParamsGetter: TCellParamsStatusGetter | TCellParamsStatus;
+}
+
+type TCellParamsStatusGetter<TData = any, TValue = string> = (
+  params: TCellStatusParamsGetterParams<TData, TValue>
+) => TCellParamsStatus;
+
+export type TCompStatus =
+  | "processing"
+  | "completed"
+  | "warning"
+  | "success"
+  | "error";
+
+type TCellParamsStatus = {
+  status: TCompStatus;
+  leadIcon?: JSX.Element;
+  trailIcon?: JSX.Element;
+  isFilled?: boolean;
+};
+```
+
+```tsx
+import React from "react";
+import Table from "@dmitrygrigorov/table";
+import { TCellParamsStatus, TColumn } from "@dmitrygrigorov/table";
+
+export const TableCellsStatus: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "statusText",
+        title: "status",
+        description: "P1-s",
+        columnTypes: "status",
+        cellParamsGetter: ({ data }): TCellParamsStatus => ({
+          status: data.status,
+          leadIcon: <IconSetting1 />
+          isFilled: true // Can also be false; see the Status component
+        }),
+        iconDescription: <IconSetting1 />
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      statusText: "Error",
+      status: "error"
+    },
+    {
+      id: "2",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com",
+      statusText: "Warning",
+      status: "warning"
+    },
+    {
+      id: "3",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com",
+      statusText: "Success",
+      status: "success"
+    }
+  ];
+
+  return <Table title="Cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsStatus />
+</Unstyled>
+
+## Properties
+
+| Parameter | Type                    | Default      | Required | Description                               |
+| --------- | ----------------------- | ------------ | -------- | ----------------------------------------- |
+| isFilled  | `boolean`               | -            | -        | Whether the component uses a filled style |
+| status    | [`CompStatus`](#status) | `processing` | ✓        | Component status style                    |
+| leadIcon  | `JSX.Element`           | -            | -        | Icon to the right of the text             |
+| trailIcon | `JSX.Element`           | -            | -        | Icon to the left of the text              |
+
+## `tags` cell type
+
+#### `cellParamsGetter`
+
+Configure `tags` cells with `cellParamsGetter`. It can receive `TCellTagsParamsGetterParams` and return per-cell settings, or you can pass one `TCellParamsTags` object for every cell.
+Unlike `status`, `tags` does not require `cellParamsGetter`. Pass a string array in the row when no extra Tag properties are needed. For other shapes, such as an object array, use `valueGetter` to transform the value.
+
+```tsx
+export type TCellTagsParamsGetterParams<TData = any, TValue = string[]> = {
+  value: TValue | null | undefined;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TData, TValue>;
+};
+
+interface IColumnTags<TData = any, TValue = string>
+  extends Omit<IColumnBasic<TData, TValue>, "columnTypes"> {
+  columnTypes: "tags"; // The default column type is basic
+  cellParamsGetter?: TCellParamsTagsGetter | TCellParamsTags;
+}
+
+export type TCellParamsTagsGetter<TData = any, TValue = string> = (
+  params: TCellTagsParamsGetterParams<TData, TValue>
+) => TCellParamsTags;
+
+export type TCellParamsTags = {
+  leadIcon?: JSX.Element;
+};
+```
+
+```tsx
+export const TableCellsTags: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "tags",
+        title: "Tags",
+        columnTypes: "tags",
+        cellParamsGetter: ({ data }): TCellParamsTags => ({
+          leadIcon: data.leadIcon
+        })
+      },
+      {
+        field: "username",
+        title: "valueGetter example",
+        columnTypes: "tags",
+        valueGetter: ({ data }) =>
+          data.username.map(
+            (username: { usernames: string[] }) => username.usernames
+          )
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      username: [
+        {
+          usernames: "first"
+        }
+      ],
+      tags: ["first", "second", "third"],
+      leadIcon: <IconSetting1 />,
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com"
+    },
+    {
+      id: "2",
+      username: [
+        {
+          usernames: "first"
+        }
+      ],
+      tags: ["first", "second", "third"],
+      fullName: "Damien de la Tour",
+      email: "damiendelatur@fmail.com"
+    }
+  ];
+
+  return <Table title="Tag cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsTags />
+</Unstyled>
+
+## `Tag` properties
+
+| Parameter | Type          | Default | Required | Description                  |
+| --------- | ------------- | ------- | -------- | ---------------------------- |
+| leadIcon  | `JSX.Element` | -       | -        | Icon to the left of the text |
+
+## `rating` cell type
+
+Set `columnTypes: "rating"` to render a Rating component in a cell. Customize its appearance with `cellParamsGetter`. The default rating uses size `l` and the `blue` view.
+
+#### `cellParamsGetter`
+
+As with other cell types, the function receives `TCellRatingParamsGetterParams` and returns `TCellParamsRating`. To use the same properties for all cells, omit the function arguments and return `TCellParamsRating`.
+
+```tsx
+export type TCellRatingParamsGetterParams<TData = any, TValue = string> = {
+  value: number | null | undefined;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TData, TValue>;
+};
+
+export interface IColumnRating<TData = any>
+  extends Omit<IColumnBasic<TData>, "columnTypes"> {
+  columnTypes: "rating"; // The default column type is basic
+  cellParamsGetter?: TCellParamsRatingGetter | TCellParamsRating; // Resolves Rating component parameters
+}
+
+type TCellParamsRatingGetter<TData = any> = (
+  params: TCellRatingParamsGetterParams<TData>
+) => TCellParamsRating;
+
+export const ratingViewType = ["blue", "teal", "amber", "red"] as const;
+
+export const buttonSize = ["l", "m"] as const;
+
+export type TRatingViewType = (typeof ratingViewType)[number];
+
+export type TRatingSize = (typeof buttonSize)[number];
+
+export type TCellParamsRating = {
+  viewType: TRatingViewType;
+  size: TRatingSize;
+};
+```
+
+```tsx
+export const TableCellsRating: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "rating",
+        title: "rating",
+        columnTypes: "rating",
+        cellParamsGetter: ({ data }): TCellParamsRating => ({
+          viewType: data.ratingViewType,
+          sizeRating: data.ratingSize
+        })
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com"
+    },
+    {
+      id: "2",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com",
+      ratingViewType: "red",
+      ratingSize: "l"
+    },
+    {
+      id: "3",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com",
+      ratingViewType: "teal",
+      ratingSize: "m"
+    },
+    {
+      id: "4",
+      fullName: "Louis Antoine de Saint-Just",
+      email: "just@fmail.com",
+      ratingViewType: "amber",
+      ratingSize: "m"
+    }
+  ];
+
+  return <Table title="Rating cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsRating />
+</Unstyled>
+
+## `Rating` properties
+
+| Parameter | Type              | Default | Required | Description                      |
+| --------- | ----------------- | ------- | -------- | -------------------------------- |
+| viewType  | `TRatingViewType` | `blue`  | -        | Rating-star appearance and color |
+| size      | `TRatingSize`     | `l`     | -        | Rating-star size                 |
+
+## `Progress` cell
+
+This cell contains a [`ProgressBar`](?path=/docs/components-neutrons-progressbar--documentation). Set `columnType: "progress"` in the column definition and provide the required `variant`. Configure `variant` and other options with `cellParamsGetter`.
+
+#### `cellParamsGetter`
+
+`cellParamsGetter` can receive `TCellProgressParamsGetterParams` and return per-cell settings. When all cells share the same properties, pass a `TCellParamsProgress` object instead.
+
+```tsx
+type TCellProgressParamsGetterParams<TData, TValue> = {
+  value: TValue | null | undefined;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TValue>;
+};
+
+type TCellParamsProgressGetter<TData = any, TValue = number> = (
+  params: TCellProgressParamsGetterParams<TData, TValue>
+) => TCellParamsProgress;
+
+interface IColumnProgress<TData, TValue>
+  extends Omit<IColumnBasic<TData, TValue>, "columnTypes"> {
+  columnTypes: "progress"; // The default column type is basic
+  cellParamsGetter?:
+    | TCellParamsProgressGetter<TData, TValue>
+    | TCellParamsProgress;
+}
+
+export type TProgressBarVariant = "info" | "success" | "warning" | "error";
+
+export type TCellParamsProgress = {
+  label?: string;
+  variant: TProgressBarVariant;
+  isText?: boolean;
+};
+```
+
+```tsx
+export const TableCellsProgress: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "progress",
+        title: "progress",
+        columnTypes: "progress",
+        cellParamsGetter: ({ data }): TCellParamsProgress => ({
+          variant: data.variantProgress,
+          isText: data.textProgress,
+          label: data.labelProgress
+        })
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      progress: 56,
+      variantProgress: "info",
+      textProgress: true
+    },
+    {
+      id: "2",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com",
+      variantProgress: "error",
+      labelProgress: "Error text",
+      progress: 100
+    },
+    {
+      id: "3",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com",
+      variantProgress: "success",
+      progress: 56
+    },
+    {
+      id: "4",
+      fullName: "Louis Antoine de Saint-Just",
+      email: "just@fmail.com",
+      progress: 56,
+      variantProgress: "warning"
+    }
+  ];
+
+  return <Table title="Progress cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsProgress />
+</Unstyled>
+
+## `Progress` properties
+
+| Parameter | Type                                    | Default  | Required | Description                                                                  |
+| --------- | --------------------------------------- | -------- | -------- | ---------------------------------------------------------------------------- |
+| variant   | `"Info", "Success", "Warning", "Error"` | `"Info"` | ✓        | Progress-bar variant that selects its color palette                          |
+| label     | string                                  | -        | -        | Text below the progress bar; also displays the icon for the selected variant |
+| isText    | boolean                                 | -        | -        | Whether a size `m` ProgressBar displays progress as a percentage             |
+
+## `number` cell type
+
+For numeric values, set `columnTypes: "number"` in the column definition.
+Use the column's `icon` property to clarify the value type, such as by showing a currency symbol.
+Use `valueFormatter` to transform the displayed value or append a unit. Learn more in [Formatting data](?path=/docs/tables-column-properties--documentation#format-data).
+
+```tsx
+interface IColumnNumber<TData, TValue>
+  extends Omit<IColumnBasic<TData, TValue>, "columnTypes"> {
+  columnTypes?: "number"; // The default column type is basic
+}
+
+export type TCellParamsNumber = {
+  icon?: JSX.Element;
+};
+```
+
+```tsx
+export const TableCellsNumber: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "number",
+        title: "number",
+        columnTypes: "number",
+        cellIcon: <IconRuble2 />
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      number: 4.67
+    },
+    {
+      id: "2",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com",
+      number: Math.PI.toFixed(3)
+    },
+    {
+      id: "3",
+      fullName: "Louis Antoine de Saint-Just",
+      email: "just@fmail.com",
+      number: 450000000
+    }
+  ];
+
+  return <Table title="Number cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsNumber />
+</Unstyled>
+
+#### Example with formatted cell values
+
+```tsx
+export const TableCellsNumberFormatted: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "textNumber",
+        title: "Formatted number",
+        columnTypes: "number",
+        valueFormatter: ({ value }) => value + " km"
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      textNumber: 4.687
+    },
+    {
+      id: "2",
+      fullName: "Auguste de Montferrand",
+      email: "ogmonfer@fmail.com",
+      textNumber: Math.PI.toFixed(3)
+    },
+    {
+      id: "3",
+      fullName: "Louis Antoine de Saint-Just",
+      email: "just@fmail.com",
+      textNumber: 400000000
+    }
+  ];
+
+  return (
+    <Table
+      title="Number cells with valueFormatter"
+      columns={columns}
+      rowData={row}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <TableCellsNumberFormatted />
+</Unstyled>
+
+## `Number` properties
+
+| Parameter | Type          | Default | Required | Description                            |
+| --------- | ------------- | ------- | -------- | -------------------------------------- |
+| cellIcon  | `JSX.Element` | -       | -        | Icon to the right of the text (suffix) |
+
+## `Avatar` cell
+
+Set `columnTypes: "avatar"` to render an [`Avatar`](?path=/docs/components-neutrons-avatar--documentation) in a cell.
+
+#### cellParamsGetter
+
+Configure avatar cells through `cellParamsGetter`, a function that receives `TCellAvatarParamsGetterParams` and can customize each cell independently.
+Unlike other cell types, avatar `cellParamsGetter` must be a function; it cannot be a component-properties object.
+
+```tsx
+export interface IColumnAvatar<TData, TValue>
+  extends Omit<IColumnBasic<TData, TValue>, "columnTypes"> {
+  columnTypes: "avatar"; // The default column type is basic
+  cellParamsGetter: TCellParamsAvatarGetter<TData, TValue>; // Resolves component parameters
+}
+
+export type TCellAvatarParamsGetterParams<TData, TValue> = {
+  value: TValue | null | undefined;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TData, TValue>;
+};
+
+type TCellParamsAvatarGetter<TData, TValue> = (
+  params: TCellAvatarParamsGetterParams<TData, TValue>
+) => TCellParamsTableAvatar;
+
+const AVATAR_STATUS = ["online", "offline", "busy", "disabled"] as const;
+type TAvatarStatus = (typeof AVATAR_STATUS)[number];
+
+export type TCellParamsTableAvatar = {
+  isDisabled?: boolean;
+  image?: string;
+  text?: string;
+  icon?: JSX.Element;
+  status?: TAvatarStatus;
+  title?: string;
+  description?: string;
+};
+```
+
+```tsx
+export const TableCellsAvatar: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "users",
+        title: "Full name",
+        columnTypes: "avatar",
+        cellParamsGetter: ({ data }): TCellParamsTableAvatar => ({
+          title: data.fullName,
+          description: data.email,
+          status: data.avatarStatus,
+          icon: data.avatarIcon,
+          image: data.avatarImage
+        })
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com",
+      avatarStatus: "online",
+      avatarImage: AvatarImage
+    },
+    {
+      id: "2",
+      avatarIcon: <IconUser />,
+      fullName: "Louis Antoine de Saint-Just",
+      avatarStatus: "busy"
+    }
+  ];
+  return <Table title="Avatar cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsAvatar />
+</Unstyled>
+
+### Avatar array
+
+A cell can contain a single avatar with text or an array that displays up to five avatars.
+In the previous examples component properties come from `data`; for an avatar array, they are applied through `value` as shown below.
+Each array item requires an `id` so it renders correctly.
+
+```tsx
+import AvatarImage from "url";
+
+export const TableCellsMultiAvatar: React.FC = () => {
+  const columns: TColumn<any, any>[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "users",
+        title: "Full name",
+        columnTypes: "avatar",
+        cellParamsGetter: ({ value }): TCellParamsTableAvatar => ({
+          status: value.avatarStatus,
+          icon: value.avatarIcon,
+          image: value.avatarImage
+        })
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      users: [
+        {
+          key: 1,
+          avatarStatus: "online",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 2,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 3,
+          avatarStatus: "busy",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 4,
+          avatarStatus: "disabled",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 5,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 6,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 7,
+          avatarStatus: "online",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 8,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 9,
+          avatarStatus: "busy",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 10,
+          avatarStatus: "disabled",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 11,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 12,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 13,
+          avatarStatus: "online",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 14,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 15,
+          avatarStatus: "busy",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 16,
+          avatarStatus: "disabled",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 17,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        },
+        {
+          id: 18,
+          avatarStatus: "offline",
+          avatarImage: AvatarImage
+        }
+      ]
+    }
+  ];
+  return <Table title="Multi-avatar cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsMultiAvatar />
+</Unstyled>
+
+## `avatar` cell properties
+
+| Parameter   | Type                | Default | Required | Description                        |
+| ----------- | ------------------- | ------- | -------- | ---------------------------------- |
+| isDisabled  | `boolean`           | -       | -        | Marks the avatar as inactive       |
+| image       | `string`            | -       | -        | Avatar image path                  |
+| text        | `string`            | -       | -        | Text displayed instead of an image |
+| icon        | `React.ElementType` | -       | -        | Icon displayed instead of an image |
+| status      | `TAvatarStatus`     | -       | -        | Avatar status                      |
+| title       | `string`            | -       | -        | Primary text                       |
+| description | `string`            | -       | -        | Supporting text                    |
+
+## `Image` cell
+
+This cell contains an image. Set `columnTypes: "image"` on the column to use it.
+Provide the image URL in the row field that matches `field`, as shown below.
+
+```tsx
+import ImageExample from "url";
+export const TableCellsImage: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "image",
+        title: "image",
+        columnTypes: "image"
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      image: ImageExample
+    }
+  ];
+
+  return <Table title="Image cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsImage />
+</Unstyled>
+
+## `boolean` cell
+
+The cell displays a `true` or `false` state. Provide the value in the row field that matches `field`.
+
+```tsx
+export const TableCellsYesNo: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        cellIcon: <IconSetting1 />
+      },
+      {
+        field: "email",
+        title: "email",
+        cellTrailContent: <IconSetting1 />
+      },
+      {
+        field: "boolean",
+        title: "boolean",
+        columnTypes: "boolean"
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Palmerin de Lonfal",
+      email: "palmslonfale@mail.com",
+      boolean: true
+    },
+    {
+      id: "2",
+      fullName: "Damien de la Tour",
+      email: "dmdtr@mail.com",
+      boolean: false
+    }
+  ];
+
+  return <Table title="Boolean cells" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableCellsBoolean />
+</Unstyled>

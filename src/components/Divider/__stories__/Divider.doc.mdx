@@ -1,0 +1,127 @@
+import { DividerExamples } from "./examples";
+import {
+  DividerSimpleUseExample,
+  DividersRowWithStatus,
+  DividersWithContents,
+  DividersColumn
+} from "./examples/DividerExamples";
+
+:::div{.notshown}
+
+# Divider
+
+Divider separates related content into clear visual groups.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { Divider } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Appearance
+
+<DividerExamples />
+
+:::
+
+:::div
+
+## Usage
+
+<DividerSimpleUseExample />
+
+```tsx
+const Example: React.FC = () => <Divider />;
+```
+
+:::
+
+:::div
+
+### State
+
+Use `status` to change the divider's semantic state and appearance.
+
+<DividersRowWithStatus />
+
+```tsx
+<Divider status="active" />
+<Divider status="filled" />
+<Divider status="disabled" />
+<Divider status="error" />
+<Divider status="warning" />
+<Divider status="success" />
+```
+
+:::
+
+:::div
+
+### Adding content
+
+A Divider can contain a `JSX.Element` or a string. Use `align` to position that content.
+
+<DividersWithContents />
+
+```tsx
+<Divider align="left">Left</Divider>
+<Divider>Center</Divider>
+<Divider align="right">Right</Divider>
+<Divider>
+  <Icon3Dcube />
+</Divider>
+```
+
+:::
+
+:::div
+
+### Changing direction
+
+Use `direction` to switch between a horizontal and vertical divider.
+
+<DividersColumn />
+
+```tsx
+<Divider direction="column" />
+<Divider direction="column">Vertical</Divider>
+```
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| className | `string` | — | No | Additional CSS class |
+| id | `string` | — | No | DOM element ID |
+| status | `default` \| `active` \| `filled` \| `disabled` \| `error` \| `warning` \| `success` | `default` | No | Visual state |
+| direction | `row` \| `column` | `row` | No | Divider direction |
+| align | `left` \| `right` \| `center` | `center` | No | Alignment of nested content |
+| testId | `string` | `divider` | No | Value of the `data-testid` attribute |
+| width | `string` | `100%` | No | Width of a horizontal divider |
+| height | `string` | `100%` | No | Height of a vertical divider |
+| children | `JSX.Element` \| `string` | — | No | Nested content |
+
+:::

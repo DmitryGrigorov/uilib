@@ -1,0 +1,147 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Tables/Column properties" />
+
+# Column properties
+
+## Properties available in `columns`
+
+TypeScript supports a generic row-data type through `TColumns<TData, TValue>`. When omitted, `TData` defaults to `any`.
+
+| Property                                                       | Type                                                                            | Description                                                                                  |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| field                                                          | string                                                                          | Object field used as the cell value. Dot notation such as `field.field` supports nested data |
+| id                                                             | string                                                                          | Optional unique column identifier; generated automatically when omitted                      |
+| columnTypes                                                    | [TColumnType](?path=/docs/tables-column-properties--documentation#column-types) | Cell value data type for this column                                                         |
+| valueGetter                                                    | TValueGetterFunc                                                                | Custom function that reads values from your data                                             |
+| valueFormatter                                                 | TValueFormatterFunc                                                             | Function that formats output values                                                          |
+| title                                                          | string                                                                          | Column header text; falls back to `field` when omitted                                       |
+| description                                                    | string                                                                          | Column header description                                                                    |
+| isSortable                                                     | boolean                                                                         | Whether the column can be sorted                                                             |
+| isFilter                                                       | boolean                                                                         | Whether the column can be filtered                                                           |
+| width                                                          | number                                                                          | Column width in pixels                                                                       |
+| isHidden                                                       | boolean                                                                         | Hides the column                                                                             |
+| className                                                      | string                                                                          | Additional class                                                                             |
+| cellRenderer                                                   | FunctionComponent\<ICellRendererParams\<TData, TValue\>\>                       | Custom cell-rendering component                                                              |
+| cellRendererParams                                             | any                                                                             | Additional properties for the custom cell renderer                                           |
+| isEditable                                                     | boolean                                                                         | Makes the column editable                                                                    |
+| comparator                                                     | TTableComparator\<TData, TValue\>                                               | Sorting function                                                                             |
+| isResize                                                       | boolean                                                                         | Whether the column can be resized                                                            |
+| dropdown                                                       |                                                                                 |                                                                                              |
+| iconTitle                                                      | JSX.Element                                                                     | Icon next to the column title                                                                |
+| iconDescription                                                | JSX.Element                                                                     | Icon next to the column description                                                          |
+| isContextMenu                                                  | boolean                                                                         | Whether the table-column header displays a context menu                                      |
+| getContextMenu                                                 | TGetColumnMenuItems\<TData\>                                                    | Receives a column and returns its context menu or menu items                                 |
+| onClickContextMenuItem                                         | TDropdownOnClick\<string \| IDropdownItem\>                                     | `click` event listener for context-menu items                                                |
+| [valueFormatter](/docs/tables-value-formatters--documentation) | TValueFormatterFunc\<TData, TValue\>                                            | Cell-value formatting function                                                               |
+| cellIcon                                                       | JSX.Element                                                                     | Icon shown on the left of a cell, or on the right for number cells                           |
+| cellTrailContent                                               | JSX.Element                                                                     | Cell trailing content, such as a button                                                      |
+| valueSetter                                                    | TValueSetterFunc\<TData, TValue\>                                               | Value setter used during editing                                                             |
+| sortMenuItems                                                  | ITableSortMenuItem[]                                                            | Sorting items                                                                                |
+| filterMenuItems                                                | ITableFilterMenuItem[]                                                          | Filter items                                                                                 |
+| filterFunc                                                     | TFilterFunc\<TData, TValue\>                                                    | Filtering function                                                                           |
+| filterDebounceMs                                               | number                                                                          | Filtering debounce delay                                                                     |
+| defaultSortName                                                | string                                                                          | Initial sorting direction                                                                    |
+| defaultFilterName                                              | string[]                                                                        | Initial filter values                                                                        |
+
+## Define a column
+
+Each table column is defined with `TColumn`. Columns appear in the order specified by `columns`.
+
+The following example shows a simple grid with three columns:
+
+```tsx
+const columns = [{ filed: "make" }, { filed: "model" }, { field: "price" }];
+
+<Table coluns={columns} />;
+```
+
+## Access data values
+
+Use `column.field` to access values from the data array. Usually `field` is a property name on the data object; for nested objects, use dot notation to reference a deeper value.
+
+Example:
+
+```tsx
+const columns = [{ filed: "make" }, { filed: "model" }, { field: "price.ru" }];
+
+const rowData = [
+  { make: "Toyota", model: "Celica", price: { dollars: 35000, ru: 4800000 } },
+  { make: "Ford", model: "Mondeo", price: { dollars: 32000, ru: 3900000 } },
+  { make: "Porsche", model: "Boxster", price: { dollars: 72000, ru: 12500000 } }
+];
+
+<Table coluns={columns} rowData={rowData} />;
+```
+
+## Format data
+
+Use `valueFormatter` to format table values. It receives `IValueFormatterParams` and returns the display string.
+
+```tsx
+export type IValueFormatterParams<TData, TValue = string> = {
+  value: TValue | null | undefined | string;
+  node: IRowNode<TData> | null;
+  data: TData | undefined;
+  column: TColumn<TData, TValue>;
+};
+
+type TValueFormatterFunc<TData = any, TValue = any> = (
+  params: IValueFormatterParams<TData, TValue>
+) => string;
+```
+
+```tsx
+export const TableCellsNumberFormatted: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "textNumber",
+        title: "Formatted number",
+        columnTypes: "number",
+        valueFormatter: ({ data }) => data.textNumber + " km"
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      textNumber: 400000000
+    }
+  ];
+
+  return (
+    <Table
+      title="Number cells with valueFormatter"
+      columns={columns}
+      rowData={row}
+    />
+  );
+};
+```
+
+Example:
+
+```tsx
+    {
+      field: "textNumber",
+      title: "Number with text",
+      columnTypes: "number",
+      valueFormatter: ({ data }) => data.textNumber + " km"
+    }
+```
+
+## [Column types](?path=/docs/tables-cell-types--documentation)
+
+- `basic`
+- `number`
+- `icon`
+- `rating`
+- `avatar`
+- `status`
+- `progress`
+- `text`
+- `tags`
+- `boolean`
+- `img`

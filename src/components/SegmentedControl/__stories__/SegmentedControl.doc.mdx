@@ -1,0 +1,205 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  SegControlExamples,
+  SegmentedControlLabelIcon,
+  SegmentedControlDefaultValue2,
+  SegmentedControlSizeS,
+  SegmentedControlOptionDisabled
+} from "./examples";
+
+:::div{.notshown}
+
+# Segmented Control
+
+Segmented Control lets users select one option from a horizontal list.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Setting a value](#setting-a-value)
+- [Custom elements](#custom-elements)
+- [Changing the size](#changing-the-size)
+- [Disabled options](#disabled-options)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { SegmentedControl } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Usage
+
+Pass an array of objects with `label`, `value`, and `isDisabled` properties to `options`. Each option's `value` must be unique.
+
+```tsx
+import { SegmentedControl } from "@dmitrygrigorov/components";
+
+const Example = () => (
+  <SegmentedControl
+    options={[
+      { label: "1", value: "1" },
+      { label: "2", value: "2" },
+      { label: "3", value: "3" }
+    ]}
+  />
+);
+```
+
+:::
+
+:::div
+
+## Setting a value
+
+Pass the `value` property to set the selected value.
+
+<Unstyled>
+  <SegmentedControlDefaultValue2 />
+</Unstyled>
+<br />
+
+```tsx
+<SegmentedControl
+  options={[
+    { label: "1", value: "1" },
+    { label: "2", value: "2" },
+    { label: "3", value: "3" }
+  ]}
+  value="2"
+/>
+```
+
+:::
+
+:::div
+
+## Custom elements
+
+To display custom content instead of plain text, pass a component as an option's `label`.
+
+<Unstyled>
+  <SegmentedControlLabelIcon />
+</Unstyled>
+<br />
+
+```tsx
+<SegmentedControl
+  options={[
+    { label: "1", value: "1" },
+    { label: <IconSetting1 />, value: "2" },
+    { label: "3", value: "3" }
+  ]}
+  value="2"
+/>
+```
+
+:::
+
+:::div
+
+## Changing the size
+
+Pass `size` to change the component size.
+
+<Unstyled>
+  <SegmentedControlSizeS />
+</Unstyled>
+<br />
+
+```tsx
+<SegmentedControl
+  options={[
+    { label: "1", value: "1" },
+    { label: <IconSetting1 />, value: "2" },
+    { label: "3", value: "3" }
+  ]}
+  value="2"
+  size="s"
+/>
+```
+
+### TSegmentedControlSize
+
+Available component sizes: `l`, `m`, `s`, `xs`.
+:::
+
+:::div
+
+## Disabled options
+
+Set an option's `isDisabled` property to disable it.
+
+<Unstyled>
+  <SegmentedControlOptionDisabled />
+</Unstyled>
+<br />
+
+```tsx
+<SegmentedControl
+  options={[
+    { label: "1", value: "1" },
+    { label: "2", value: "2", isDisabled: true },
+    { label: "3", value: "3" }
+  ]}
+/>
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+```tsx
+<SegmentedControl
+  options={[
+    { label: "1", value: "1" },
+    { label: "2", value: "2" },
+    { label: "3", value: "3" }
+  ]}
+/>
+```
+
+<br />
+<Unstyled>
+  <SegControlExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Component props
+
+| Property          | Type                    | Default | Required | Description                   |
+| ----------------- | ----------------------- | ------- | -------- | ----------------------------- |
+| className         | `string`                | -       | -        | Additional class              |
+| onChange(`value`) | `void`                  | -       | -        | Called when the value changes |
+| value             | `string, number`        | -       | -        | Selected value                |
+| size              | `TSegmentedControlSize` | `l`     | -        | Component size                |
+| options           | `Array<IOption>`        | -       | ✓        | Options to display            |
+
+:::
+
+:::div
+
+## IOption
+
+| Property   | Type                  | Default | Required | Description         |
+| ---------- | --------------------- | ------- | -------- | ------------------- | --- |
+| label      | `string, JSX.Element` | -       | ✓        | Option label        |
+| value      | `string, number`      | -       | ✓        | Option value        |
+| isDisabled | `boolean`             | -       | -        | Disables the option |     |
+
+:::

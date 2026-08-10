@@ -1,0 +1,247 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { PopoverExamples } from "./examples";
+
+import {
+  PopoverExampleTop,
+  PopoverExampleBottomRight,
+  PopoverExampleContent,
+  PopoverExampleIsSecondaryButton,
+  PopoverExampleNoTitle,
+  PopoverExampleDescription
+} from "./examples/PopoverExamples";
+
+:::div{.notshown}
+
+# Popover
+
+Popovers display supplemental information, guidance, contextual content, or actions while users interact with interface elements.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Popover buttons](#popover-buttons)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Popover } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <PopoverExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <Popover
+    direction="top"
+    title="Heading"
+    description="Description"
+    primaryButtonContent="Action 1"
+    secondaryButtonContent="Action 2">
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleTop />
+  </center>
+</Unstyled>
+:::
+
+### Popover direction
+
+Set the preferred placement with `direction`.
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+import { IconList } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Popover
+    direction="bottomRight"
+    description="Your custom description"
+    primaryButtonContent="Action 1"
+    secondaryButtonContent="Action 2">
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleBottomRight />
+  </center>
+</Unstyled>
+
+:::div
+
+## Popover content
+
+### Popover buttons
+
+Set the button content with `primaryButtonContent` and `secondaryButtonContent`.<br/>
+Handle button clicks with `onPrimaryButton` and `onSecondaryButton`.
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+import { IconList } from "@dmitrygrigorov/icons";
+
+const handleButtonClick = (
+  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+): void => {
+  console.log("Button clicked");
+};
+
+const Example: React.FC = () => (
+  <Popover
+    direction="bottomRight"
+    title="Heading"
+    description="Description"
+    primaryButtonContent="Action 1"
+    onPrimaryButton={handleButtonClick}
+    secondaryButtonContent={<IconList />}>
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleContent />
+  </center>
+</Unstyled>
+
+Control button visibility with `isPrimaryButton` and `isSecondaryButton`.
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+import { IconList } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Popover
+    direction="bottomRight"
+    title="Heading"
+    description="Description"
+    primaryButtonContent="Action 1"
+    secondaryButtonContent="Action 2"
+    isSecondaryButton={false}>
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleIsSecondaryButton />
+  </center>
+</Unstyled>
+
+### Popover heading
+
+The popover heading is optional and is set with `title`.
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+import { IconList } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Popover
+    direction="bottomRight"
+    description="Description"
+    primaryButtonContent="Action 1"
+    secondaryButtonContent="Action 2">
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleNoTitle />
+  </center>
+</Unstyled>
+
+### Popover text
+
+Set the popover text with `description`.
+
+```tsx
+import React from "react";
+import { Popover, Button } from "@dmitrygrigorov/components";
+import { IconList } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => (
+  <Popover
+    direction="bottomRight"
+    description="Your custom description"
+    primaryButtonContent="Action 1"
+    secondaryButtonContent="Action 2">
+    <Button viewType="primary">Click me</Button>
+  </Popover>
+);
+```
+
+<Unstyled>
+  <center>
+    <PopoverExampleDescription />
+  </center>
+</Unstyled>
+
+:::div
+
+## Props
+
+| Property               | Type                                                               | Default                                        | Required | Description                                 |
+| ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------- | -------- | ------------------------------------------- | --------------------------- |
+| children               | `React.ReactElement`                                               | -                                              | ✓        | Element used to position the popover        |
+| direction              | [TDirection](#direction)                                           | `top`                                          | -        | -                                           | Preferred popover direction |
+| title                  | `string`                                                           | -                                              | -        | Heading text                                |
+| description            | `string`                                                           | -                                              | -        | Description text                            |
+| primaryButtonContent   | `string, JSX.Element`                                              | -                                              | -        | Primary action button content               |
+| secondaryButtonContent | `string, JSX.Element`                                              | -                                              | -        | Secondary action button content             |
+| isPrimaryButton        | `boolean`                                                          | true when `primaryButtonContent` is provided   | -        | Whether to show the primary button          |
+| isSecondaryButton      | `boolean`                                                          | true when `secondaryButtonContent` is provided | -        | Whether to show the secondary button        |
+| onPrimaryButton        | (event: React.MouseEvent`<HTMLButtonElement, MouseEvent>`) => void | -                                              | -        | Called when the primary button is clicked   |
+| onSecondaryButton      | (event: React.MouseEvent`<HTMLButtonElement, MouseEvent>`) => void | -                                              | -        | Called when the secondary button is clicked |
+| defaultIsVisible       | `boolean`                                                          | `false`                                        | -        | Whether the popover is visible initially    |
+| onVisibleChange        | `(isVisible: boolean) => void`                                     | -                                              | -        | Called when popover visibility changes      |
+| isShow                 | `boolean`                                                          | -                                              | -        | Controls whether the popover is displayed   |
+
+:::
+
+:::div
+
+### Direction
+
+Available values:
+`topRight`, `topLeft`, `top`, `bottomRight`, `bottomLeft`, `bottom`, `right`, `left`
+:::

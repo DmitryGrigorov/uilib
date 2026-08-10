@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Tables/Row object" />
+
+# Row object
+
+The row object contains a reference to its data item and other row metadata. It exposes attributes, methods, and events.
+
+| Property     | Type                         | Description                                                           |
+| ------------ | ---------------------------- | --------------------------------------------------------------------- |
+| id           | string                       | Unique row identifier, provided externally or generated automatically |
+| data         | TData                        | Externally supplied row data                                          |
+| setSelection | (newValue: boolean) => void; | Selects or deselects the row                                          |
+| isSelected   | () => boolean;               | Returns whether the current row is selected                           |
+| isRowPinned  | boolean                      | Whether the current row is pinned                                     |
+| isDetail     | boolean                      | Whether the row contains additional information                       |
+| height       | number                       | Row height                                                            |
+| setRowPinned | (newValue: boolean) => void; | Pins or unpins the row                                                |
+| rowIndex     | number                       | Current row index                                                     |

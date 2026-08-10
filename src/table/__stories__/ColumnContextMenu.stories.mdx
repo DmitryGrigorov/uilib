@@ -1,0 +1,326 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TableColumnContextMenuObject,
+  TableColumnContextMenuTable,
+  TableColumnContextMenuByColumn,
+  TableColumnContextMenuWithClickItems
+} from "./examples/ColumnContextMenu";
+
+<Meta title="Tables/Column context menu" />
+
+# Context menus for table column headers
+
+A table-header context menu is a dropdown containing interactive elements such as buttons, checkboxes, and radio buttons.
+
+## Usage
+
+Set `isContextMenu` to `true` in a column definition and provide a function that returns menu items or the menu itself. You can provide the function in two ways:
+
+1. Set `getContextMenu` on a specific column. The menu then appears only for that column.
+2. Pass `getContextMenu` to `Table`. The menu is shared by all columns. **This approach has lower priority than a column-level menu**, so it works well when most or all columns use the same items.
+
+You can combine both approaches: define a shared menu on the table and override it for individual columns.
+
+### Define a context menu in a column
+
+The following example defines three columns. The **first** uses `isContextMenu` and a `getContextMenu` function that returns strings. The **second** also enables the context menu, but returns `Dropdown` items. The **third** mirrors the first without enabling `isContextMenu` for comparison.
+
+```tsx
+import React from "react";
+import { IDropdownItem } from "@dmitrygrigorov/components";
+import Table, { TColumn } from "@dmitrygrigorov/table";
+
+const getContextMenuStringItems = (): string[] => ["P2-1", "P2-2", "P2-3"];
+
+const getContextMenuDropdownItem = (): IDropdownItem[] => [
+  { label: "1", groupId: 1 },
+  { label: "2", groupId: 2 },
+  { label: "12", groupId: 1 },
+  { label: "123", groupId: 1 },
+  { label: "124", groupId: 1 },
+  { label: "125", groupId: 1 }
+];
+
+export const TableColumnContextMenuObject: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id",
+        isContextMenu: true,
+        getContextMenu: getContextMenuStringItems
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        isContextMenu: true,
+        getContextMenu: getContextMenuDropdownItem
+      },
+      {
+        field: "email",
+        title: "email",
+        getContextMenu: getContextMenuStringItems
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Denis Kryukov",
+      email: "denerVeryCool@gmaul.com"
+    },
+    {
+      id: "2",
+      fullName: "Gennady Fyodorov",
+      email: "gennady.fdorov@gmaul.com"
+    },
+    {
+      id: "3",
+      fullName: "Mikhail Terentyev",
+      email: "mik.palych@gmail.com"
+    }
+  ];
+
+  return <Table title="Context menu" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableColumnContextMenuObject />
+</Unstyled>
+
+### Define a context menu on the table
+
+This example also creates three columns. `getContextMenuDropdownItem` returns `IDropdownItem` entries and is passed to `Table` through `getContextMenu`. Each participating column enables `isContextMenu`. The final column overrides the shared menu with `getContextMenuStringItems`, which returns an array of strings.
+
+The first two columns therefore share the table-level menu, while the last column uses its explicitly defined items.
+
+```tsx
+import React from "react";
+import { IDropdownItem } from "@dmitrygrigorov/components";
+import Table, { TColumn } from "@dmitrygrigorov/table";
+
+const getContextMenuStringItems = (): string[] => ["P2-1", "P2-2", "P2-3"];
+
+const getContextMenuDropdownItem = (): IDropdownItem[] => [
+  { label: "1", groupId: 1 },
+  { label: "2", groupId: 2 },
+  { label: "12", groupId: 1 },
+  { label: "123", groupId: 1 },
+  { label: "124", groupId: 1 },
+  { label: "125", groupId: 1 }
+];
+
+const TableColumnContextMenuTable: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id",
+        isContextMenu: true
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        isContextMenu: true
+      },
+      {
+        field: "email",
+        title: "email",
+        isContextMenu: true,
+        getContextMenu: getContextMenuStringItems
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Denis Kryukov",
+      email: "denerVeryCool@gmaul.com"
+    },
+    {
+      id: "2",
+      fullName: "Gennady Fyodorov",
+      email: "gennady.fdorov@gmaul.com"
+    },
+    {
+      id: "3",
+      fullName: "Mikhail Terentyev",
+      email: "mik.palych@gmail.com"
+    }
+  ];
+
+  return (
+    <Table
+      title="Context menu"
+      columns={columns}
+      rowData={row}
+      getContextMenu={getContextMenuDropdownItem}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <TableColumnContextMenuTable />
+</Unstyled>
+
+### Use the column object
+
+The function returns context-menu items or the menu itself. Pass it through `getContextMenu` in a column definition or on `Table`. It receives the column object, so the menu can be derived from column properties.
+
+The example below builds a context-menu item list from each column's `field` value.
+
+```tsx
+import React from "react";
+import Table, { TColumn, TGetColumnMenuItems } from "@dmitrygrigorov/table";
+
+const TableColumnContextMenuByColumn: React.FC = () => {
+  const getContextMenuByColumn: TGetColumnMenuItems = ({ column }) => {
+    if (column?.field === "fullName") {
+      return ["Delete", "Create"];
+    }
+    return ["Edit", "Delete", "Create"];
+  };
+
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id",
+        isContextMenu: true,
+        getContextMenu: getContextMenuByColumn
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        isContextMenu: true,
+        getContextMenu: getContextMenuByColumn
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Denis Kryukov"
+    }
+  ];
+
+  return <Table title="Context menu" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableColumnContextMenuByColumn />
+</Unstyled>
+
+### Handle context-menu item clicks
+
+The context-menu click handler receives a `MouseEvent` and the selected menu item. You can provide it in either of these ways:
+
+1. Set `onClickContextMenuItem` in a column definition. This works well when the menu is an array of strings.
+
+```tsx
+import { TColumn } from "@dmitrygrigorov/table";
+
+const columns: TColumn[] = useMemo(
+  () => [
+    {
+      field: "p1S1",
+      title: "P1-s",
+      isContextMenu: true,
+      getContextMenu: (): string[] => ["P2-1", "P2-2", "P2-3"],
+      onClickContextMenuItem: (event, item): void => console.log(event, item)
+    }
+  ],
+  []
+);
+```
+
+2. When the menu contains `Dropdown` items, set `onClick` directly on each item.
+
+```tsx
+import { IDropdownItem } from "@dmitrygrigorov/components";
+
+const items: IDropdownItem[] = [
+  {
+    label: "1",
+    groupId: 1,
+    onClick: (event, item) => {
+      console.log(event, item);
+    }
+  },
+  { label: "2", groupId: 2 }
+];
+```
+
+The example creates two columns: the first menu contains strings, and the second contains `Dropdown` items.
+
+```tsx
+import React from "react";
+import { IDropdownItem } from "@dmitrygrigorov/components";
+import Table, { TColumn } from "@dmitrygrigorov/table";
+
+const getContextMenuStringItems = (): string[] => ["P2-1", "P2-2", "P2-3"];
+
+const getContextMenuDropdownItemWithClick = (): IDropdownItem[] => [
+  {
+    label: "Item 1",
+    groupId: 1,
+    onClick: () => {
+      alert("You clicked item 1");
+    }
+  }
+];
+
+const TableColumnContextMenuWithClickItems: React.FC = () => {
+  const columns: TColumn[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id",
+        isContextMenu: true,
+        getContextMenu: getContextMenuStringItems,
+        onClickContextMenuItem: (_event, item) => {
+          alert(`You clicked ${item as string}`);
+        }
+      },
+      {
+        field: "fullName",
+        title: "Full name",
+        isContextMenu: true,
+        getContextMenu: getContextMenuDropdownItemWithClick
+      }
+    ],
+    []
+  );
+
+  const row = [
+    {
+      id: "1",
+      fullName: "Denis Kryukov"
+    },
+    {
+      id: "2",
+      fullName: "Korney Nikitin"
+    },
+    {
+      id: "3",
+      fullName: "Prokhor Timofeyev"
+    }
+  ];
+
+  return <Table title="Context menu" columns={columns} rowData={row} />;
+};
+```
+
+<Unstyled>
+  <TableColumnContextMenuWithClickItems />
+</Unstyled>

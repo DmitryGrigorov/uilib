@@ -1,0 +1,166 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+import { BadgeExample, BadgeExampleDisabled } from "./examples/BadgeExamples";
+
+import { BadgeExamples } from "./examples";
+
+:::div{.notshown}
+
+# Badge
+
+Badge is a standalone primitive used to indicate the status or state of an item.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Interaction](#interaction)
+- [Disabled](#disabled)
+- [Appearance](#appearance)
+- [Properties](#properties)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Badge } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <BadgeExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { Badge } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return <Badge size="l">P2-l</Badge>;
+};
+```
+
+<Unstyled>
+  <BadgeExample size="l" />
+</Unstyled>
+:::
+
+:::div
+
+## Interaction
+
+The `isClick` property makes the badge interactive.
+
+```tsx
+import React from "react";
+import { Badge } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  return (
+    <Badge isClick size="l">
+      P2-l
+    </Badge>
+  );
+};
+```
+
+<Unstyled>
+  <BadgeExample isClick={true} size="l" />
+</Unstyled>
+
+:::
+
+:::div
+
+## Disabled
+
+The `isDisabled` property disables the badge, displays the disabled cursor, and prevents interaction.
+
+```tsx
+import React from "react";
+import { Badge } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return (
+    <Badge isClick isDisabled size="l">
+      P2-l
+    </Badge>
+  );
+};
+```
+
+<Unstyled>
+  <BadgeExampleDisabled size="l" />
+</Unstyled>
+
+:::
+
+:::div
+
+## Appearance
+
+Use `colorType` to select the badge appearance.
+
+```tsx
+import React from "react";
+import { Badge } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  return (
+    <Badge isClick colorType="red" size="l">
+      P2-l
+    </Badge>
+  );
+};
+```
+
+<Unstyled>
+  <BadgeExample isClick={true} size="l" colorType="red" />
+</Unstyled>
+
+:::
+
+:::div
+
+## Properties
+
+| Parameter  | Type                                                   | Default | Required | Description                         |
+| ---------- | ------------------------------------------------------ | ------------ | -------------- | ------------------------------------------ |
+| className  | `string`                                               | -       | -        | Class attribute value               |
+| children   | `string`                                               | -       | ✓        | Badge text                          |
+| colorType  | [`TBadgeColor`](#tbadgecolor)                          | `blue`  | -        | Visual treatment                    |
+| isDisabled | `boolean`                                              | `false` | -        | Disables the badge                  |
+| size       | [`TBadgeSize`](#tbadgesize)                            | `m`     | -        | Badge size                          |
+| isClick    | `boolean`                                              | `false` | -        | Enables interaction                 |
+| onClick    | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -       | -        | Click handler                       |
+
+:::
+
+:::div
+
+### TBadgeColor
+
+Available types: `blue` | `teal` | `red` | `amber` | `extra`
+:::
+
+:::div
+
+### TBadgeSize
+
+Available sizes: `m` | `l`
+:::

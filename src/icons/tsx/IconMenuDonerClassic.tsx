@@ -1,0 +1,40 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconMenuDonerClassic = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M4.25 12C4.25 11.5858 4.58579 11.25 5 11.25H19C19.4142 11.25 19.75 11.5858 19.75 12C19.75 12.4142 19.4142 12.75 19 12.75H5C4.58579 12.75 4.25 12.4142 4.25 12Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7.25 17C7.25 16.5858 7.58579 16.25 8 16.25H16C16.4142 16.25 16.75 16.5858 16.75 17C16.75 17.4142 16.4142 17.75 16 17.75H8C7.58579 17.75 7.25 17.4142 7.25 17Z"
+          fill="currentColor"
+        />
+        <path
+          d="M5 7C5 6.58579 4.66421 6.25 4.25 6.25H2C1.58579 6.25 1.25 6.58579 1.25 7C1.25 7.41421 1.58579 7.75 2 7.75H4.25C4.66421 7.75 5 7.41421 5 7Z"
+          fill="currentColor"
+        />
+        <path
+          d="M6.5 7C6.5 7.41421 6.83579 7.75 7.25 7.75H22C22.4142 7.75 22.75 7.41421 22.75 7C22.75 6.58579 22.4142 6.25 22 6.25H7.25C6.83579 6.25 6.5 6.58579 6.5 7Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconMenuDonerClassic;

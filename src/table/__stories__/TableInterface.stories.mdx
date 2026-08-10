@@ -1,0 +1,28 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Tables/Table interface" />
+
+# Table interface
+
+#### This section describes the public interface your application can use to interact with the table, including its methods, properties, and events.
+
+---
+
+The table interface combines the following elements:
+
+- Table options: properties and callbacks used to configure the table, such as `title`.
+- Table events: events emitted by the table to inform applications about state changes.
+- Row object: each table row is represented by an object that wraps its row data. The object exposes attributes, methods, and events for interacting with that row.
+
+## Properties and events
+
+- Define properties by passing props to the table, for example `columns={columns}`.
+- Define callbacks through props as well.
+- Define event handlers through props.
+
+Example:
+{/* TODO: add events and callbacks to the example */}
+
+```tsx
+<Table ref={tableRef} columns={columns} />
+```

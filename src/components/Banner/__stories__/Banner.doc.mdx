@@ -1,0 +1,152 @@
+import { BannerExamples} from "./examples";
+
+:::div{.notshown}
+# Banner
+A medium-priority notification that informs the user about issues without blocking their work.
+:::
+
+:::div
+## Navigation
+- [Import](#import)
+- [Usage](#usage)
+- [Properties](#properties)
+:::
+
+:::div
+## Import
+
+```tsx
+import { bannerShow } from "@dmitrygrigorov/components";
+```
+
+```tsx
+import { BannerService, useBannerService } from "@dmitrygrigorov/components";
+```
+:::
+
+:::div{.notshown}
+## Appearance
+
+<BannerExamples />
+:::
+
+:::div
+## Usage
+You can show a banner in two ways:
+1. With the `bannerShow` function.
+2. With `BannerService` and the `useBannerService` hook.
+
+Calling `bannerShow` always returns a function that closes the banner.
+:::
+
+:::div
+### `bannerShow` function
+
+When using `bannerShow`, the application theme is not supplied to `Banner` automatically and the component will not react to application theme changes. Pass the `theme` argument when you need a theme other than the default.
+
+```tsx
+import { bannerShow, Button, DARK_THEME } from "@dmitrygrigorov/components";
+
+const Example = () => {
+  const handleBannerShow = (): void => {
+    bannerShow({
+      status: "info",
+      isIcon: true,
+      title: "Weak internet connection",
+      message:
+        "The internet signal is weak and may cause unstable application behavior.",
+      secondaryButton: {
+        title: "Secondary action",
+      },
+      type: "overlay"
+    }, DARK_THEME);
+  };
+
+  return (
+    <Button viewType="primary" onClick={handleBannerShow}>
+      Open banner
+    </Button>
+  );
+};
+```
+:::
+
+:::div
+### BannerService
+
+```tsx
+// App
+
+import React from "react";
+import { BannerService } from "@dmitrygrigorov/components"
+import Page from "./Page";
+
+export const App: React.FC = () => (
+  <BannerService>
+    <Page />
+  </BannerService>
+);
+```
+
+```tsx
+// Page
+
+import React from "react";
+import { useBannerService, Button } from "@dmitrygrigorov/components"
+
+export const Page: React.FC = () => {
+  const [bannerShow] = useBannerService();
+
+  const handleBannerShow = (): void => {
+    bannerShow({
+      status: "info",
+      isIcon: true,
+      title: "Weak internet connection",
+      message:
+        "The internet signal is weak and may cause unstable application behavior.",
+      secondaryButton: {
+        title: "Secondary action",
+      },
+      type: "overlay"
+    });
+  };
+
+  return (
+    <Button viewType="primary" onClick={handleBannerShow}>
+      Open banner
+    </Button>
+  );
+}
+```
+:::
+
+:::div
+## Properties
+
+| Parameter       | Type                     | Default  | Required | Description                           |
+|-----------------|--------------------------|--------------|----------------|------------------------------------|
+| status          | `LabelStatus`            | -        | ✓        | Banner status                         |
+| isIcon          | `boolean`                | -        | -        | Shows an icon in the title            |
+| title           | `string`                 | -        | ✓        | Banner title                          |
+| message         | `string`                 | -        | ✓        | Message text                          |
+| secondaryButton | `IBannerSecondaryButton` | -        | -        | Secondary button configuration        |
+| onPrimaryClick  | () => void;              | -        | -        | Primary button handler                |
+| className       | `string`                 | -        | -        | Additional CSS class                  |
+| primaryTitle    | `string`                 | Close    | -        | Primary button label                  |
+| type            | `overlay`, `shifting`    | shifting | -        | Overlays or shifts surrounding content |
+:::
+
+:::div
+### IBannerSecondaryButton
+
+| Parameter | Type      | Default | Required | Description              |
+|----------|-----------|--------------|----------------|----------------------------------|
+| title    | `string`  | -       | ✓        | Secondary button label   |
+| onClick  | `boolean` | -       | -        | Secondary button handler |
+:::
+
+:::div
+### LabelStatus
+Available values:
+`filled`, `info`, `focused`, `error`, `success`, `warning`
+:::

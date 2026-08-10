@@ -1,0 +1,32 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconFolder = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M1 6.75C1 4.12665 3.12665 2 5.75 2H8.75C9.61558 2 10.4307 2.40753 10.95 3.1L12.75 5.5C12.9861 5.81476 13.3566 6 13.75 6H17.75C20.3734 6 22.5 8.12665 22.5 10.75V14.75C22.5 15.1642 22.1642 15.5 21.75 15.5C21.3358 15.5 21 15.1642 21 14.75V10.75C21 8.95507 19.5449 7.5 17.75 7.5H13.75C12.8844 7.5 12.0693 7.09247 11.55 6.4L9.75 4C9.51393 3.68524 9.14345 3.5 8.75 3.5H5.75C3.95507 3.5 2.5 4.95507 2.5 6.75V8.75C2.5 9.16421 2.16421 9.5 1.75 9.5C1.33579 9.5 1 9.16421 1 8.75V6.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M1.75 11.5C2.16421 11.5 2.5 11.8358 2.5 12.25V17.75C2.5 19.5449 3.95507 21 5.75 21H17.75C19.5449 21 21 19.5449 21 17.75C21 17.3358 21.3358 17 21.75 17C22.1642 17 22.5 17.3358 22.5 17.75C22.5 20.3734 20.3734 22.5 17.75 22.5H5.75C3.12665 22.5 1 20.3734 1 17.75V12.25C1 11.8358 1.33579 11.5 1.75 11.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconFolder;

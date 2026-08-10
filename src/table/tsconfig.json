@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "../../publish-table/esm",
+    "baseUrl": "../../",
+    "noEmit": false,
+    "jsx": "react",
+    "sourceMap": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "index.ts",
+    "../../types",
+    "shims.d.ts",
+    "shims-jsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.stories.tsx"
+  ]
+}

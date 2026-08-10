@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "../../publish-icons/esm",
+    "baseUrl": "../../",
+    "noEmit": false,
+    "jsx": "react",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false
+  },
+  "include": ["index.tsx", "jsx", "shims.d.ts", "shims-jsx.d.ts"],
+  "exclude": ["node_modules", "**/*.stories.tsx"]
+}

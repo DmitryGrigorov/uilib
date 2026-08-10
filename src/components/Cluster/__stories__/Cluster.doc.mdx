@@ -1,0 +1,53 @@
+import ClusterExample from "./examples";
+import Cluster from "../";
+
+# Cluster
+
+Displays a group of objects on a map.
+
+- [Import](#import)
+- [States](#states)
+
+- [Properties](#properties)
+
+## Import
+
+```tsx
+import { Cluster } from "@dmitrygrigorov/components";
+```
+
+## States
+
+### Selected
+
+Use `isPressed` to indicate that the map cluster is selected.
+
+```tsx
+<Cluster isPressed>P1-s</Cluster>
+```
+
+<Cluster isPressed>P1-s</Cluster>
+
+### Disabled
+
+Use `isDisabled` to indicate that the map cluster cannot be selected.
+
+```tsx
+<Cluster isDisabled>P1-s</Cluster>
+```
+
+<Cluster isDisabled>P1-s</Cluster>
+
+## Appearance
+
+<ClusterExample />
+
+## Properties
+
+| Parameter  | Type                                                   | Default | Required | Description                          |
+| ---------- | ------------------------------------------------------ | ------------ | -------------- | ------------------------------------ |
+| isPressed  | `boolean`                                              | -       | -        | Pressed state                        |
+| isDisabled | `boolean`                                              | -       | -        | Disables the element                 |
+| onClick    | `(event: React.MouseEvent<HTMLDivElement/>) => void; ` | -       | -        | Called when the cluster is clicked   |
+| className  | `string`                                               | -       | -        | Additional class                     |
+| children   | `string`                                               | -       | -        | Cluster content                      |

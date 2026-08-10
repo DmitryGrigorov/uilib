@@ -1,0 +1,30 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconArrowSquareDown = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M17.5303 10.4697C17.8232 10.7626 17.8232 11.2374 17.5303 11.5303L13.9445 15.1161C12.8706 16.1901 11.1294 16.1901 10.0555 15.1161L6.46967 11.5303C6.17678 11.2374 6.17678 10.7626 6.46967 10.4697C6.76256 10.1768 7.23744 10.1768 7.53033 10.4697L11.1161 14.0555C11.6043 14.5436 12.3957 14.5436 12.8839 14.0555L16.4697 10.4697C16.7626 10.1768 17.2374 10.1768 17.5303 10.4697Z"
+          fill="currentColor"
+        />
+        <path
+          d="M7 2.5H17C19.4853 2.5 21.5 4.51472 21.5 7V17C21.5 19.4853 19.4853 21.5 17 21.5H7C4.51472 21.5 2.5 19.4853 2.5 17V12.75C2.5 12.3358 2.16421 12 1.75 12C1.33579 12 1 12.3358 1 12.75V17C1 20.3137 3.68629 23 7 23H17C20.3137 23 23 20.3137 23 17V7C23 3.68629 20.3137 1 17 1H7C3.68629 1 1 3.68629 1 7V7.25C1 7.66421 1.33579 8 1.75 8C2.16421 8 2.5 7.66421 2.5 7.25V7C2.5 4.51472 4.51472 2.5 7 2.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconArrowSquareDown;

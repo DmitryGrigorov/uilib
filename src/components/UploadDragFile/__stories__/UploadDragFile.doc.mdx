@@ -1,0 +1,232 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  UploadDragFileDefault,
+  UploadDragFileCustomText,
+  UploadDragFileDescription,
+  UploadDragFileNotDivider,
+  UploadDragFileOnlyDrag,
+  UploadDragFileCustomIcon,
+  UploadDragFileAcceptDocs,
+  UploadDragFileOnChange,
+  UploadDragFileExamples,
+  UploadDragFileDisabled
+} from "./examples";
+
+:::div{.notshown}
+
+# UploadDragFile
+
+A file uploader for accepting files anywhere in an application.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Content](#content)
+- [File types](#file-types)
+- [File upload handler](#file-upload-handler)
+- [Disabled](#disabled)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { UploadDragFile } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<UploadDragFileExamples />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+export const UploadDragFileDefault: React.FC = () => <UploadDragFile />;
+```
+
+<Unstyled>
+  <UploadDragFileDefault />
+</Unstyled>
+:::
+
+:::div
+
+<br />
+
+## Content
+
+By default, the component displays an upload prompt and a button for choosing a file.
+
+<UploadDragFileDefault />
+
+<br />
+
+### Heading
+
+Use `text` to change the default heading.
+
+```tsx
+export const UploadDragFileCustomText: React.FC = () => (
+  <UploadDragFile text="Upload multiple files" />
+);
+```
+
+<Unstyled>
+  <UploadDragFileCustomText />
+</Unstyled>
+:::
+
+<br />
+
+### Description
+
+Use `description` to provide guidance, such as the accepted file types.
+
+```tsx
+export const UploadDragFileDescription: React.FC = () => (
+  <UploadDragFile description="JPG or PNG format" accept=".png,.jpg" />
+);
+```
+
+<Unstyled>
+  <UploadDragFileDescription />
+</Unstyled>
+
+### Divider
+
+Set `isDivider={false}` to hide the divider between the description and upload button.
+
+```tsx
+export const UploadDragFileNotDivider: React.FC = () => (
+  <UploadDragFile description="PDF format" accept=".pdf" isDivider={false} />
+);
+```
+
+<UploadDragFileNotDivider />
+
+### Upload button
+
+By default, users can upload files either with the button or by dragging them into the upload area. Set `isOnlyDrag` to allow drag and drop only.
+
+```tsx
+export const UploadDragFileOnlyDrag: React.FC = () => (
+  <UploadDragFile description="Any format" isOnlyDrag />
+);
+```
+
+<UploadDragFileOnlyDrag />
+
+### Icon
+
+Use `icon` to provide a custom icon.
+
+```tsx
+export const UploadDragFileCustomIcon: React.FC = () => (
+  <UploadDragFile description="Any format" icon={<IconSetting1 />} />
+);
+```
+
+<UploadDragFileCustomIcon />
+
+:::div
+
+<br />
+
+## File types
+
+Use `accept` to restrict the allowed file types.
+Specify formats as:
+
+- a file extension that begins with a dot, such as `.png`
+- a MIME type without an extension, such as `application/xml`
+- `image/*` to accept images only
+- `video/*` to accept videos only
+
+Learn more about file type specifiers in the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers).
+
+```tsx
+export const UploadDragFileAcceptDocs: React.FC = () => (
+  <UploadDragFile description="DOC or DOCX format" accept=".doc, .docx" />
+);
+```
+
+<UploadDragFileAcceptDocs />
+
+:::
+
+:::div
+
+<br />
+
+## File upload handler
+
+Handle uploaded files with `onChange`.
+
+```tsx
+export const UploadDragFileOnChange: React.FC = () => {
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleChange = (_files: File[]): void => {
+    setFiles(_files);
+  };
+  return (
+    <>
+      <UploadDragFile onChange={handleChange} />
+      <P2 type="corvus">{files.map((file) => file.name)}</P2>
+    </>
+  );
+};
+```
+
+<UploadDragFileOnChange />
+:::
+
+:::div
+
+<br />
+
+## Disabled
+
+Set `isDisabled` to prevent interaction with the component.
+
+```tsx
+export const UploadDragFileDisabled: React.FC = () => (
+  <UploadDragFile isDisabled />
+);
+```
+
+<UploadDragFileDisabled />
+
+:::
+
+<br />
+
+## Props
+
+| Property         | Type                       | Default                          | Required | Description                                                                                                                               |
+| ---------------- | -------------------------- | -------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| isMultiple       | `boolean`                  | -                                | -        | Whether multiple files can be selected                                                                                                    |
+| onChange         | `(files: File[]) => void;` | -                                | -        | File selection handler                                                                                                                    |
+| isDisabled       | `boolean`                  | -                                | -        | Disables component interaction                                                                                                            |
+| text             | `string`                   | `Drag a document into this area` | -        | Heading text                                                                                                                              |
+| description      | `string`                   | -                                | -        | Description                                                                                                                               |
+| accept           | `string`                   | -                                | -        | List of accepted file types (see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)) |
+| icon             | `JSX.Element`              | -                                | -        | Top icon                                                                                                                                  |
+| isDivider        | `boolean`                  | `true`                           | -        | Whether to show the divider between content and the button                                                                                |
+| className        | `string`                   | -                                | -        | Additional CSS classes for the component                                                                                                  |
+| isOnlyDrag       | `boolean`                  | -                                | -        | Whether to disable file selection through the button                                                                                      |
+| maxFileSize      | `number`                   | -                                | -        | Maximum size of an uploaded file                                                                                                          |
+| summarySizeLimit | `number`                   | -                                | -        | Maximum combined size of uploaded files                                                                                                   |

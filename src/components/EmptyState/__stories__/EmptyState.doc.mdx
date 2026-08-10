@@ -1,0 +1,144 @@
+import { EmptyStateExamples } from "./examples";
+import {
+  EmptyStateDefault,
+  EmptyStateNoButton,
+  EmptyStateNoButtonAndIcon,
+  EmptyStateNoTextAndIcon
+} from "./examples/EmptyStateExamples";
+
+:::div{.notshown}
+
+# EmptyState
+
+EmptyState is shown when a view has no content or data. It can also guide users toward the next useful action.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Icons](#icons)
+- [Heading](#heading)
+- [Text](#text)
+- [Button](#button)
+- [Properties](#properties)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { EmptyState } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Usage
+
+<EmptyStateDefault />
+
+```tsx
+const Example: React.FC = () => (
+  <EmptyState
+    header="Example heading"
+    text="Example content text"
+    isButton
+    icon={<IconDirectboxDefault />}
+  />
+);
+```
+
+:::
+
+:::div
+
+## Icons
+
+Use `icon` to add a supporting illustration or icon.
+
+<EmptyStateNoButton />
+
+```tsx
+<EmptyState
+  width="382"
+  header="Example heading"
+  text="Example content text"
+  icon={<IconDirectboxDefault />}
+/>
+```
+
+:::
+
+:::div
+
+## Heading
+
+Use `header` to provide a concise heading for the empty state.
+
+<EmptyStateNoButtonAndIcon />
+
+```tsx
+<EmptyState
+  width="382"
+  header="Example heading"
+  text="Example content text"
+/>
+```
+
+:::
+
+:::div
+
+## Text
+
+Use `text` to explain why the content is unavailable or what the user can do next.
+
+<EmptyStateNoButtonAndIcon />
+
+```tsx
+<EmptyState
+  width="382"
+  header="Example heading"
+  text="Example content text"
+/>
+```
+
+:::
+
+:::div
+
+## Button
+
+Enable the action button when the empty state has a clear next step.
+
+<EmptyStateNoTextAndIcon />
+
+```tsx
+<EmptyState width="382" header="Example heading" isButton />
+```
+
+:::
+
+:::div
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| text | `string` | — | Yes | Supporting text |
+| header | `string` | — | No | Heading text |
+| onButtonClick | `() => void` | — | No | Shows the button and handles its click |
+| buttonText | `string` | — | No | Button label |
+| buttonIcon | `JSX.Element` | — | No | Button icon |
+| icon | `JSX.Element` | — | No | Empty-state icon |
+| width | `string` | — | No | Component width |
+| className | `string` | — | No | Additional CSS class |
+
+:::

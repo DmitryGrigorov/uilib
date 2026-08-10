@@ -1,0 +1,32 @@
+{
+  "name": "@dmitrygrigorov/icons",
+  "version": "1.4.0",
+  "description": "1200+ generated SVG icon components",
+  "main": "umd/index.js",
+  "module": "esm/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "tsc:tsx": "npm run eslint && tsc",
+    "tsc": "npm run eslint && tsc -p tsconfig.json && tsc --outDir ../../publish-icons/umd --module commonjs --resolveJsonModule false && tsc --outDir ../../publish-icons/types --emitDeclarationOnly true --declaration true --allowJs false --isolatedModules true",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx",
+    "postversion": "cp -r ./package.json ../src/icons/"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "tslib": "^2.3.1"
+  },
+  "author": "Dmitry Grigorov",
+  "private": false,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DmitryGrigorov/uilib.git"
+  },
+  "sideEffects": false
+}

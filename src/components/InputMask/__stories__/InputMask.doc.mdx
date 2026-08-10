@@ -1,0 +1,548 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  InputMaskDefaultExample,
+  InputMaskTelExample,
+  InputMaskSuccessUsage,
+  InputMaskWarningUsage,
+  InputMaskExample,
+  InputMaskErrorUsage,
+  InputMaskRegexpExample,
+  InputMaskFunctionExample,
+  InputMaskStringCardExample,
+  InputMaskStringNumberCarExample,
+  InputMaskArrayColorExample,
+  InputMaskContractNumberExample
+} from "./examples/InputMaskExamples";
+import { InputMaskExamples } from "./examples";
+
+:::div{.notshown}
+
+# InputMask
+
+InputMask formats text input with configurable masks.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Field content](#field-content)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InputMask } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InputMaskExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Example using a date mask.
+
+```tsx
+import React, { useState } from "react";
+import { InputMask } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputMask
+      placeholder={"Date input example"}
+      value={value}
+      mask={Date}
+      onChange={(_e, val: string) => setValue(val)}
+      isShowMask={true}
+      placeholderChar="_"
+    />
+  );
+};
+```
+
+<br />
+<Unstyled>
+  <InputMaskDefaultExample />
+</Unstyled>
+:::
+
+:::div
+
+## Field type
+
+The `type` prop selects the field type.
+
+- `text`
+- `password`
+- `tel`
+- `number`
+- `date`
+- `file`
+- `email`
+- `url`
+- `search`
+  <br />
+  <br />
+
+```tsx
+import React, { useState } from "react";
+import { InputMask } from "@dmitrygrigorov/components";
+
+const PhoneExample: React.FC = () => {
+  const MASK_TEL = "+7 (000) 000 00 00";
+
+  const [value, setValue] = useState("+7924");
+
+  return (
+    <InputMask
+      placeholder="Phone input example"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      type="tel"
+      isShowMask={true}
+      mask={MASK_TEL}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <InputMaskTelExample />
+</Unstyled>
+:::
+
+## Field content
+
+### Placeholder
+
+Use `placeholder` to explain what to enter or which format is expected.
+`placeholder` accepts a string or a two-string array. The first label appears when the field is empty and the second when it contains a value.
+
+```tsx
+export const InputMaskExample = () => {
+  return <InputMask mask={Date} placeholder={["Label 1", "Label 2"]} />;
+};
+```
+
+<Unstyled>
+  <InputMaskExample />
+</Unstyled>
+:::
+
+:::div
+
+### Value
+
+Set the field value with `value`.
+
+```tsx
+<InputMask value="+7924" />
+```
+
+<Unstyled>
+  <InputMaskTelExample />
+</Unstyled>
+:::
+
+:::div
+
+### Statuses
+
+Use `status` to emphasize the input and communicate validation feedback. Available values are `error`, `warning`, and `success`.
+
+#### status="error"
+
+<Unstyled>
+  <InputMaskErrorUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputMask } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputMask
+      mask={Date}
+      placeholder="Error label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+```
+
+#### status="warning"
+
+<Unstyled>
+  <InputMaskWarningUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      mask={Date}
+      placeholder="Warning label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+```
+
+#### status="success"
+
+<Unstyled>
+  <InputMaskSuccessUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { Input } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      mask={Date}
+      placeholder="Success label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Clear button
+
+Set `isShowClearIcon` to show a clear button when the field contains a value.
+
+```tsx
+<InputMask value="+7924" isShowClearIcon />
+```
+
+:::
+
+:::div
+
+### Required fields
+
+Set `isRequired` to make the field required.
+
+```tsx
+<InputMask placeholder="Label 1" isRequired />
+<InputMask placeholder="Label 1" />
+```
+
+:::
+
+:::div
+
+### Disabled field
+
+Set `isDisabled` to prevent input.
+
+```tsx
+<InputMask placeholder="Label 1" isDisabled />
+```
+
+:::
+
+:::div
+
+### Sizes
+
+Use `size` to change the field height and spacing.
+Size `m` is recommended for mobile interfaces.
+
+```tsx
+<InputMask placeholder="Size L" size="l" />
+<InputMask placeholder="Size M" size="m" />
+```
+
+:::
+
+:::div
+
+### Focus
+
+Set `isAutoFocus` to focus the field automatically.
+
+```tsx
+<InputMask placeholder="Focus" isAutoFocus />
+```
+
+:::
+
+:::div
+
+## Masks
+
+### Regular expressions
+
+The following example uses a regular expression to accept digits only.
+
+```tsx
+export const InputMaskRegexpExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask={/^\d+$/}
+    size="l"
+    placeholder="Regular expression"
+  />
+);
+```
+
+<Unstyled>
+  <InputMaskRegexpExample />
+</Unstyled>
+<br />
+
+#### Note
+
+`Ensure the regular expression accepts every intermediate result, not only the final value.`
+
+For example:
+
+```tsx
+export const InputMaskRegexpExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask={/^123$/}
+    size="l"
+    placeholder="Regular expression"
+  />
+);
+```
+
+This example prevents all input because only the complete string `123` matches, while intermediate values `1` and `12` do not.
+
+### Function
+
+This function mask accepts any ascending sequence from 0 to 9.
+
+```tsx
+export const InputMaskFunctionExample: React.FC = () => {
+  const mask = (value: string): boolean =>
+    /^\d*$/.test(value) &&
+    value.split("").every((ch, i) => {
+      const prevCh = value[i - 1];
+      return !prevCh || prevCh < ch;
+    });
+
+  return (
+    <InputMask
+      width="400px"
+      mask={mask}
+      size="l"
+      placeholder="Sequence from 0 to 9"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <InputMaskFunctionExample />
+</Unstyled>
+<br />
+
+### String
+
+The string can contain the following mask definitions:
+
+- 0 — any digit
+- a — any letter
+- - — any character
+- [] — optional input
+- {} — include the fixed part in the unmasked value
+
+`Escape a definition character when it should be treated as a fixed character.`
+
+```tsx
+export const InputMaskStringCardExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask="0000 0000 0000 0000"
+    size="l"
+    placeholder="Bank card"
+    isShowMask
+  />
+);
+```
+
+<Unstyled>
+  <InputMaskStringCardExample />
+</Unstyled>
+<br />
+
+```tsx
+export const InputMaskStringNumberCarExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask="a 000 aa 00[0]"
+    size="l"
+    placeholder="License plate"
+    isShowMask
+  />
+);
+```
+
+<Unstyled>
+  <InputMaskStringNumberCarExample />
+</Unstyled>
+
+### Array
+
+```tsx
+import { InputMaskTypes } from "@dmitrygrigorov/components";
+export const InputMaskArrayColorExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask={[
+      {
+        mask: "RGB,RGB,RGB",
+        blocks: {
+          RGB: {
+            mask: InputMaskTypes.MaskedRange,
+            from: 0,
+            to: 255
+          }
+        }
+      },
+      /^#[\da-f]{0,6}$/i
+    ]}
+    size="l"
+    placeholder="Color"
+    isShowMask
+  />
+);
+```
+
+<Unstyled>
+  <InputMaskArrayColorExample />
+</Unstyled>
+<br />
+
+### Complex masks
+
+Use the `blocks` option for complex masks.
+
+```tsx
+import { InputMaskTypes } from "@dmitrygrigorov/components";
+
+export const InputMaskContractNumberExample: React.FC = () => (
+  <InputMask
+    width="400px"
+    mask="Contract no. NN dated DD.MM.2\02Y"
+    size="l"
+    placeholder="Contract"
+    isShowMask
+    blocks={{
+      NN: {
+        mask: "**"
+      },
+      DD: {
+        mask: InputMaskTypes.MaskedRange,
+        from: 1,
+        to: 31
+      },
+      MM: {
+        mask: InputMaskTypes.MaskedRange,
+        from: 1,
+        to: 12
+      },
+      Y: {
+        mask: "0"
+      }
+    }}
+  />
+);
+```
+
+<Unstyled>
+  <InputMaskContractNumberExample />
+</Unstyled>
+
+:::
+
+:::div
+
+## Props
+
+| Prop              | Type                                                                                                                         | Default | Required | Description                                                                                                         |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| id                | `string`, `number`                                                                                                           | -       | -        | Field ID in the DOM                                                                                                 |
+| value             | `string`                                                                                                                     | -       | -        | Field value                                                                                                         |
+| isAutoFill        | `boolean`                                                                                                                    | -       | -        | Enables browser autofill suggestions                                                                                |
+| isAutoFocus       | `boolean`                                                                                                                    | -       | -        | Focuses and highlights the field automatically                                                                      |
+| name              | `string`                                                                                                                     | -       | -        | Field name in the DOM                                                                                               |
+| placeholder       | `string`, `[string, string]`                                                                                                 | -       | -        | Hint displayed inside the field                                                                                     |
+| isDisabled        | `boolean`                                                                                                                    | `false` | -        | Disables the field                                                                                                  |
+| onChange          | `onChange: (event: ChangeEvent<HTMLInputElement>` <br/> `\ MouseEvent<HTMLDivElement>, value: string, id?: string) => void;` | -       | -        | Called when the field value changes                                                                                 |
+| onFocus           | `event: FocusEvent<HTMLInputElement>) => void`                                                                               | -       | -        | Called when the field receives focus                                                                                |
+| onBlur            | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                               | -       | -        | Called when the field loses focus                                                                                   |
+| onKeyPress        | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                          | -       | -        | Handles key presses                                                                                                 |
+| onKeyDown         | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                          | -       | -        | Handles key-down events                                                                                             |
+| type              | [`TTypeInput`](#ttypeinput)                                                                                                  | -       | -        | Input type: "decimal", "numeric", "email", "none", "search", "tel", "url", or "text"                                |
+| className         | `string`                                                                                                                     | -       | -        | Additional CSS class                                                                                                |
+| testId            | `string`                                                                                                                     | -       | -        | ID used by automated tests                                                                                          |
+| status            | `default`, `error`, `warning`, `success`                                                                                     | -       | -        | Field status styling                                                                                                |
+| statusText        | `string`                                                                                                                     | -       | -        | Text describing the status                                                                                          |
+| isShowLabel       | `boolean`                                                                                                                    | `true`  | -        | Controls the label visibility                                                                                       |
+| isShowClearIcon   | `boolean`                                                                                                                    | `true`  | -        | Controls the clear button                                                                                           |
+| isShowMask        | `boolean`                                                                                                                    | -       | ✔       | Shows the mask when the input has no value                                                                          |
+| isShowMaskOnFocus | `boolean`                                                                                                                    | -       | -        | Shows the mask on focus                                                                                             |
+| placeholderChar   | `string`                                                                                                                     | -       | -        | [placeholderChar](https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#placeholderchar)     |
+| mask              | [`TMask`](#tmask)                                                                                                            | -       | -        | [Mask used to format user input](https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#mask) |
+| viewType          | `round`, `line`                                                                                                              | `round` | -        | Field appearance                                                                                                    |
+| list              | `string`                                                                                                                     | -       | -        | Associates the field with a `<datalist>` element                                                                    |
+| autoComplete      | `string`                                                                                                                     | -       | -        | Enables or disables browser autocomplete                                                                            |
+| accessKey         | `string`                                                                                                                     | -       | -        | Keyboard shortcut for activating or focusing the element                                                            |
+| isReadOnly        | `boolean`                                                                                                                    | -       | -        | Makes the field read-only                                                                                           |
+| form              | `string`                                                                                                                     | -       | -        | Associates the control with a form element                                                                          |
+| blocks            | `object`                                                                                                                     | -       | -        | Configuration for complex masks                                                                                     |
+
+:::
+
+### TMask
+
+- RegExp
+- Function
+- string
+- Array \<TMask\>

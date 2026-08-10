@@ -1,0 +1,31 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Tables/Properties" />
+
+# Table properties
+
+#### All of these properties are defined by `ITableProps<TData>`.
+
+Use `TData` to describe the shape of row data.
+
+### Column definitions
+
+| Property         | Type                                                                                    | Description                                                  |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| columns          | TColumn[]                                                                               | Array of column definitions                                  |
+| rowData          | TData[]                                                                                 | Array of data to display                                     |
+| className        | string                                                                                  | Additional table class                                       |
+| rowClassName     | string                                                                                  | Additional row class                                         |
+| size             | TTableSize                                                                              | Table size: `l`, `m`, or `s`                                 |
+| isDividerRow     | boolean                                                                                 | Whether to render dividers between rows                      |
+| getRowId         | (params: IGetRowIdParams\<TData\>) => string;                                           | Resolves a row identifier from its data                      |
+| getRowClassName  | (params: IRowClassParams\<TData, TValue\>) => string \| undefined                       | Resolves an additional class from row data                   |
+| rowStyle         | CSSProperties                                                                           | Additional row styles                                        |
+| title            | string \| JSX.Element                                                                   | Table title                                                  |
+| description      | string \| JSX.Element                                                                   | Table description                                            |
+| noDataComponent  | JSX.Element                                                                             | Component displayed when there is no data                    |
+| getContextMenu   | TGetColumnMenuItems\<TData\>                                                            | Receives a column and returns its context menu or menu items |
+| isDetailRow      | `boolean`                                                                               | Enables row details                                          |
+| detailRowOptions | [IDetailRowOptions](?path=/docs/tables-nested-data--documentation#i-detail-row-options) | Nested-table display options                                 |
+| detailRowOptions | FC\<IRowDetailRendererParams\<TData, TValue\>\>                                         | Nested-data display options                                  |
+| viewTypeDetail   | `info` \| `table`                                                                       |                                                              |

@@ -1,0 +1,224 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+import { AlertSnackBarExample } from "./examples/SnackBarExamples";
+import { SnackBarExamples } from "./examples";
+
+:::div{.notshown}
+
+# SnackBar
+
+A low-priority notification that reports an action without interrupting the user.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Alert](#alert)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { SnackBarProvider, useSnackBar } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+### Important
+
+Only one `SnackBarInstance` should be present in the DOM. Place it near the application root.
+:::
+
+:::div
+
+### Note
+
+`SnackBarInstance` is an alternative to the provider, although nesting it inside `SnackBarProvider` is harmless. Components can use either the `useSnackBar` hook or the `openSnackBar` function; the corresponding provider or instance handles the notification.
+.
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <SnackBarExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+### With hooks
+
+```tsx
+// App.tsx
+
+import React from "react";
+import { SnackBarProvider } from "@dmitrygrigorov/components";
+import Page from "./Page";
+
+export const App: React.FC = () => (
+  <SnackBarProvider>
+    <Page />
+  </SnackBarProvider>
+);
+```
+
+```tsx
+// Page.tsx
+
+import React from "react";
+import { useSnackBar, Button } from "@dmitrygrigorov/components";
+
+const Page: React.FC = () => {
+  const [openSnackBar, closeSnackBar] = useSnackBar();
+
+  const onOpenSnackBar = (): void => {
+    const key = openSnackBar({
+      message: "Message",
+      duration: 5000
+    });
+  };
+
+  return (
+    <Button typeColor="primary" onClick={onOpenSnackBar}>
+      Click here
+    </Button>
+  );
+};
+```
+
+### Call from anywhere
+
+```tsx
+// App.tsx
+
+import React from "react";
+import { SnackBarInstance } from "@dmitrygrigorov/components";
+import Page from "./Page";
+
+export const App: React.FC = () => (
+  <div>
+    <SnackBarInstance />
+    <Page />
+  </div>
+);
+```
+
+```tsx
+// Page.tsx
+
+import React from "react";
+import { openSnackBar, Button } from "@dmitrygrigorov/components";
+
+const Page: React.FC = () => {
+  const onOpenSnackBar = (): void => {
+    openSnackBar({
+      message: "Message",
+      duration: 5000
+    });
+  };
+
+  return (
+    <Button typeColor="primary" onClick={onOpenSnackBar}>
+      Click here
+    </Button>
+  );
+};
+```
+
+### Usage hook useSnackBar
+
+```tsx
+const [openSnackBar, closeSnackBar] = useSnackBar();
+```
+
+The `useSnackBar` hook returns `openSnackBar` and `closeSnackBar`. `openSnackBar` returns the snack bar key; pass that key to `closeSnackBar` to close the notification manually.
+
+```tsx
+const [openSnackBar, closeSnackBar] = useSnackBar();
+
+const onOpenSnackBar = (): void => {
+  const key = openSnackBar({
+    message: "This is a message",
+    action: {
+      text: "close",
+      onClick: () => onCloseSnackBar(key)
+    }
+  });
+};
+
+const onCloseSnackBar = (key: string | number): void => {
+  closeSnackBar(key);
+};
+```
+
+:::
+
+:::div
+
+## Alert
+
+Use `status` to set the SnackBar message status.
+
+```tsx
+const AlertSnackBar: React.FC = () => {
+  const [openSnackBar] = useSnackBar();
+
+  const onOpenSnackBar = (): void => {
+    openSnackBar({
+      message: "Information",
+      status: "info",
+      isClosable: true
+    });
+  };
+
+  return (
+    <Button viewType="primary" onClick={onOpenSnackBar}>
+      SnackBar without an action
+    </Button>
+  );
+};
+```
+
+<Unstyled>
+  <AlertSnackBarExample />
+</Unstyled>
+
+:::
+
+:::div
+
+## Props
+
+Pass these props to `openSnackBar`.
+
+| Property   | Type                                    | Default               | Required | Description                                                  |
+| ---------- | --------------------------------------- | --------------------- | -------- | ------------------------------------------------------------ |
+| message    | `string`                                | -                     | ✓        | Message to display                                           |
+| duration   | `number`                                | `3000`                | -        | Time in milliseconds before the message closes automatically |
+| id         | `string` \ `number `                    | `Random`              | -        | Key associated with the SnackBar instance                    |
+| action     | \{ text: sting, onClick?: () => void \} | `closeSnackBar`       | -        | Action triggered when the SnackBar button is pressed         |
+| status     | [`TSnackBarStatus`](#tsnackbarstatus)   | -                     | -        | Appearance                                                   |
+| leadIcon   | `JSX.Element`                           | -                     | -        | Leading icon in the SnackBar heading                         |
+| closeIcon  | `JSX.Element`                           | `<IconCloseCircle />` | -        | SnackBar close icon                                          |
+| isClosable | `boolean`                               | `false`               | -        | Displays `closeIcon`                                         |
+
+:::
+
+:::div
+
+### TSnackBarStatus
+
+Available statuses: `info` | `success` | `error` | `warning`.
+:::

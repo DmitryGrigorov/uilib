@@ -1,0 +1,28 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconSlash2 = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          d="M8.03701 21.5185C7.90898 21.9124 8.12454 22.3355 8.51847 22.4636C8.9124 22.5916 9.33553 22.376 9.46356 21.9821L14.0948 7.7321C14.2523 7.2475 13.8911 6.75029 13.3815 6.75029V6.75029C13.0566 6.75029 12.7687 6.95948 12.6683 7.26847L8.03701 21.5185Z"
+          fill="currentColor"
+        />
+        <path
+          d="M13.8058 3.76847C13.6483 4.25307 14.0095 4.75029 14.519 4.75029V4.75029C14.8439 4.75029 15.1319 4.54109 15.2323 4.2321L15.9636 1.9821C16.0916 1.58817 15.876 1.16504 15.4821 1.03701C15.0882 0.908983 14.665 1.12454 14.537 1.51847L13.8058 3.76847Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconSlash2;

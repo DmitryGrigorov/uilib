@@ -1,0 +1,636 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  FormBaseExample,
+  FormUseFormExample,
+  FormRefExample,
+  FormInitialValueExample,
+  FormBaseValidationExample,
+  FormDateValidationExample,
+  FormCheckBoxesValidationExample,
+  FormNotNestedValuesExample,
+  FormList,
+  CustomValidationForm
+} from "./examples";
+
+<Meta title="Components/Organisms/Form" id="form" />
+
+# Form
+
+A component for building forms with managed data.
+
+- [Usage](#usage)
+- [Examples](#examples)
+- [Properties](#properties)
+
+## Usage
+
+```tsx
+import { Form } from "@dmitrygrigorov/components";
+```
+
+## Examples
+
+### Basic example
+
+```tsx
+interface IFormBasic {
+  username: string;
+  password: string;
+  isRemember: boolean;
+}
+
+export const FormBaseExample: React.FC = () => {
+  const handleFinish = (values: IFormBasic): void => {
+    console.log(values);
+  };
+
+  return (
+    <Form<IFormBasic> name="basic" onFinish={handleFinish}>
+      <Form.Field name="username">
+        <Input placeholder="username" />
+      </Form.Field>
+      <Form.Field name="password">
+        <Input type="password" placeholder="password" />
+      </Form.Field>
+      <Form.Field name="isRemember">
+        <CheckBox label="Remember me" />
+      </Form.Field>
+      <Button type="submit">Login</Button>
+    </Form>
+  );
+};
+```
+
+<Unstyled>
+  <FormBaseExample />
+</Unstyled>
+
+### Using the useForm hook
+
+Use the `useForm` hook when you need direct control over the form.
+
+```tsx
+interface IFormBasic {
+  username: string;
+  password: string;
+  isRemember: boolean;
+}
+
+export const FormUseFormExample: React.FC = () => {
+  const form = Form.useForm<IFormBasic>();
+
+  const onGeneratePassword = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    form.setFieldValue("password", "12345");
+  };
+
+  const handleFinish = (values: IFormBasic): void => {
+    window.console.log(values);
+  };
+
+  const onClickLogin = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    form.submit();
+  };
+
+  return (
+    <FormStyled<IFormBasic> name="useForm" form={form} onFinish={handleFinish}>
+      <Form.Field name="username">
+        <Input placeholder="username" />
+      </Form.Field>
+      <Form.Field name="password">
+        <Input type="password" placeholder="password" />
+      </Form.Field>
+      <Form.Field name="isRemember">
+        <CheckBox label="Remember me" />
+      </Form.Field>
+      <Button viewType="secondary" onClick={onGeneratePassword}>
+        Generate password
+      </Button>
+      <Button onClick={onClickLogin}>Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormUseFormExample />
+</Unstyled>
+
+### Using a ref
+
+The `useForm` hook is recommended instead of a ref.
+
+```tsx
+interface IFormBasic {
+  username: string;
+  password: string;
+  isRemember: boolean;
+}
+
+export const FormRefExample: React.FC = () => {
+  const formRef = useRef<IFormInstance<IFormBasic>>();
+
+  const onGeneratePassword = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    formRef.current?.setFieldValue("password", "12345");
+  };
+
+  const handleFinish = (values: IFormBasic): void => {
+    window.console.log(values);
+  };
+
+  const onClickLogin = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    formRef.current?.submit();
+  };
+
+  return (
+    <FormStyled<IFormBasic> name="ref" ref={formRef} onFinish={handleFinish}>
+      <Form.Field name="username">
+        <Input placeholder="username" />
+      </Form.Field>
+      <Form.Field name="password">
+        <Input type="password" placeholder="password" />
+      </Form.Field>
+      <Form.Field name="isRemember">
+        <CheckBox label="Remember me" />
+      </Form.Field>
+      <Button viewType="secondary" onClick={onGeneratePassword}>
+        Generate password
+      </Button>
+      <Button onClick={onClickLogin}>Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormRefExample />
+</Unstyled>
+
+### Initial values
+
+Use `initialValue` to provide initial values for the entire form.
+
+```tsx
+interface IFormInitialValue {
+  user: {
+    fullName: string;
+  };
+  skills: string[];
+}
+
+export const FormInitialValueExample: React.FC = () => {
+  const handleFinish = (values: IFormInitialValue): void => {
+    window.console.log(values);
+  };
+
+  const initialValue = {
+    user: {
+      fullName: "User User"
+    },
+    skills: ["work", "ts"],
+    department: "front"
+  };
+
+  return (
+    <FormStyled<IFormInitialValue>
+      name="basic"
+      onFinish={handleFinish}
+      initialValues={initialValue}>
+      <Form.Field name="user.fullName">
+        <Input placeholder="fullName" />
+      </Form.Field>
+      <Form.Field name="skills">
+        <MultiSelect
+          placeholder="skills"
+          options={[
+            { label: "work", value: "work" },
+            { label: "ts", value: "ts" }
+          ]}
+        />
+      </Form.Field>
+      <Form.Field name="department">
+        <Select
+          placeholder="department"
+          options={[
+            { label: "front", value: "front" },
+            { label: "back", value: "back" }
+          ]}
+        />
+      </Form.Field>
+      <Button type="submit">Save</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormInitialValueExample />
+</Unstyled>
+
+## Validation
+
+### Basic validation
+
+```tsx
+export const FormBaseValidationExample: React.FC = () => {
+  const handleFinish = (values: IFormBasic): void => {
+    window.console.log(values);
+  };
+
+  return (
+    <FormStyled<IFormBasic> name="basic" onFinish={handleFinish}>
+      <Form.Field name="username" rules={[{ required: true }]}>
+        <Input placeholder="username" />
+      </Form.Field>
+      <Form.Field
+        name="password"
+        rules={[
+          { required: true },
+          {
+            pattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$",
+            message:
+              "The password must contain at least one letter and one number"
+          }
+        ]}>
+        <Input type="password" placeholder="password" />
+      </Form.Field>
+      <Form.Field name="isRemember">
+        <CheckBox label="Remember me" />
+      </Form.Field>
+      <Button type="submit">Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormBaseValidationExample />
+</Unstyled>
+
+### Date validation
+
+```tsx
+export const FormDateValidationExample: React.FC = () => {
+  const handleFinish = (values: IFormBasic): void => {
+    window.console.log(values);
+  };
+
+  return (
+    <FormStyled<IFormBasic> name="basic" onFinish={handleFinish}>
+      <Form.Field name="username" rules={[{ required: true }]}>
+        <Input placeholder="username" />
+      </Form.Field>
+      <Form.Field
+        name="birthday"
+        rules={[{ minDate: "21.05.2020", maxDate: "21.05.2023" }]}>
+        <InputDate placeholder="birthday" />
+      </Form.Field>
+      <Button type="submit">Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormDateValidationExample />
+</Unstyled>
+
+### Checkbox-group validation
+
+```tsx
+export const FormCheckBoxesValidationExample: React.FC = () => {
+  const OPTIONS = [
+    {
+      label: "Admin",
+      value: "admin"
+    },
+    {
+      label: "User",
+      value: "user"
+    }
+  ];
+  const handleFinish = (values: any): void => {
+    window.console.log(values);
+  };
+
+  return (
+    <FormStyled name="basic" onFinish={handleFinish}>
+      <Form.Field name="Roles" rules={[{ required: true }]}>
+        <CheckBoxGroup options={OPTIONS} />
+      </Form.Field>
+      <Button type="submit">Submit</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormCheckBoxesValidationExample />
+</Unstyled>
+
+### Custom validation
+
+```tsx
+export const CustomValidationForm: React.FC = () => {
+  const form = Form.useForm<IFormValidateCustom>();
+  const max = Form.useWatch("max", form);
+
+  const handleFinish = (values: IFormValidateCustom): void => {
+    window.console.log(values);
+  };
+
+  const validator: TFormValidator<IFormValidateCustom> = (
+    _,
+    value
+  ): Promise<void> => {
+    if (max && value !== null && value > max) {
+      return Promise.reject(new Error());
+    }
+    return Promise.resolve();
+  };
+
+  return (
+    <FormStyled<IFormValidateCustom>
+      name="basic"
+      form={form}
+      onFinish={handleFinish}
+      isDotSeparator={false}>
+      <Form.Field
+        name="min"
+        rules={[
+          {
+            message: "The minimum cannot be greater than the maximum",
+            validator
+          }
+        ]}>
+        <InputNumber placeholder="Minimum" />
+      </Form.Field>
+      <Form.Field name="max">
+        <InputNumber placeholder="Maximum" />
+      </Form.Field>
+      <Button type="submit">Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <CustomValidationForm />
+</Unstyled>
+
+## Non-nested objects
+
+By default, a dot in a field name is treated as a nested-object path. Pass `isDotSeparator={false}` to `Form` when the name should remain a single key.
+
+```tsx
+export const FormNotNestedValuesExample: React.FC = () => {
+  const handleFinish = (values: IFormBasic): void => {
+    window.console.log(values);
+  };
+
+  return (
+    <FormStyled<IFormBasic>
+      name="basic"
+      onFinish={handleFinish}
+      isDotSeparator={false}>
+      <Form.Field
+        name="user.name"
+        rules={[{ max: 5 }, { min: 3, isWarning: true }]}>
+        <Input placeholder="username.4" />
+      </Form.Field>
+      <Form.Field name="password">
+        <Input type="password" placeholder="password" />
+      </Form.Field>
+      <Form.Field name="isRemember">
+        <CheckBox label="Remember me" />
+      </Form.Field>
+      <Button type="submit">Login</Button>
+    </FormStyled>
+  );
+};
+```
+
+<Unstyled>
+  <FormNotNestedValuesExample />
+</Unstyled>
+
+## List support
+
+<Unstyled>
+  <FormList />
+</Unstyled>
+
+## Properties
+
+### Form
+
+| Parameter        | Type                                                              | Default                                 | Required | Description                                                                |
+| ---------------- | ----------------------------------------------------------------- | --------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| initialValues    | `TValues`                                                         | -                                       | -        | Initial form values                                                        |
+| form             | `IFormInstance<TValues>`                                          | -                                       | -        | Instance created with `Form.useForm()`; created automatically when omitted |
+| children         | `React.ReactNode`                                                 | -                                       | ✓        | Collection of `Form.Field` components                                      |
+| component        | `string` \| `React.FC<any>`                                       | `form`                                  | -        | Element used to render the form                                            |
+| name             | `string`                                                          | -                                       | -        | Form name                                                                  |
+| onValuesChange   | `(changedValues: any, values: TValues) => void`                   | -                                       | -        | Callback fired when any form value changes                                 |
+| onFinish         | `(values: TValues) => void`                                       | -                                       | -        | Callback fired when the form is submitted                                  |
+| className        | `string`                                                          | -                                       | -        | Additional class                                                           |
+| validateMessages | `IValidateMessages`                                               | [`ValidateMessages`](#validatemessages) | -        | Validation-message templates                                               |
+| onFinishFailed   | `(data: IValidateErrorEntity) => void`                            | -                                       | -        | Callback fired when form submission fails validation                       |
+| onFieldsChange   | `( changedFields: IFieldData[], allFields: IFieldData[]) => void` | -                                       | -        | Callback fired when any form field changes                                 |
+
+### Form.Field
+
+| Parameter       | Type                 | Default    | Required | Description                                                                  |
+| --------------- | -------------------- | ---------- | -------- | ---------------------------------------------------------------------------- |
+| dependencies    | `string[]`           | -          | -        | Other form fields whose changes update the current field                     |
+| name            | `string`             | -          | ✓        | Field name                                                                   |
+| initialValue    | `any`                | -          | -        | Initial field value                                                          |
+| onReset         | `() => void`         | -          | -        | Field callback fired when the form resets                                    |
+| trigger         | `string`             | `onChange` | -        | Event that updates the field value                                           |
+| children        | `React.ReactElement` | -          | ✓        | Form control, such as an input                                               |
+| valuePropName   | `string`             | `value`    | -        | Child property that stores the value; for example, CheckBox uses `isChecked` |
+| validateTrigger | `string`             | `onChnage` | -        | Event that triggers validation                                               |
+| rules           | `TFormRuleObject[]`  | -          | -        | Validation rules                                                             |
+
+### IFormInstance
+
+| Parameter          | Type                                                         | Description                                                                       |
+| ------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| getFieldValue      | `(name: string) => any`                                      | Returns a field value by name                                                     |
+| getFieldsValue     | `(names?: string[]) => TValues`                              | Returns values for the supplied field names, or all values when names are omitted |
+| resetFields        | `(fields?: string[]) => void`                                | Resets fields to `initialValue`                                                   |
+| setFieldValue      | `(name: string, value: any) => void`                         | Sets a field value                                                                |
+| setFieldsValue     | `(values: Partial<TValues>) => void`                         | Sets values for multiple fields                                                   |
+| submit             | `() => void`                                                 | Submits the form                                                                  |
+| getFieldError      | `(name: string) =>string[]`                                  | Returns errors for a field by name                                                |
+| getFieldsError     | `(names?: string[]) => IFieldError[]`                        | Returns errors for the supplied field names                                       |
+| validateFields     | `(names?: string[]) => Promise<TValues>`                     | Validates fields                                                                  |
+| isFieldsTouched    | `(names?: string[],  allFieldsTouched?: boolean) => boolean` | Checks whether the listed fields have been touched                                |
+| isFieldTouched     | `(name?: string) => boolean`                                 | Checks whether a field has been touched                                           |
+| isFieldValidating  | `(name?: string) => boolean`                                 | Checks whether a field is being validated                                         |
+| isFieldsValidating | `(names?: string[]) => boolean`                              | Checks whether any listed field is being validated                                |
+| isValid            | `() => boolean`                                              | Checks whether the form passes validation                                         |
+
+### Form.useForm
+
+```tsx
+type Form.useForm = (): IFormInstance;
+```
+
+### Form.useWatch
+
+```tsx
+type Form.useWatch = (fieldName: string, form?: IFormInstance): any;
+```
+
+### Form.useIsValid
+
+Returns whether the form passes validation.
+
+```tsx
+type Form.useIsValid = (form: IFormInstance): boolean;
+```
+
+### IValidateErrorEntity
+
+```ts
+export interface IValidateErrorEntity<TValues = any> {
+  values: TValues;
+  errorFields: { name: string; errors: string[] }[];
+}
+```
+
+### TFormRuleObject
+
+| Parameter  | Type                    | Description                                                                    |
+| ---------- | ----------------------- | ------------------------------------------------------------------------------ |
+| enum       | `any[]`                 | Matches the value against an enum; also requires the `type` rule               |
+| fields     | `Record<string, IRule>` | Validation rules for child values when `type` is `array` or `object`           |
+| len        | `number`                | Required length of a string, number, or array                                  |
+| max        | `number`                | Maximum length or numeric value                                                |
+| message    | `string`                | Error message; generated from the [templates](#validatemessages) by default    |
+| min        | `numberd`               | Minimum length or numeric value                                                |
+| pattern    | `RegExp`                | Regular-expression pattern                                                     |
+| required   | `boolean`               | Whether the field is required                                                  |
+| transform  | `(value) => any`        | Transforms the value before validation                                         |
+| type       | `string`                | [Available types](#validation-types)                                           |
+| validator  | `TFormValidator`        | Custom validation function                                                     |
+| isWarning  | `boolean`               | Displays a warning without blocking form submission                            |
+| whitespace | `boolean`               | Reports an error for whitespace-only values; available only for `string`       |
+| minDate    | `stirng`                | Minimum date; available only for `InputDate`                                   |
+| maxDate    | `string`                | Maximum date; available only for `InputDate`                                   |
+| rangeDate  | `boolean`               | Validates an ascending date range for `InputDate` when used with `isRangeMode` |
+
+#### Validation types
+
+| Parameter | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| string    | Must be a `string`.                                                         |
+| number    | Must be a `number`.                                                         |
+| boolean   | Must be a `boolean`.                                                        |
+| method    | Must be a `function`.                                                       |
+| regexp    | Must be a `RegExp` or a string that can create a `RegExp` without throwing. |
+| integer   | Must be an integer `number`.                                                |
+| float     | Must be a floating-point `number`.                                          |
+| array     | Must satisfy `Array.isArray`.                                               |
+| object    | Must be an `object` that does not satisfy `Array.isArray`.                  |
+| date      | Must be a `Date`.                                                           |
+| url       | Must be a valid URL.                                                        |
+| hex       | Must be a hexadecimal value.                                                |
+| email     | Must be a valid email address.                                              |
+| any       | May be any type.                                                            |
+
+### ValidateMessages
+
+```ts
+const typeTemplate = "${name} is not a valid ${type}";
+
+export const defaultValidateMessages = {
+  default: "Validation failed for '${name}'",
+  required: "'${name}' is required",
+  enum: "'${name}' must be one of [${enum}]",
+  whitespace: "'${name}' cannot be empty",
+  date: {
+    format: "'${name}' has an invalid date format",
+    parse: "'${name}' could not be parsed as a date",
+    invalid: "'${name}' is not a valid date",
+    minDate: "'${name}' is earlier than the minimum date",
+    maxDate: "'${name}' is later than the maximum date",
+    range: "'${name}' contains an invalid date range"
+  },
+  types: {
+    string: typeTemplate,
+    method: typeTemplate,
+    array: typeTemplate,
+    object: typeTemplate,
+    number: typeTemplate,
+    date: typeTemplate,
+    boolean: typeTemplate,
+    integer: typeTemplate,
+    float: typeTemplate,
+    regexp: typeTemplate,
+    email: typeTemplate,
+    url: typeTemplate,
+    hex: typeTemplate
+  },
+  string: {
+    len: "'${name}' must be exactly ${len} characters long",
+    min: "'${name}' must be at least ${min} characters long",
+    max: "'${name}' must be no more than ${max} characters long",
+    range: "'${name}' must be between ${min} and ${max} characters long"
+  },
+  number: {
+    len: "'${name}' must equal ${len}",
+    min: "'${name}' cannot be less than ${min}",
+    max: "'${name}' cannot be greater than ${max}",
+    range: "'${name}' must be between ${min} and ${max}"
+  },
+  array: {
+    len: "'${name}' must contain exactly ${len} items",
+    min: "'${name}' must contain at least ${min} items",
+    max: "'${name}' must contain no more than ${max} items",
+    range: "'${name}' must contain between ${min} and ${max} items"
+  },
+  pattern: {
+    mismatch: "'${name}' does not match ${pattern}"
+  }
+};
+```
+
+### IFieldError
+
+```ts
+export interface IFieldError {
+  name: string;
+  errors: string[];
+  warnings: string[];
+}
+```
+
+### TFormValidator
+
+```ts
+export type TFormBaseRule = Omit<RuleItem, "validator" | "asyncValidator"> & {
+  minDate?: string;
+  maxDate?: string;
+  rangeDate?: boolean;
+};
+
+export interface IFormValidatorRule {
+  isWarning?: boolean;
+  message?: string | React.ReactElement;
+  validator: TFormValidator;
+}
+
+export type TFormRuleObject = TFormBaseRule & Partial<IFormValidatorRule>;
+
+export type TFormValidator = (
+  rule: TFormRuleObject,
+  value: any,
+  callback: (error?: string) => void
+) => Promise<void | any> | void;
+```

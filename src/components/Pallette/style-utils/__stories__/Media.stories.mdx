@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="styleUtils/Media" id="Media" />
+
+# Media
+
+- [Description](#description)
+- [Import](#import)
+- [Values](#values)
+- [Usage](#usage)
+
+## Description
+
+`MEDIA` simplifies writing media-query styles with `styled-components`.
+
+## Import
+
+```tsx
+import { MEDIA } from "@dmitrygrigorov/components/Pallette/style-utils";
+```
+
+## Maximum-width values
+
+`mobile` - 529px
+
+`tablet` - 949px
+
+`desktopM` - 1024px
+
+`desktopL` - 1440px
+
+## Minimum-width values
+
+`desktopXL` - 1440px
+
+## Usage
+
+```tsx
+import { MEDIA } from "@dmitrygrigorov/components/Pallette/style-utils";
+import styled from "styled-components";
+export const ComponentStyled = styled.div`
+  ${MEDIA.mobile`
+    .body {
+      padding-top: 68px
+    }
+  `}
+`;
+```

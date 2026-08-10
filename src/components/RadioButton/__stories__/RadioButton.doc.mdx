@@ -1,0 +1,124 @@
+import RadioButtonsExample from "./examples";
+
+import RadioButton from "../index";
+
+:::div{.notshown}
+
+# RadioButton
+
+Radio buttons let users select one of several options.
+:::
+
+:::div
+Use [RadioGroup](?path=/docs/components-radiogroup--default) for a list of radio buttons. When using standalone `RadioButton` components, manage group selection yourself.
+
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Text](#text)
+- [States](#states)
+- [Value](#value)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { RadioButton } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Text
+
+Set the radio-button text with `label`.
+
+```tsx
+<RadioButton label="This is a radio button" />
+```
+
+<RadioButton label="This is a radio button" />
+:::
+
+:::div
+
+## States
+
+Set `isChecked` to select the button and `isDisabled` to prevent selection.
+
+```tsx
+<RadioButton label="RadioButton" />
+<RadioButton label="Checked" isChecked />
+<RadioButton label="Disabled" isDisabled />
+<RadioButton label="Checked disabled" isChecked isDisabled />
+```
+
+<RadioButton label="RadioButton" />
+<RadioButton label="Checked" isChecked />
+<RadioButton label="Disabled" isDisabled />
+<RadioButton label="Checked disabled" isChecked isDisabled />
+:::
+
+:::div
+
+## Value
+
+Pass the radio-button value through `value`.
+
+```tsx
+<RadioButton label="RadioButton" value="radio" />
+```
+
+<RadioButton label="RadioButton" />
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<RadioButtonsExample />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React from "react";
+import { RadioButton } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => <RadioButton label="RadioButton" />;
+```
+
+:::
+
+:::div
+
+## Props
+
+| Property   | Type                                                          | Default | Required | Description                                                    |
+| ---------- | ------------------------------------------------------------- | ------- | -------- | -------------------------------------------------------------- |
+| value      | `string, number`                                              | -       | -        | Value passed to the `onChange` and `onClick` handlers          |
+| isChecked  | `boolean`                                                     | -       | -        | Selects the radio button                                       |
+| isDisabled | `boolean`                                                     | -       | -        | Disables the radio button                                      |
+| name       | `string`                                                      | -       | -        | Selector name used to find the element with `$('[data=name]')` |
+| isError    | `boolean`                                                     | -       | -        | Enables the error appearance                                   |
+| onChange   | `(event: ChangeEvent<any>, value: string) => void; `          | -       | -        | Change callback                                                |
+| onClick    | `(event: MouseEvent<HTMLDivElement>, value: string) => void;` | -       | -        | Click handler                                                  |
+| className  | `string`                                                      | -       | -        | Class name                                                     |
+| label      | `string, ReactElement`                                        | -       | -        | Text displayed in the label on the right                       |
+| ref        | `Ref`                                                         | -       | -        | Ref to the component root DOM element                          |
+| inputRef   | `Ref`                                                         | -       | -        | Ref to the `<input>` DOM element                               |
+| onFocus    | `React.FocusEventHandler<HTMLDivElement>`                     | -       | -        | Called on focus                                                |
+| onBlur     | `React.FocusEventHandler<HTMLDivElement>`                     | -       | -        | Called on blur                                                 |
+
+:::

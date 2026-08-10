@@ -1,0 +1,55 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+<Meta title="Tables/Table API" />
+
+# Table API
+
+Table methods available through `ref.tableApi`.
+
+## Pagination
+
+For more information, see [Pagination](?path=/docs/tables-pagination--documentation).
+
+| Property                   | Type                     | Description                                                             |
+| -------------------------- | ------------------------ | ----------------------------------------------------------------------- |
+| paginationGetPageSize      | `() => number`           | Returns the number of rows displayed per page                           |
+| paginationGetCurrentPage   | `() => number`           | Returns the current page number                                         |
+| paginationGetTotalPages    | `() => number`           | Returns the total number of pages                                       |
+| paginationGetRowCount      | `() => number`           | Returns the total number of rows                                        |
+| paginationGoToPage         | `(page: number) => void` | Goes to a page, or the last page when the requested page does not exist |
+| paginationGoToNextPage     | `() => void`             | Goes to the next page                                                   |
+| paginationGoToPreviousPage | `() => void`             | Goes to the previous page                                               |
+| paginationGoToFirstPage    | `() => void`             | Goes to the first page                                                  |
+| paginationGoToLastPage     | `() => void`             | Goes to the last page                                                   |
+
+## Row selection
+
+For more information, see [Row selection](?path=/docs/tables-row-selection--documentation).
+
+| Property            | Type                                                       | Description                                        |
+| ------------------- | ---------------------------------------------------------- | -------------------------------------------------- |
+| getSelectedNodes    | `() => IRowNode<TData>[]`                                  | Returns all selected row nodes                     |
+| getSelectedRows     | `() => TData[]`                                            | Returns all selected rows                          |
+| selectAll           | `() => void`                                               | Selects all rows                                   |
+| deselectAll         | `() => void`                                               | Deselects all rows                                 |
+| selectAllFiltered   | `() => void`                                               | Selects all filtered rows                          |
+| deselectAllFiltered | `() => void`                                               | Deselects all filtered rows                        |
+| setNodesSelected    | `(params: {nodes: IRowNode[]; newValue: boolean}) => void` | Applies the specified value to every provided node |
+
+## Pinned rows
+
+For more information, see [Pinning rows](?path=/docs/tables-pinning-rows--documentation).
+
+| Property          | Type                                              | Description                                                                 |
+| ----------------- | ------------------------------------------------- | --------------------------------------------------------------------------- |
+| setPinnedRowData  | `(rows?: TData[])`                                | Sets pinned row data; calling it without an argument clears all pinned rows |
+| getPinnedRowCount | `() => number`                                    | Returns the number of pinned rows                                           |
+| getPinnedRow      | `(index: number) => IRowNode<TData> \| undefined` | Returns a pinned row by index                                               |
+
+## Managing row data
+
+| Property   | Type                              | Description                                  |
+| ---------- | --------------------------------- | -------------------------------------------- |
+| getRowNode | `(id: string) => IRowNode<TData>` | Returns row information for the specified ID |
+| setRowData | `(rowData: TData[]) => void`      | Sets new table row data                      |

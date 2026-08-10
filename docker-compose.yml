@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  storybook:
+    image: ghcr.io/dmitrygrigorov/uilib:dev
+    container_name: storybook
+    restart: always
+    ports:
+      - 8006:80
+    environment:
+      TZ: "Europe/Moscow"
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

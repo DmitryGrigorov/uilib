@@ -1,0 +1,126 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  CalendarExample,
+  CalendarMinMaxDate,
+  CalendarWithEventHandlers,
+  CalendarRangeWithEventHandlers,
+  CalendarExamples
+} from "./examples";
+
+:::div{.notshown}
+
+# Calendar
+
+A component for selecting dates.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Properties](#properties)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Calendar } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <CalendarExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Default calendar
+
+<Unstyled>
+  <CalendarExample />
+</Unstyled>
+
+```tsx
+<Calendar />
+```
+
+Calendar with minimum and maximum dates
+
+<Unstyled>
+  <CalendarMinMaxDate />
+</Unstyled>
+
+```tsx
+<Calendar minDate="02.11.2022" maxDate="20.11.2022" />
+```
+
+Calendar with event handlers
+
+<Unstyled>
+<CalendarWithEventHandlers />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+const [value, setValue] = useState("");
+
+return (
+  <Calendar
+    isRangeMode={true}
+    date={value}
+    setDateToInput={(date) => {
+      setValue(date);
+    }}
+  />
+);
+```
+
+Calendar with date-range selection
+<Unstyled>
+<CalendarRangeWithEventHandlers />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+const [value, setValue] = useState("");
+
+return (
+  <Calendar
+    isRangeMode={true}
+    date={value}
+    setDateToInput={(date) => {
+      setValue(date);
+    }}
+  />
+);
+```
+
+:::
+
+:::div
+
+## Properties
+
+| Parameter      | Type                                             | Default | Required | Description                                  |
+| -------------- | ------------------------------------------------ | ------------ | -------------- | -------------------------------------- |
+| id             | `string`, `number`                               | -       | -        | Field ID in the DOM                          |
+| locale         | `string`                                         | -       | -        | Selection language (`ru`, `de`, or `en`)     |
+| isRangeMode    | `boolean`                                        | -       | -        | Enables date-range selection                 |
+| date           | `string`                                         | -       | -        | Date in `DD.MM.YYYY` format                   |
+| setDateToInput | `(date: string) => void`                         | -       | -        | Called when a formatted date is selected     |
+| closeCalendar  | `(chosenDate: string \ string[] \ null) => void` | -       | -        | Called when a date is selected                |
+| minDate        | `string`                                         | -       | -        | Minimum date in `DD.MM.YYYY` format           |
+| maxDate        | `string`                                         | -       | -        | Maximum date in `DD.MM.YYYY` format           |
+
+:::

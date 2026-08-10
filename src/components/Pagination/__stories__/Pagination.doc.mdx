@@ -1,0 +1,516 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { PaginationExamples } from "./examples";
+import {
+  PaginationDefault,
+  PaginationFill,
+  PaginationCustomSwitcher,
+  PaginationDisabled,
+  PaginationWithoutArrows,
+  PaginationText,
+  PaginationCurrentPage,
+  PaginationMinimized,
+  PaginationDefaultWithSwitchers,
+  PaginationWithConfig,
+  PaginationGoToPage,
+  PaginationCustomConf,
+  PaginationCustomConfOnChange
+} from "./examples/PaginationExamples";
+
+:::div{.notshown}
+
+# Pagination
+
+Pagination provides convenient, fast navigation between pages.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Text switchers](#text-switchers)
+- [Disabled state](#disabled-state)
+- [Minimized pagination](#minimized-pagination)
+- [Pagination without switchers](#pagination-without-switchers)
+- [Setting the current page](#setting-the-current-page)
+- [Configuration menu](#configuration-menu)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Pagination } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <PaginationExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+Set `isShowSwitchers` to display page switchers.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+import { IconArrowLeft1, IconArrowRight1 } from "@dmitrygrigorov/icons";
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={13}
+      width="80vw"
+      isShowSwitchers
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationDefaultWithSwitchers />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Text switchers
+
+Replace the switcher icons with text when needed. Text switchers also require `isShowSwitchers`.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      totalPages={100}
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      isShowSwitchers
+      switcherTextPrev="Prev."
+      switcherTextNext="Next"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationText />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Disabled state
+
+Set `isDisabled` to disable page navigation.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+import { IconArrowLeft1, IconArrowRight1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      isShowSwitchers
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={100}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationDisabled />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Minimized pagination
+
+A compact appearance that displays only `currentPage` and the page switchers.
+Enable it with `isMinimized`.
+Recommended for narrow pages and widgets.
+
+When `totalPages >= 5` and the container is too narrow to display five page items, minimized mode is enabled automatically.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+import { IconArrowLeft1, IconArrowRight1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={100}
+      isMinimized
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationMinimized />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Pagination without switchers
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={100}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationWithoutArrows />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Setting the current page
+
+Pass the current page number to `currentPage`.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+import { IconArrowLeft1, IconArrowRight1 } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(48);
+  return (
+    <Pagination
+      totalPages={100}
+      width="382px"
+      isShowSwitchers
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationCurrentPage />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Custom switchers
+
+Provide custom switcher icons with `iconNext` and `iconPrev`, or text with `switcherTextNext` and `switcherTextPrev`. Text takes precedence when both are supplied.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+import { IconBank } from "@dmitrygrigorov/icons";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      width="130px"
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={100}
+      isShowSwitchers
+      iconNext={<IconBank />}
+      iconPrev={<IconBank />}
+      switcherTextNext="Next"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationCustomSwitcher />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Filled pagination
+
+Set `isFill` to apply the filled pagination appearance.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      width="130px"
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
+      totalPages={100}
+      isShowSwitchers
+      isFill
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationFill />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Configuration menu
+
+Set `isShowConfig` to expose additional pagination controls.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      isShowConfig
+      currentPage={currentPage}
+      totalPages={100}
+      isShowSwitchers
+      width="382px"
+      onPageChange={setCurrentPage}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationWithConfig />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+### Go to page
+
+Set `isShowGoToPage` to include a go-to-page field in the configuration menu.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      isShowConfig
+      isShowGoToPage
+      currentPage={currentPage}
+      totalPages={100}
+      isShowSwitchers
+      width="382px"
+      onPageChange={setCurrentPage}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationGoToPage />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+### Custom items-per-page values
+
+Default values: [`defaultItemCounts`](#defaultitemcounts)
+Set `paginationConf.itemsPerPage` to provide custom items-per-page choices.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  return (
+    <Pagination
+      isShowConfig
+      isShowGoToPage
+      paginationConf={{
+        itemsPerPage: [
+          { label: "100", value: 100 },
+          { label: "200", value: 200 }
+        ]
+      }}
+      currentPage={currentPage}
+      totalPages={100}
+      isShowSwitchers
+      width="382px"
+      onPageChange={setCurrentPage}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationCustomConf />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+### Items-per-page change handler
+
+Use `onItemsPerPageChange` to run custom logic when the value changes.
+
+```tsx
+import React from "react";
+import { Pagination } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const handleItemsPerPageChange = (value: number): void => {
+    console.log(`Selected ${value} items per page`);
+  };
+
+  return (
+    <Pagination
+      isShowConfig
+      isShowGoToPage
+      paginationConf={{
+        itemsPerPage: [
+          { label: "100", value: 100 },
+          { label: "200", value: 200 }
+        ],
+        onItemsPerPageChange: handleItemsPerPageChange
+      }}
+      currentPage={currentPage}
+      totalPages={100}
+      isShowSwitchers
+      width="382px"
+      onPageChange={setCurrentPage}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <PaginationCustomConfOnChange />
+</Unstyled>
+<br />
+
+:::
+
+:::div
+
+## Props
+
+| Property             | Type                                        | Default | Required | Description                                                                |
+| -------------------- | ------------------------------------------- | ------- | -------- | -------------------------------------------------------------------------- |
+| currentPage          | `number`                                    | -       | ✓        | Current page number                                                        |
+| totalPages           | `number`                                    | -       | ✓        | Total number of pages                                                      |
+| onPageChange         | `(page: number) => void`                    | -       | -        | Called with the selected page number when the page changes                 |
+| generalPages         | `number`                                    | 1       | -        | DEPRECATED. Will be removed in a future release. Use `totalPages` instead. |
+| isShowSwitchers      | `boolean`                                   | -       | -        | Displays the switchers.                                                    |
+| switcherTextNext     | `string`                                    | -       | -        | Next switcher text                                                         |
+| switcherTextPrev     | `string`                                    | -       | -        | Previous switcher text                                                     |
+| iconNext             | `JSX.Element`                               | -       | -        | Next switcher icon                                                         |
+| iconPrev             | `JSX.Element`                               | -       | -        | Previous switcher icon                                                     |
+| isDisabled           | `isDisabled`                                | -       | -        | Disables the component                                                     |
+| isMinimized          | `boolean`                                   | -       | -        | Enables the minimized appearance                                           |
+| isFill               | `boolean`                                   | -       | -        | Adds a filled background                                                   |
+| width                | `string`                                    | -       | -        | Component width as a valid CSS value, such as `300px` or `80vw`.           |
+| className            | `string`                                    | -       | -        | Additional class                                                           |
+| isShowConfig         | `boolean`                                   | -       | -        | Displays the pagination configuration                                      |
+| isShowGoToPage       | `boolean`                                   | -       | -        | Displays the "Go to page" field                                            |
+| paginationConf       | [`IPaginationControl`](#ipaginationcontrol) | -       | -        | Pagination control configuration                                           |
+| isOpenPaginationConf | `boolean`                                   | -       | -        | Controls whether the pagination configuration is open                      |
+| onToggle             | `(paginationConf: boolean) => void`         | -       | -        | Called when the pagination configuration is toggled                        |
+
+:::
+
+:::div
+
+### IPaginationControl
+
+| Property             | Type                                    | Default | Required | Description                                  |
+| -------------------- | --------------------------------------- | ------- | -------- | -------------------------------------------- |
+| itemsPerPage         | [`IPaginationItem[]`](#ipaginationitem) | -       | -        | Available items-per-page choices.            |
+| onItemsPerPageChange | `(value: number) => void`               | -       | -        | Called when the items-per-page value changes |
+
+:::
+
+:::div
+
+### IPaginationItem
+
+| Property | Type     | Default | Required | Description |
+| -------- | -------- | ------- | -------- | ----------- |
+| label    | `string` | -       | ✓        | Text        |
+| value    | `string` | -       | ✓        | Value       |
+
+:::
+
+:::div
+
+### defaulTitemCounts
+
+Default values: `[ { label: "10", value: 10 }, { label: "20", value: 20 }, { label: "50", value: 50 }, { label: "100", value: 100 } ]`
+
+:::

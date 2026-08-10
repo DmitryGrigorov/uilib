@@ -1,0 +1,340 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import H from "../H";
+import { HStyled } from "./components/HStyled/styles"
+import { P1Styled } from "./components/P1Styled/styles"
+import { P2Styled } from "./components/P2Styled/styles"
+import P2 from "../P2"
+import P1 from "../P1";
+import Label from "../../Label";
+import { LIGHT_COLORS } from "../../Pallette/Colors";
+
+# Fonts
+
+Font styles are organized into core types, each with a unique, memorable name.
+
+## Onest
+Onest is the primary typeface for digital products.
+
+<Unstyled>
+  <H type="cancer" as={"div"}>{`Headings / \<H> `}</H>
+
+  <H type="virgo" as={"div"}>XL - extralarge</H>
+</Unstyled>
+___
+
+<Unstyled>
+
+<HStyled type="aries" color={LIGHT_COLORS.blue1}>Aries <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 64/64 | Bold (700) | Headings on landing pages and product home pages</P2></HStyled>
+<br/>
+<HStyled type="taurus" color={LIGHT_COLORS.blue1}>Taurus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 56/56 | Bold (700) | Subheadings on landing pages and product home pages</P2></HStyled>
+<br/>
+<HStyled type="gemini" color={LIGHT_COLORS.blue1}>Gemini <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 40/48 | Bold (700) | Design-system headings</P2></HStyled>
+<br/>
+
+
+___
+
+<H type="virgo" as={"div"}>L - large</H>
+
+___
+
+<HStyled type="cancer" color={LIGHT_COLORS.blue1}>Cancer <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Design-system subheadings</P2></HStyled>
+<br/>
+<HStyled type="leo" color={LIGHT_COLORS.blue1}>Leo <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Supplemental headings</P2></HStyled>
+<br/>
+<HStyled type="virgo" color={LIGHT_COLORS.blue1}>Virgo <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 24/32 | Bold (700) | Supplemental headings</P2></HStyled>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>M - medium</H>
+
+___
+
+<HStyled type="libra" color={LIGHT_COLORS.blue1}>Libra <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Default interface heading</P2></HStyled>
+<br/>
+<HStyled type="scorpius" color={LIGHT_COLORS.blue1}>Scorpius <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Default heading with increased line height</P2></HStyled>
+<br/>
+<Label status="warning">Note: use Scorpius only when a looser rhythm is needed. <br/> Prefer Libra by default.</Label>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>S - small</H>
+
+___
+
+<HStyled type="capricornus" color={LIGHT_COLORS.blue1}>Capricornus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Default interface subheading</P2></HStyled>
+<br/>
+<HStyled type="saggitarius" color={LIGHT_COLORS.blue1}>Saggitarius <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Default subheading with reduced line height</P2></HStyled>
+<br/>
+<Label status="warning">Note: use Saggitarius only when a tighter rhythm is needed. <br/> Prefer Libra by default.</Label>
+<br/>
+
+___
+
+<br />
+<H type="cancer" as={"div"}>{`Controls / \<P1> `}</H>
+
+___
+
+<H type="virgo" as={"div"}>M - medium</H>
+
+___
+
+<P1Styled type="aquilla" color={LIGHT_COLORS.blue1}>Aquilla <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 20/24 | Semibold (600) | Text style for large controls</P2></P1Styled>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>S - small</H>
+
+___
+
+<P1Styled type="phoenix" color={LIGHT_COLORS.blue1}>Phoenix <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 16/24 | Semibold (600) | Default control text</P2></P1Styled>
+<br/>
+<P1Styled type="cygnus" color={LIGHT_COLORS.blue1}>Cygnus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 14/22 | Semibold (600) | Supplemental control text</P2></P1Styled>
+<br/>
+
+___
+
+<br />
+<H type="cancer" as={"div"}>{`Body text / \<P2> `}</H>
+
+___
+
+<H type="virgo" as={"div"}>XL - extralarge</H>
+
+___
+
+<P2Styled type="pisces" color={LIGHT_COLORS.blue1}>Pisces <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 20/24 | Regular (400) | Supplemental high-level text for descriptions and subheadings</P2></P2Styled>
+<br/>
+<HStyled type="aquarius" color={LIGHT_COLORS.blue1}>Aquarius <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 20/28 | Regular (400) | Supplemental high-level text with increased line height</P2></HStyled>
+<br/>
+<Label status="warning">Note: use Aquarius only when a looser rhythm is needed. <br/> Prefer Pisces by default.</Label>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>L - large</H>
+
+___
+
+<P2Styled type="corvus" color={LIGHT_COLORS.blue1}>Corvus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 16/24 | Regular (400) | Default interface text</P2></P2Styled>
+<br/>
+<Label status="warning">Note: except for controls</Label>
+<br/>
+<P2Styled type="lynx" color={LIGHT_COLORS.blue1}>Lynx <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 14/22 | Regular (400) | Default compact interface text</P2></P2Styled>
+<br/>
+<Label status="warning">Note: except for controls</Label>
+
+___
+
+<H type="virgo" as={"div"}>M - medium</H>
+
+___
+
+<P2Styled type="cetus" color={LIGHT_COLORS.blue1}>Cetus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 12/16 | Regular (400) | Default supporting interface text</P2></P2Styled>
+<br/>
+<P2Styled type="pavo" color={LIGHT_COLORS.blue1}>Pavo <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 12/16 | Semibold (600) | Default supporting control text</P2></P2Styled>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>S - small</H>
+
+___
+
+<P2Styled type="musca" color={LIGHT_COLORS.blue1}>Musca <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 10/14 | Regular (400) | Default supporting label text</P2></P2Styled>
+<br/>
+<P2Styled type="columba" color={LIGHT_COLORS.blue1}>Columba <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 10/14 | Semibold (600) | Default supporting text for control labels</P2></P2Styled>
+<br/>
+
+</Unstyled>
+___
+
+## Neue Machina
+Neue Machina is a secondary typeface for digital products, primarily used in creative concepts and headings.
+<Unstyled>
+<H fontFamily="Neue Machina" type="cancer" as={"div"}>{`Headings / \<H> `}</H>
+
+<H fontFamily="Neue Machina" type="virgo" as={"div"}>XL - extralarge</H>
+
+___
+
+<HStyled type="aries" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Aries <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 64/64 | Bold (700) | Headings on landing pages and product home pages</P2></HStyled>
+<br/>
+<HStyled type="taurus" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Taurus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 56/56 | Bold (700) | Subheadings on landing pages and product home pages</P2></HStyled>
+<br/>
+<HStyled type="gemini" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Gemini <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 40/48 | Bold (700) | Design-system headings</P2></HStyled>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>L - large</H>
+
+___
+
+<HStyled type="cancer" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Cancer <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Design-system subheadings</P2></HStyled>
+<br/>
+<HStyled type="leo" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Leo <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Supplemental headings</P2></HStyled>
+<br/>
+<HStyled type="virgo" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Virgo <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 24/32 | Bold (700) | Supplemental headings</P2></HStyled>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>M - medium</H>
+
+___
+
+<HStyled type="libra" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Libra <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Default interface heading</P2></HStyled>
+<br/>
+<HStyled type="scorpius" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Scorpius <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Default heading with increased line height</P2></HStyled>
+<br/>
+<Label status="warning">Note: use Scorpius only when a looser rhythm is needed. <br/> Prefer Libra by default.</Label>
+<br/>
+
+___
+
+<H type="virgo" as={"div"}>S - small</H>
+
+___
+
+<HStyled type="capricornus" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Capricornus <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 32/40 | Bold (700) | Default interface subheading</P2></HStyled>
+<br/>
+<HStyled type="saggitarius" fontFamily="Neue Machina" color={LIGHT_COLORS.blue1}>Saggitarius <P2 type="pisces" color={LIGHT_COLORS.darkneutral3}> | 28/36 | Bold (700) | Default subheading with reduced line height</P2></HStyled>
+<br/>
+<Label status="warning">Note: use Saggitarius only when a tighter rhythm is needed. <br/> Prefer Libra by default.</Label>
+<br/>
+
+</Unstyled>
+
+### H
+
+#### Usage
+
+```tsx
+import React, { useState } from "react";
+import { H } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return (
+    <H type="cancer" color="red">
+       Text
+    </H>
+  );
+};
+```
+<Unstyled>
+<H type="cancer" color="red">Text</H>
+</Unstyled>
+
+#### Props
+
+| Property   | Type                                                    | Default         | Required | Description                |
+| ---------- | ------------------------------------------------------ | -------------------- | -------------- | ----------------------- |
+| children   | `string`                                               | -                    | ✓              | Text                   |
+| type       | `TFontType`                                            | -                    | -              | Text type              |
+| fontFamily | `TFontFamily`                                          | -                    | -              | Font family                   |
+| size       | `TSize`                                                | -                    | -              | Text size           |
+| className  | `string`                                               | -                    | -              | Value of the `class` attribute |
+| onClick    | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -                    | -              | Click handler        |
+| color      | `string`                                               | -                    | -              | Text color |
+| as         | `TFontTag`                                             | `span`               | -              | HTML element to render |
+
+##### TFontType
+
+`aries` | `taurus` | `gemini` | `cancer` | `leo` | `virgo` | `libra` | `scorpius` | `capricornus` | `saggitarius`
+
+##### TFontFamily
+
+`Onest` | `Neue Machina`
+
+##### TSize
+
+`64` | `56` | `40` | `32` | `28` | `24` | `20` | `16`
+
+##### TFontTag
+
+`span` | `div` | `h1` | `h2` | `h3` | `h4` | `h5` | `h6`
+
+### P1
+
+#### Usage
+
+```tsx
+import React, { useState } from "react";
+import { P1 } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return (
+    <P1 type="phoenix" color="red">
+       Text
+    </P1>
+  );
+};
+```
+<Unstyled>
+<P1 type="phoenix" color="red">Text</P1>
+</Unstyled>
+
+#### Props
+
+| Property   | Type                                                    | Default         | Required | Description                |
+| ---------- | ------------------------------------------------------ | -------------------- | -------------- | ----------------------- |
+| children   | `string`                                               | -                    | ✓              | Text                   |
+| type       | `TFontType`                                            | -                    | -              | Text type              |
+| size       | `TSize`                                                | -                    | -              | Text size           |
+| className  | `string`                                               | -                    | -              | Value of the `class` attribute |
+| onClick    | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -                    | -              | Click handler        |
+| color      | `string`                                               | -                    | -              | Text color |
+| as         | `React.ElementType`                                    | `span`               | -              | HTML element to render |
+
+##### TFontType
+
+`aquilla` | `phoenix` | `cygnus`
+
+##### TSize
+
+`20` | `16` | `14`
+
+### P2
+
+#### Usage
+
+```tsx
+import React, { useState } from "react";
+import { P1 } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  return (
+    <P2 type="aquarius" color="red">
+       Text
+    </P2>
+  );
+};
+```
+<Unstyled>
+<P2 type="aquarius" color="red">Text</P2>
+</Unstyled>
+
+#### Props
+
+| Property   | Type                                                    | Default         | Required | Description                |
+| ---------- | ------------------------------------------------------ | -------------------- | -------------- | ----------------------- |
+| children   | `string`                                               | -                    | ✓              | Text                   |
+| type       | `TFontType`                                            | -                    | -              | Text type              |
+| size       | `TSize`                                                | -                    | -              | Text size           |
+| className  | `string`                                               | -                    | -              | Value of the `class` attribute |
+| onClick    | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -                    | -              | Click handler        |
+| color      | `string`                                               | -                    | -              | Text color |
+| as         | `React.ElementType`                                    | `span`               | -              | HTML element to render |
+
+##### TFontType
+
+`pisces` | `aquarius` | `corvus` | `lynx` | `cetus` | `pavo` | `musca` | `columba`
+
+##### TSize
+
+`20` | `16` | `14` | `12` | `10`

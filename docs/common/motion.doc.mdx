@@ -1,0 +1,42 @@
+# Animations
+
+The library uses [Motion](https://motion.dev), formerly Framer Motion, as its declarative animation and microinteraction engine. It powers modal entrance and exit, expanding lists, and button hover and tap states.
+
+### Presets
+
+Shared animation settings live in `src/components/Pallette/motion.ts` and are reused across components:
+
+```tsx
+import { SPRING_PRESETS, FADE_IN_VARIANTS } from "@dmitrygrigorov/components/Pallette/motion";
+
+SPRING_PRESETS.snappy;  // Fast, for tap and hover
+SPRING_PRESETS.gentle;  // Smooth, for expanding and collapsing
+SPRING_PRESETS.bouncy;  // A subtle spring effect
+
+FADE_IN_VARIANTS;       // Fade variants for AnimatePresence
+SLIDE_OVER_VARIANTS;    // Fade, translate, and scale for popups
+COLLAPSE_VARIANTS;      // Height-based expand and collapse
+```
+
+### Usage example
+
+```tsx
+import { motion, AnimatePresence } from "motion/react";
+import { FADE_IN_VARIANTS } from "@dmitrygrigorov/components/Pallette/motion";
+
+<AnimatePresence>
+  {isOpen && (
+    <motion.div
+      variants={FADE_IN_VARIANTS}
+      initial="initial"
+      animate="animate"
+      exit="exit">
+      Content
+    </motion.div>
+  )}
+</AnimatePresence>
+```
+
+### Custom transitions
+
+Components that use Motion, including `ModalWindow`, `Roll`, `List`, and `Button`, accept standard Motion props such as `transition` and `variants` through `{...props}`. This lets consumers override animations directly without changing the library source.

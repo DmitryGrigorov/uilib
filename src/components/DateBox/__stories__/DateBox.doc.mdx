@@ -1,0 +1,138 @@
+import { DateBoxExamples } from "./examples";
+import {
+  DateBoxExampleDefault,
+  DateBoxExampleWeekend,
+  DateBoxExampleCurrent,
+  DateBoxExampleFinish,
+  DateBoxExampleStart,
+  DateBoxExampleSelected,
+  DateBoxExampleIn,
+  DateBoxExampleIsDisable
+} from "./examples/DateBoxExamples";
+
+# DateBox
+
+DateBox is a day cell used to build more advanced date-selection components.
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Types](#types)
+- [Properties](#properties)
+
+## Import
+
+```tsx
+import { DateBox } from "@dmitrygrigorov/components";
+```
+
+## Appearance
+
+<DateBoxExamples />
+
+## Usage
+
+```tsx
+const Example: React.FC = () => <DateBox>22</DateBox>;
+```
+
+## Types
+
+### Standard DateBox
+
+Displays a regular day.
+
+```tsx
+<DateBox>22</DateBox>
+```
+
+<DateBoxExampleDefault />
+
+### `weekend`
+
+Displays a weekend day.
+
+```tsx
+<DateBox viewType="weekend">22</DateBox>
+```
+
+<DateBoxExampleWeekend />
+
+### `current`
+
+Displays the current day.
+
+```tsx
+<DateBox viewType="current">22</DateBox>
+```
+
+<DateBoxExampleCurrent />
+
+### `selected`
+
+Displays a selected day.
+
+```tsx
+<DateBox viewType="selected">22</DateBox>
+```
+
+<DateBoxExampleSelected />
+
+### `start`
+
+Displays the first selected day in a range.
+
+```tsx
+<DateBox viewType="start">22</DateBox>
+```
+
+<DateBoxExampleStart />
+
+### `in`
+
+Displays a selected day inside a range.
+
+```tsx
+<DateBox viewType="in">22</DateBox>
+```
+
+<DateBoxExampleIn />
+
+### `finish`
+
+Displays the final selected day in a range.
+
+```tsx
+<DateBox viewType="finish">22</DateBox>
+```
+
+<DateBoxExampleFinish />
+
+### `isDisabled`
+
+Displays a day that cannot be selected.
+
+```tsx
+<DateBox isDisabled>22</DateBox>
+```
+
+<DateBoxExampleIsDisable />
+
+## Properties
+
+| Property | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| children | `string` | — | Yes | Day value displayed by the component |
+| viewType | [`TViewType`](#tviewtype) | — | No | Visual state of the day |
+| isDisabled | `boolean` | — | No | Disables interaction |
+| className | `string` | — | No | Additional CSS class |
+| onClick | `(event: React.MouseEvent<HTMLButtonElement>) => void` | — | No | Click handler |
+| size | [`TDateBoxSize`](#tdateboxsize) | `l` | No | Component size |
+
+### TViewType
+
+Available values: `current` | `selected` | `start` | `in` | `finish` | `weekend`.
+
+### TDateBoxSize
+
+Available sizes: `l` | `m`.

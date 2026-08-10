@@ -1,0 +1,346 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { InputColorExamples } from "./examples";
+import {
+  InputColorUsage,
+  InputColorErrorUsage,
+  InputColorWarningUsage,
+  InputColorSuccessUsage,
+  InputColorLineUsage
+} from "./examples/InputColorExamples";
+import InputColor from "../";
+
+:::div{.notshown}
+
+# InputColor
+
+InputColor accepts colors in HEX format and includes a popover color palette.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InputColor } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InputColorExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <InputColorUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { InputColor } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return <InputColor color={value} onChange={(val: string) => setValue(val)} />;
+};
+```
+
+:::
+
+:::div
+
+### Statuses
+
+Use `status` to emphasize InputColor and communicate validation feedback. Available values are `error`, `warning`, and `success`.
+
+#### status="error"
+
+<Unstyled>
+  <InputColorErrorUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputColor } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputColor
+      status="error"
+      statusText="Error text"
+      color={value}
+      onChange={(val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+#### status="warning"
+
+<Unstyled>
+  <InputColorWarningUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputColor } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputColor
+      status="warning"
+      statusText="Warning text"
+      color={value}
+      onChange={(val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+#### status="success"
+
+<Unstyled>
+  <InputColorSuccessUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputColor } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputColor
+      status="success"
+      statusText="Success text"
+      color={value}
+      onChange={(val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Field appearance
+
+Set `viewType` to `line` to use an underline instead of the default rounded field.
+
+<Unstyled>
+  <InputColorLineUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { InputColor } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputColor
+      viewType={"line"}
+      color={value}
+      onChange={(val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Required fields
+
+Set `isRequired` to make the field required.
+
+```tsx
+<InputColor isRequired />
+<InputColor />
+```
+
+<Unstyled>
+  <InputColor isRequired />
+  <br />
+  <InputColor />
+</Unstyled>
+:::
+
+:::div
+
+### Disabled field
+
+Set `isDisabled` to prevent input.
+
+```tsx
+<InputColor isDisabled />
+<InputColor />
+```
+
+<Unstyled>
+  <InputColor isDisabled />
+  <br />
+  <InputColor />
+</Unstyled>
+:::
+
+:::div
+
+### Read-only field
+
+Set `isReadOnly` to make the field read-only.
+
+```tsx
+<InputColor isReadOnly />
+<InputColor />
+```
+
+<Unstyled>
+  <InputColor color={"#343434"} isReadOnly />
+  <br />
+  <InputColor />
+</Unstyled>
+:::
+
+:::div
+
+### Sizes
+
+Use `size` to change the field height and spacing.
+Size `m` is recommended for mobile interfaces.
+
+```tsx
+<InputColor placeholder="Size L" size="l" />
+<InputColor placeholder="Size M" size="m" />
+```
+
+<Unstyled>
+  <InputColor placeholder="Size L" size="l" />
+  <br />
+  <InputColor placeholder="Size M" size="m" />
+</Unstyled>
+:::
+
+:::div
+
+### Focus
+
+Set `isAutoFocus` to focus the field automatically.
+
+```tsx
+<InputColor placeholder="Focus" isAutoFocus />
+```
+
+<Unstyled>
+  <InputColor placeholder="Focus" isAutoFocus />
+</Unstyled>
+:::
+
+:::div
+
+### Adding user colors
+
+Pass an array through `lastColors` to show colors the user selected recently.
+
+```tsx
+<InputColor
+  lastColors={[
+    "#6fc74c",
+    "#5BB9FF",
+    "#835b11",
+    "#ff5bd1",
+    "#3b0a08",
+    "#C7514C",
+    "#628141",
+    "#4c56c7"
+  ]}
+/>
+```
+
+<Unstyled>
+  <InputColor
+    lastColors={[
+      "#6fc74c",
+      "#5BB9FF",
+      "#835b11",
+      "#ff5bd1",
+      "#3b0a08",
+      "#C7514C",
+      "#628141",
+      "#4c56c7"
+    ]}
+  />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Props
+
+| Prop               | Type                                                           | Default      | Required | Description                                                                             |
+| ------------------ | -------------------------------------------------------------- | ------------ | -------- | --------------------------------------------------------------------------------------- |
+| id                 | `string`, `number`                                             | -            | -        | Field ID in the DOM                                                                     |
+| color              | `string`                                                       | -            | -        | Field value                                                                             |
+| isAutoFill         | `boolean`                                                      | -            | -        | Enables browser autofill suggestions                                                    |
+| isAutoFocus        | `boolean`                                                      | -            | -        | Focuses and highlights the field automatically                                          |
+| name               | `string`                                                       | -            | -        | Field name in the DOM                                                                   |
+| placeholder        | `string`, `[string, string]`                                   | `Color code` | -        | Hint displayed inside the field                                                         |
+| isDisabled         | `boolean`                                                      | `false`      | -        | Disables the field                                                                      |
+| onChange           | `onChange: (value: string) => void;`                           | -            | -        | Called when the field value changes                                                     |
+| onFocus            | `event: FocusEvent<HTMLInputElement>) => void`                 | -            | -        | Called when the field receives focus                                                    |
+| onBlur             | `(event: FocusEvent<HTMLInputElement>, value: string) => void` | -            | -        | Called when the field loses focus                                                       |
+| onKeyPress         | `(event: KeyboardEvent<HTMLInputElement>) => void;`            | -            | -        | Handles key presses                                                                     |
+| onKeyDown          | `(event: KeyboardEvent<HTMLInputElement>) => void;`            | -            | -        | Handles key-down events                                                                 |
+| className          | `string`                                                       | -            | -        | Additional CSS class                                                                    |
+| testId             | `string`                                                       | -            | -        | ID used by automated tests                                                              |
+| status             | `default`, `error`, `warning`, `success`                       | -            | -        | Field status styling                                                                    |
+| isReadOnly         | `boolean`                                                      | `false`      |          | Makes the field read-only                                                               |
+| isInputColorPicker | `boolean`                                                      | `false`      | -        | Hides the input in ColorPicker                                                          |
+| lastColors         | `string[]`                                                     | -            | -        | Recently used colors in HEX format                                                      |
+| statusText         | `string`                                                       | -            | -        | Text describing the status                                                              |
+| isShowLabel        | `boolean`                                                      | `true`       | -        | Controls the label visibility                                                           |
+| isShowClearIcon    | `boolean`                                                      | `false`      | -        | Controls the clear button                                                               |
+| direction          | [`TDirection`](#tdirection)                                    | `bottomLeft` | -        | ColorPicker placement relative to the input; a second CamelCase word controls alignment |
+| list               | `string`                                                       | -            | -        | Associates the field with a `<datalist>` element                                        |
+| autoComplete       | `string`                                                       | -            | -        | Enables or disables browser autocomplete                                                |
+| accessKey          | `string`                                                       | -            | -        | Keyboard shortcut for activating or focusing the element                                |
+| form               | `string`                                                       | -            | -        | Associates the control with a form element                                              |
+
+:::
+
+:::div
+
+### TDirection
+
+Available values:
+`top`, `topRight`, `topLeft`, `bottom`, `bottomRight`, `bottomLeft`, `right`, `rightTop`, `rightBottom`, `left`, `leftTop`, `leftBottom`
+:::

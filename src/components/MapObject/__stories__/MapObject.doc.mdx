@@ -1,0 +1,150 @@
+import { IconSetting1, IconMap1 } from "@dmitrygrigorov/icons";
+import MapObjectExample from "./examples";
+import MapObject from "../";
+
+:::div{.notshown}
+
+# MapObject
+
+MapObject is an interface element that marks an entity's location on a map.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [States](#states)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { MapObject } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Types
+
+Use the `typeColor` prop to select one of the available visual styles.
+
+```tsx
+<MapObject typeColor="additional" icon={<IconSetting1 />}/>
+<MapObject typeColor="danger" icon={<IconSetting1 />}/>
+<MapObject typeColor="positive" icon={<IconSetting1 />}/>
+<MapObject typeColor="warning" icon={<IconSetting1 />}/>
+```
+
+<div style={{ display: "flex", gap: "12px" }}>
+  <MapObject typeColor="additional" icon={<IconSetting1 />} />
+  <MapObject typeColor="danger" icon={<IconSetting1 />} />
+  <MapObject typeColor="positive" icon={<IconSetting1 />} />
+  <MapObject typeColor="warning" icon={<IconSetting1 />} />
+</div>
+<br />
+
+### TMapObjectType
+
+Available options:
+
+- danger
+- warning
+- additional
+- positive
+  :::
+
+:::div
+
+## Icon
+
+The component requires an icon. Pass an icon name from `@dmitrygrigorov/icons` or provide a custom icon through the `icon` prop.
+
+```tsx
+<MapObject typeColor="additional" icon={<IconMap1 />} />
+```
+
+<MapObject typeColor="additional" icon={<IconMap1 />} />
+:::
+
+:::div
+
+## Active state
+
+Set `isChecked` to mark the component as active.
+
+<MapObject typeColor="additional" icon={<IconSetting1 />} isChecked />
+:::
+
+:::div
+
+## Disabled state
+
+Set `isDisabled` to prevent interaction with the component.
+
+<MapObject typeColor="additional" icon={<IconSetting1 />} isDisabled />
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<MapObjectExample />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { MapObject } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event, value): void => {
+    setChecked(value);
+  };
+
+  return (
+    <MapObject
+      isChecked={checked}
+      onChange={handleChange}
+      icon={<IconSetting1 />}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Props
+
+| Prop       | Type                                                  | Default | Required | Description                       |
+| ---------- | ----------------------------------------------------- | ------- | -------- | --------------------------------- |
+| isChecked  | `boolean`                                             | -       | -        | Whether the component is selected |
+| isDisabled | `boolean`                                             | -       | -        | Whether the component is disabled |
+| onClick    | `(event: React.MouseEvent<HTMLDivElement>) => void; ` | -       | -        | `onClick` event handler           |
+| className  | `string`                                              | -       | -        | Additional CSS class              |
+| icon       | JSX.Element                                           | -       | ✓        | Changes the icon                  |
+| typeColor  | [`TMapObjectType`](#mapobjecttype)                    | -       | ✓        | Object color                      |
+
+:::
+
+:::div
+
+### MapObjectType
+
+Available values:
+`danger`, `warning`, `additional`, `positive`
+
+:::

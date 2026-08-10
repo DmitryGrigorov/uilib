@@ -1,0 +1,62 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="styleUtils/borderRadius" id="borderRadius" />
+
+# BorderRadius
+
+- [Description](#description)
+- [Import](#import)
+- [Rounding methods](#rounding-methods)
+- [Values](#values)
+- [Usage](#usage)
+
+## Description
+
+`borderRadius` sets component corner radii for `styled-components`. It can be used with the `Shape` constant, which contains the library's standard radius values.
+
+## Import
+
+```tsx
+import { BorderRadius } from "@dmitrygrigorov/components/Pallette/style-utils";
+```
+
+## Rounding methods
+
+`roundBorder` rounds every corner and accepts one, two, or four arguments.
+
+`roundBorderTop` rounds the top corners.
+
+`roundBorderBottom` rounds the bottom corners.
+
+## `Shape` values
+
+`borderRadiusDefault` - 8px
+
+`borderRadiusSmall` - 4px
+
+`borderRadiusMedium` - 16px
+
+`borderRadiusLarge` - 48px
+
+## Usage with `Shape`
+
+```tsx
+import { BorderRadius } from "@dmitrygrigorov/components/Pallette/style-utils";
+import styled from "styled-components";
+import { Shape } from "../Pallette/Shape";
+
+export const StyledComponent = styled.div`
+  ${BorderRadius.roundBorder(Shape.borderRadiusDefault)};
+`;
+```
+
+## Usage without `Shape`
+
+```tsx
+import { BorderRadius } from "@dmitrygrigorov/components/Pallette/style-utils";
+import styled from "styled-components";
+
+export const StyledComponent = styled.div`
+  ${BorderRadius.roundBorder("12px")};
+`;
+```

@@ -1,0 +1,204 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+import { LabelExamples } from "./examples";
+import {
+  LabelExampleStatusFilled,
+  LabelExampleStatusInfo,
+  LabelExampleStatusError,
+  LabelExampleStatusSuccess,
+  LabelExampleStatusWarning,
+  LabelExampleStatusFilledRequired,
+  LabelExampleStatusFilledWithIcon,
+  LabelExampleStatusFilledDisabled
+} from "./examples/LabelExamples";
+
+:::div{.notshown}
+
+# Label
+
+#### A building block for inputs and notifications
+
+Use a label to draw attention to an interface element or communicate an error, for example in an input.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+- [LabelStatus](#labelstatus)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Label } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <LabelExamples />
+</Unstyled>
+
+```tsx
+<Label status="filled">Label</Label>
+<Label status="info">Label</Label>
+<Label status="focused">Label</Label>
+<Label status="error">Label</Label>
+<Label status="success">Label</Label>
+<Label status="warning">Label</Label>
+<Label status="info" isIcon>Label</Label>
+<Label status="error" isIcon>Label</Label>
+<Label status="success" isIcon>Label</Label>
+<Label status="warning" isIcon>Label</Label>
+```
+
+:::
+
+:::div
+
+## Usage
+
+### TypeScript
+
+```tsx
+import React from "react";
+import { Label } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => <Label status="filled">Label</Label>;
+```
+
+<Unstyled>
+  <LabelExampleStatusFilled />
+</Unstyled>
+:::
+
+:::div
+
+### Status
+
+Statuses communicate different component states.
+
+#### Info
+
+Use the `Info` status for supplementary information.
+
+<Unstyled>
+  <LabelExampleStatusInfo />
+  <br />
+  <br />
+</Unstyled>
+
+#### Error
+
+Use the `Error` status when the component contains an error.
+
+<Unstyled>
+  <LabelExampleStatusError />
+  <br />
+  <br />
+</Unstyled>
+
+#### Success
+
+Use the `Success` status when an operation or action completes successfully.
+
+<Unstyled>
+  <LabelExampleStatusSuccess />
+  <br />
+  <br />
+</Unstyled>
+
+#### Warning
+
+Use the `Warning` status for cautions, such as a weak password.
+
+<Unstyled>
+  <LabelExampleStatusWarning />
+</Unstyled>
+
+### LabelStatus
+
+Available values:
+`filled`, `info`, `focused`, `error`, `success`, `warning`
+:::
+
+:::div
+
+### Required fields
+
+Use `isRequired` to indicate that the associated control must be completed or selected, for example a full-name field.
+
+```tsx
+<Label isRequired />
+```
+
+<Unstyled>
+  <LabelExampleStatusFilledRequired />
+</Unstyled>
+:::
+
+:::div
+
+### Using icons
+
+The `icon` prop adds an icon to the label. Use it with `isIcon` to make the status easier to recognize at a glance.
+
+```tsx
+<Label isIcon icon={<IconSetting1 width={12} height={12} />}
+```
+
+<Unstyled>
+  <LabelExampleStatusFilledWithIcon />
+</Unstyled>
+:::
+
+:::div
+
+### Disabled
+
+Use `isDisabled` to indicate that the control associated with the label is unavailable.
+
+```tsx
+<Label isDisabled />
+```
+
+<Unstyled>
+  <LabelExampleStatusFilledDisabled />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Prop       | Type                          | Default  | Required | Description                                                                               |             |
+| ---------- | ----------------------------- | -------- | -------- | ----------------------------------------------------------------------------------------- | ----------- |
+| children   | `string`                      | -        | ✓        | Label text                                                                                |             |
+| className  | `string`                      | -        | -        | Additional CSS class                                                                      |             |
+| status     | [`LabelStatus`](#labelstatus) | -        | ✓        | Component presentation style                                                              |             |
+| icon       | `JSX.Element` \               | `string` | -        | -                                                                                         | Custom icon |
+| isIcon     | `boolean`                     | `false`  | -        | Whether to show an icon; available for `info`, `error`, `success`, and `warning` statuses |             |
+| size       | `TSize`                       | `m`      | -        | Changes the text and icon size                                                            |             |
+| isDisabled | `boolean`                     | `false`  | -        | Disables the label                                                                        |             |
+| isRequired | `Boolean`                     | `false`  | -        | Shows an asterisk to indicate a required control                                          |             |
+| as         | `React.ElementType`           | `p`      | -        | HTML element used to render the component in the DOM                                      |             |
+
+:::
+
+:::div
+
+### Size
+
+Available values:
+`m`, `s`
+:::

@@ -1,0 +1,220 @@
+import { ColorPickerExamples } from "./examples"
+import {
+   ColorPickerExample,
+   ColorPickerWithoutInput,
+   ColorPickerWithoutLastColorAndInput,
+   ColorPickerExampleWithoutTransparency
+ } from "./examples/ColorPickerExamples"
+
+:::div{.notshown}
+# ColorPicker
+
+ColorPicker lets users select a color in HEX format.
+:::
+
+:::div
+## Navigation
+- [Import](#import)
+- [Usage](#usage)
+- [Adding user colors](#adding-user-colors)
+- [Adding an input](#adding-an-input)
+- [Adding an alpha channel](#adding-an-alpha-channel)
+- [Properties](#properties)
+:::
+
+:::div
+## Import
+
+```tsx
+import { ColorPicker } from "@dmitrygrigorov/components";
+```
+:::
+
+:::div{.notshown}
+## Appearance
+
+<ColorPickerExamples/>
+
+```tsx
+<ColorPicker
+  color={color}
+  isInput
+  onChange={({ color: _color }) => setColor(_color)}
+  isTransparency
+  alpha={0.1}
+/>
+<ColorPicker
+  color={color}
+  isInput
+  onChange={({ color: _color }) => setColor(_color)}
+/>
+<ColorPicker
+  color={color}
+  lastColors={[
+    "#6fc74c",
+    "#5BB9FF",
+    "#835b11",
+    "#ff5bd1",
+    "#3b0a08",
+    "#C7514C",
+    "#628141",
+    "#4c56c7"
+  ]}
+  onChange={({ color: _color }) => setColor(_color)}
+/>
+<ColorPicker
+  color={color}
+  lastColors={[
+    "#6fc74c",
+    "#5BB9FF",
+    "#835b11",
+    "#ff5bd1",
+    "#3b0a08",
+    "#C7514C",
+    "#628141",
+    "#4c56c7"
+  ]}
+  isTransparency
+  onChange={({ color: _color }) => setColor(_color)}
+/>
+<ColorPicker
+  color={color}
+  onChange={({ color: _color }) => setColor(_color)}
+/>
+<ColorPicker
+  color={color}
+  isTransparency
+  onChange={({ color: _color }) => setColor(_color)}
+/>
+```
+:::
+
+:::div
+## Usage
+
+Pass `color` to initialize the HEX value and `onChange` to update it.
+
+### TypeScript
+```tsx
+import React, { useState } from "react";
+import { ColorPicker } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [color, setColor] = useState("#8bd046");
+
+  <ColorPicker
+    color={color}
+    onChange={({ color: _color }) => setColor(_color)}
+  />
+};
+```
+
+<ColorPickerWithoutLastColorAndInput/>
+:::
+
+:::div
+## Adding user colors
+
+Pass an array through `lastColors` to show colors the user selected recently.
+
+```tsx
+import React, { useState } from "react";
+import { ColorPicker } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [color, setColor] = useState("#8bd046");
+
+  <ColorPicker
+    color={color}
+    onChange={({ color: _color }) => setColor(_color)}
+    lastColors={[
+      "#6fc74c",
+      "#5BB9FF",
+      "#835b11",
+      "#ff5bd1",
+      "#3b0a08",
+      "#C7514C",
+      "#628141",
+      "#4c56c7"
+    ]}
+  />
+};
+```
+
+<ColorPickerWithoutInput />
+:::
+
+:::div
+## Adding an input
+
+Use `isInput` to add a text field that accepts a HEX color string.
+
+```tsx
+import React, { useState } from "react";
+import { ColorPicker } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [color, setColor] = useState("#8bd046");
+
+  return (
+    <ColorPicker
+      color={color}
+      isInput={true}
+      onChange={({ color: _color }) => setColor(_color)}
+    />
+  );
+};
+```
+
+<ColorPickerExampleWithoutTransparency />
+:::
+
+:::div
+## Adding an alpha channel
+
+Use `isTransparency` to expose the alpha channel. Set its initial value with `alpha`, which accepts a number from 0 to 1.
+
+```tsx
+import React, { useState } from "react";
+import { ColorPicker } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [color, setColor] = useState("#8bd046");
+  const [alpha, setAlpha] = useState(0.1);
+
+  return (
+    <ColorPicker
+     color={color}
+     isInput
+     onChange={({ color: _color, alpha: _alpha }) => {
+       setColor(_color);
+       _alpha && setAlpha(_alpha);
+     }}
+     isTransparency
+     alpha={alpha}
+    />
+  );
+};
+```
+
+<ColorPickerExample />
+:::
+
+:::div
+## Properties
+
+| Parameter          | Type                                                 | Default              | Required | Description                                                                                       |
+|--------------------|------------------------------------------------------|----------------------|----------------|--------------------------------------------------------------------------------------------------------------------------|
+| className          | `string`                                             | -                    | -        | Additional class                                                                                  |
+| id                 | `string`                                             | -                    | -        | Field ID in the DOM                                                                                |
+| color              | `string`                                             | -                    | ✓        | Initial palette color in HEX format                                                               |
+| lastColors         | `string[]`                                           | -                    | -        | Previously used HEX colors                                                                         |
+| onChange           | `({ color: string, alpha?: number }) => void`        | -                    | -        | Updates the `color` value                                                                           |
+| isInput            | `boolean`                                            | -                    | -        | Shows the color input                                                                               |
+| colorKey           | `(index: number, color: string) => string` \| number | -                    | -        | Generates IDs for `lastColors`; without it, the color value is used as the ID                       |
+| alpha              | `boolean`                                            | 1                    | -        | Initial alpha-channel value from `0` to `1`                                                         |
+| isTransparency     | `boolean`                                            | -                    | -        | Shows the alpha channel                                                                             |
+| testId             | `string`                                             | `color-picker`       | -        | Value of the `data-testid` attribute                                                                |
+| testIdInputColor   | `string`                                             | `color-picker-input` | -        | `testId` value for the color input                                                                  |
+| testIdTransparency | `string`                                             | `transparency-input` | -        | `testId` value for the alpha-channel input                                                          |
+:::

@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+
+<Meta title="Tables/Column API" />
+
+# Table API
+
+Table methods available through `ref.columnApi`.
+
+## Pinning columns
+
+For more information, see [Pinning columns](?path=/docs/tables-pinning-columns--documentation).
+
+| Property         | Type                               | Description                                                   |
+| ---------------- | ---------------------------------- | ------------------------------------------------------------- |
+| isPinning        | `TIsPinningColumn<TData, TValue>`  | Returns true when the specified column is pinned              |
+| isPinningLeft    | `TIsPinningColumn<TData, TValue>`  | Returns true when the specified column is pinned to the left  |
+| isPinningRight   | `TIsPinningColumn<TData, TValue>`  | Returns true when the specified column is pinned to the right |
+| setColumnPinned  | `TSetColumnPinned<TData, TValue>`  | Pins a column                                                 |
+| setColumnsPinned | `TSetColumnsPinned<TData, TValue>` | Pins multiple columns                                         |
+
+```ts
+export type TColumnPinnedDirection = "left" | "right" | null | undefined;
+
+export type TIsPinningColumn<TData = any, TValue = string> = (
+  key: string | TColumn<TData, TValue>
+) => boolean;
+export type TSetColumnPinned<TData = any, TValue = string> = (
+  key: string | TColumn<TData, TValue>,
+  pinnedDirection: TColumnPinnedDirection
+) => void;
+export type TSetColumnsPinned<TData = any, TValue = string> = (
+  keys: string[] | TColumn<TData, TValue>[],
+  pinnedDirection: TColumnPinnedDirection
+) => void;
+```
+
+## Managing column data
+
+| Property          | Type                                                     | Description                         |
+| ----------------- | -------------------------------------------------------- | ----------------------------------- |
+| getColumns        | `() => TColumn<TData>[]`                                 | Returns the current column settings |
+| setColumns        | `(columns: TColumn<TData, TValue>[]) => void`            | Sets new column settings            |
+| setDefaultColumns | `(defaultColumn: IColumnDefault<TData, TValue>) => void` | Sets the default column settings    |

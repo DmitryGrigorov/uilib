@@ -1,0 +1,146 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { ColumnsPinning } from "./examples/ColumnsPinning";
+
+<Meta title="Tables/Pinning columns" />
+
+# Pinning columns
+
+Pinned columns remain on the left or right of the main table and render above regular columns.
+
+Pin columns by setting `pinnedDirection` in their column definitions.
+The `pinnedDirection` property accepts `left` or `right`.
+
+To pin a column on the initial render, set `isDefaultPinned` to `true` in its definition.
+
+## Example
+
+The example below starts with one column pinned on each side and lets the user pin five more columns at runtime.
+
+```tsx
+import React from "react";
+import Table, { TColumn } from "@dmitrygrigorov/table";
+
+const ColumnsPinning: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const [rowPerPage, setRowPerPage] = useState(10);
+  const [products, setProducts] = useState<any[]>([]);
+  const [allRowsCount, setAllRowsCount] = useState(0);
+
+  const handlePaginationChange = (params: IPaginationChangeParams): void => {
+    setPage(params.newPage);
+    setRowPerPage(params.rowPerPage);
+  };
+
+  const loadData = async (): Promise<void> => {
+    const response = await fetch(
+      `https://dummyjson.com/products?skip=${
+        (page - 1) * rowPerPage
+      }&limit=${rowPerPage}`
+    );
+    const data = await response.json();
+    setProducts(data.products);
+    setAllRowsCount(data.total);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [page, rowPerPage]);
+
+  const COLUMNS: TColumn<any, string>[] = useMemo(
+    () => [
+      {
+        field: "id",
+        title: "id"
+      },
+      {
+        field: "title",
+        title: "Title",
+        pinnedDirection: "left",
+        isDefaultPinned: true
+      },
+      {
+        field: "description",
+        title: "Description",
+        pinnedDirection: "left"
+      },
+      {
+        field: "price",
+        title: "Price"
+      },
+      {
+        field: "discountPercentage",
+        title: "Discount percentage",
+        pinnedDirection: "left"
+      },
+      {
+        field: "rating",
+        title: "Rating",
+        pinnedDirection: "right",
+        isDefaultPinned: true
+      },
+      {
+        field: "stock",
+        title: "Stock",
+        pinnedDirection: "right"
+      },
+      {
+        field: "brand",
+        title: "Brand",
+        pinnedDirection: "left"
+      },
+      {
+        field: "category",
+        title: "Category"
+      },
+      {
+        field: "thumbnail",
+        title: "Thumbnail",
+        columnTypes: "image",
+        pinnedDirection: "right"
+      }
+    ],
+    []
+  );
+
+  return (
+    <Table
+      rowModel="server"
+      isPagination
+      paginationPageSize={10}
+      paginationAllRowCount={allRowsCount}
+      title="Pinnable columns"
+      columns={COLUMNS}
+      rowData={products}
+      onPaginationChange={handlePaginationChange}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <ColumnsPinning />
+  <br />
+  <br />
+  <br />
+  <br />
+</Unstyled>
+
+## User-controlled column pinning
+
+Users can pin and unpin columns by selecting the pin icon. The icon turns blue when the column is pinned.
+
+## Properties
+
+| Property             | Type                                                  | Description                                        |
+| -------------------- | ----------------------------------------------------- | -------------------------------------------------- |
+| pinnedDirection      | `"left" / "right`                                     | Pinning direction                                  |
+| isDefaultPinned      | `boolean`                                             | Whether the column is pinned on the initial render |
+| onChangePinnedColumn | `TOnChangePinnedColumn<TData = any, TValue = string>` | Callback fired when column pinning changes         |
+
+```ts
+export type TOnChangePinnedColumn<TData = any, TValue = string> = (
+  column: TColumn<TData, TValue>,
+  params: { pinnedDirection: TColumnPinnedDirection; isPinned: boolean }
+) => void;
+```

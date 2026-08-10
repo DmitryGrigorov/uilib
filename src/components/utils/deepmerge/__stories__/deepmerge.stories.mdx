@@ -1,0 +1,73 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="utils/deepmerge" id="deepmerge" />
+
+
+# deepmerge
+
+- [Description](#description)
+- [Import](#import)
+- [Type definition](#type-definition)
+- [Usage](#usage)
+- [Props](#props)
+
+
+
+## Description
+The `deepmerge` function performs a deep merge of objects.
+
+## Import
+
+```tsx
+import { deepmerge } from "@dmitrygrigorov/components";
+```
+
+## Type definition
+
+```tsx
+const deepmerge = <T, S>(
+  target: T,
+  source: S,
+  options = { clone: true }
+): T => {}
+```
+
+## Usage with cloning
+
+```tsx
+import { deepmerge } from "@dmitrygrigorov/components";
+
+export const source = {
+  name: "nameOfSource",
+  color: "blue",
+  index: 12
+};
+
+export const object = {
+  name: "nameOfObject",
+  color: "red"
+};
+
+deepmerge(object, source, {clone: true});
+// RESULT
+// object {
+//   name: "nameOfSource",
+//   color: "blue",
+//   index: 12
+// }
+
+deepmerge(object, source, {clone: false});
+// RESULT
+// object {
+//  name: "nameOfObject",
+//  color: "blue"
+//  index: 12
+// }
+```
+## Props
+
+| Property | Type                | Default | Required | Description                                                                                                                                          |
+|----------|--------------------|--------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| target   | `T`                | -            | ✓              | Target object to receive the source object's properties |
+| source   | `S`                | 0            | -              | Source object                                           |
+| options  | `{clone: boolean}` |              |                | Function options. `clone` controls whether the source is cloned or its properties are merged into the target |

@@ -1,0 +1,317 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  TabsItemsText,
+  TabsItemsObject,
+  TabsItemsChild,
+  TabsCustomPanel,
+  TabsTabPanel,
+  TabsExampleLight,
+  TabsTabPanelLazy
+} from "./example/TabsExamplesLight";
+import { TabsExamples } from "./example";
+import { TabsExampleDark } from "./example/TabsExamplesDark";
+
+:::div{.notshown}
+
+# Tabs
+
+A navigation element for quickly switching between sections or content panels.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+
+:::
+
+:::div
+
+## Import
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Usage
+
+### Text tabs
+
+Pass tab labels as an array of strings to `items`. These strings are also used as keys, so each value must be unique.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+
+const ITEMS = ["Tab1", "Tab2", "Tab3"];
+
+export const Example: React.FC = () => <Tabs items={ITEMS} value={0} />;
+```
+
+<Unstyled>
+  <TabsItemsText />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+### Object tabs
+
+`items` can also be an array of objects. Each object must include a `label` and may also include an icon and `value`.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+const ITEMS = [
+  { label: "Tab1", value: "Tab1" },
+  { label: "Tab2", value: "Tab2", icon: <IconSetting1 /> },
+  { label: "Tab3", value: "Tab3" }
+];
+
+export const Example: React.FC = () => <Tabs items={ITEMS} value="Tab2" />;
+```
+
+<Unstyled>
+  <TabsItemsObject />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+### Tab components
+
+Tabs can be passed as children of the `Tabs` component.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+
+export const Example: React.FC = () => (
+  <Tabs value="tab2">
+    <Tabs.Tab label="Tab 1" value="tab1" icon={<IconSetting1 />} />
+    <Tabs.Tab label="Tab 2" value="tab2" />
+    <Tabs.Tab label="Tab 3" value="tab3" isDisabled />
+  </Tabs>
+);
+```
+
+<Unstyled>
+  <TabsItemsChild />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+### Usage TabPanel
+
+There are several ways to add a TabPanel.
+
+The first approach uses standalone panels. You may omit `value` from `Tabs.Tab`; in that case, the active tab is determined by its index.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+
+const TabPanel: React.FC = ({ children, showTab }) => {
+  if (showTab) {
+    return <div>{children}</div>;
+  }
+  return null;
+};
+
+export const Example: React.FC = () => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  return (
+    <div>
+      <Tabs value={value} onChange={handleChange}>
+        <Tabs.Tab label="Tab 1" />
+        <Tabs.Tab label="Tab 2" />
+        <Tabs.Tab label="Tab 3" />
+      </Tabs>
+      <TabPanel showTab={value === 0}>Tab 1</TabPanel>
+      <TabPanel showTab={value === 1}>Tab 2</TabPanel>
+      <TabPanel showTab={value === 2}>Tab 3</TabPanel>
+      </TabPanel>
+    </div>
+  );
+};
+```
+
+<Unstyled>
+  <TabsCustomPanel />
+</Unstyled>
+<br />
+<br />
+
+The second approach uses `TabPanel` together with `TabProvider`.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  const [value, setValue] = useState("tab1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Tabs.TabProvider value="tab1">
+      <Tabs onChange={handleChange}>
+        <Tabs.Tab label="Tab 1" value="tab1" />
+        <Tabs.Tab label="Tab 2" value="tab2" />
+        <Tabs.Tab label="Tab 3" value="tab3" />
+      </Tabs>
+      <Tabs.TabPanel value="tab1">Tab 1</Tabs.TabPanel>
+      <Tabs.TabPanel value="tab2">Tab 2</Tabs.TabPanel>
+      <Tabs.TabPanel value="tab3">Tab 3</Tabs.TabPanel>
+    </Tabs.TabProvider>
+  );
+};
+```
+
+<Unstyled>
+  <TabsTabPanel />
+</Unstyled>
+
+<br />
+<br />
+
+Set `isLazy` so unselected tab content is not rendered until it is needed.
+Set `isKeepAlive={true}` on `TabPanel` to preserve the panel's content state after the user switches to another tab.
+
+```tsx
+import { Tabs } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => {
+  const [value, setValue] = useState("tab1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Tabs.TabProvider value="tab1" isLazy={true}>
+      <Tabs onChange={handleChange}>
+        <Tabs.Tab label="Tab 1" value="tab1" />
+        <Tabs.Tab label="Tab 2" value="tab2" />
+        <Tabs.Tab label="Tab 3" value="tab3" />
+      </Tabs>
+      <Tabs.TabPanel value="tab1">Tab 1</Tabs.TabPanel>
+      <Tabs.TabPanel value="tab2">Tab 2</Tabs.TabPanel>
+      <Tabs.TabPanel value="tab3" isKeepAlive={true}>
+        Tab 3
+      </Tabs.TabPanel>
+    </Tabs.TabProvider>
+  );
+};
+```
+
+<Unstyled>
+  <TabsTabPanelLazy />
+</Unstyled>
+<br />
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <TabsExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+### Tabs
+
+| Property  | Type                                                    | Default | Required | Description              |
+| --------- | ------------------------------------------------------- | ------- | -------- | ------------------------ |
+| value     | `string`, `number`                                      | -       | -        | Tab value                |
+| onChange  | `(event: MouseEvent, newValue: number, string) => void` | -       | -        | `onChange` event handler |
+| items     | [`ITabsItem[]`](#itabsitem), `string`                   | -       | -        | Tab item properties      |
+| children  | `JSX.Element`, `JSX.Element[]`                          | -       | -        | Child tabs               |
+| className | `string`                                                | -       | -        | Additional class         |
+| style     | `CSSProperties`                                         | -       | -        | -                        |
+| size      | [`TSize`](#tsize)                                       | -       | -        | Tab size                 |
+
+:::
+
+:::div
+
+#### ITabsItem
+
+| Property | Type               | Default | Required | Description  |
+| -------- | ------------------ | ------- | -------- | ------------ |
+| label    | `string`           | -       | ✓        | Tab text     |
+| icon     | `JSX.Element`      | -       | -        | Leading icon |
+| value    | `string`, `number` | -       | -        | Tab value    |
+
+:::
+
+:::div
+
+### Tab
+
+| Property   | Type                | Default | Required | Description                    |
+| ---------- | ------------------- | ------- | -------- | ------------------------------ |
+| label      | `string`            | -       | ✓        | Tab text                       |
+| size       | `TSize`             | -       | -        | Tab size                       |
+| value      | `string`, `number`  | -       | -        | Tab value                      |
+| onClick    | `MouseEventHandler` | -       | -        | Called when the tab is clicked |
+| icon       | `JSX.Element`       | -       | -        | Leading icon                   |
+| isDisabled | `boolean`           | -       | -        | Disables the tab               |
+| className  | `string`            | -       | -        | Additional class               |
+| style      | `CSSProperties`     | -       | -        | -                              |
+| as         | `ElementType`       | -       | `button` | Element used to render the tab |
+
+:::
+
+:::div
+
+### TabProvider
+
+| Property | Type               | Default | Required | Description                                        |
+| -------- | ------------------ | ------- | -------- | -------------------------------------------------- |
+| value    | `string`, `number` | -       | ✓        | Selected tab                                       |
+| isLazy   | `boolean`          | -       | -        | Defers content rendering until the panel is needed |
+
+:::
+
+:::div
+
+### TabPanel
+
+| Property    | Type               | Default | Required | Description                                        |
+| ----------- | ------------------ | ------- | -------- | -------------------------------------------------- |
+| value       | `string`, `number` | -       | ✓        | Panel value                                        |
+| isKeepAlive | `boolean`          | false   | -        | Preserves panel data and state between activations |
+| className   | `string`           | -       | -        | Additional class                                   |
+| style       | `CSSProperties`    | -       | -        | -                                                  |
+| children    | `ReactNode`        | -       | -        | Child elements and content                         |
+
+:::
+
+:::div
+
+### TSize
+
+Available values:
+`l`, `m`
+:::

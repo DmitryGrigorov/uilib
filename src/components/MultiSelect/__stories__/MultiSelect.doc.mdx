@@ -1,0 +1,423 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { MultiSelectExamples } from "./examples";
+import {
+  MultiSelectExample,
+  MultiSelectError,
+  MultiSelectExampleAvatar,
+  MultiSelectWarning,
+  MultiSelectSuccess,
+  MultiSelectDisabled
+} from "./examples/MultiSelectExamples";
+
+:::div{.notshown}
+
+# MultiSelect
+
+A dropdown that lets users select several options from a larger set.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [List content](#list-content)
+- [Placeholders](#placeholders)
+- [Using statuses](#using-statuses)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { MultiSelect } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## List content
+
+Pass dropdown items through the `options` array. By default, each object contains:
+
+- `value: string` — a unique option value
+- `label: string` — the option label
+
+```tsx
+const options = [
+  {
+    label: "One",
+    value: "one"
+  },
+  {
+    label: "Two",
+    value: "two"
+  }
+];
+```
+
+You can also provide custom option objects by configuring [`fieldNames`](#using-custom-options).
+:::
+
+:::div
+
+### Using custom options
+
+For a custom `options` shape, pass a `fieldNames` object that maps to the relevant option keys.
+
+```tsx
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const optionsData = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+const MultiSelectFieldNamesExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={optionsData}
+      width="400px"
+      size={size}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Placeholders
+
+Set the label shown when no option is selected with `placeholder`. It accepts a string or a string array; with an array, the focused or populated field uses the second value.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const MultiSelectPlaceholderExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <MultiSelectExample />
+  <br />
+</Unstyled>
+
+:::
+
+:::div
+
+## Using statuses
+
+Use `status` to emphasize the field and communicate validation feedback. When omitted, the field uses its default appearance. Add a text explanation with `statusText`.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const MultiSelectStatusErrorExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+
+const MultiSelectStatusWarningExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+
+const MultiSelectStatusSuccessExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <MultiSelectError />
+  <MultiSelectWarning />
+  <MultiSelectSuccess />
+  <br />
+  <br />
+</Unstyled>
+:::
+
+:::div
+
+## Disabled state
+
+Set `isDisabled` to disable the select.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const MultiSelectDisabledExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <MultiSelectDisabled />
+  <br />
+</Unstyled>
+
+Set `isDisabled: true` on an option to disable that item.
+
+```tsx
+const options = [
+  { label: "Moscow", value: "Moscow" },
+  { label: "Paris", value: "Paris" },
+  { label: "Prague", value: "Prague" },
+  { label: "Amsterdam", value: "Amsterdam", isDisabled: true },
+  { label: "Berlin", value: "Berlin" },
+  { label: "London", value: "London" },
+  { label: "Riga", value: "Riga" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const MultiSelectDisabledExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      isDisabled
+    />
+  );
+};
+```
+
+<Unstyled>
+  <MultiSelectExample />
+  <br />
+</Unstyled>
+:::
+
+:::div
+
+## TypeScript support
+
+To type MultiSelect, provide the option type. For a custom option shape, also provide string-literal paths for `value` and `label`.
+
+```tsx
+interface IOption {
+  label: string;
+  city: string;
+}
+
+const options: IOption[] = [
+  { label: "Moscow", city: "Moscow" },
+  { label: "Paris", city: "Paris" },
+  { label: "Prague", city: "Prague" },
+  { label: "Amsterdam", city: "Amsterdam", isDisabled: true },
+  { label: "Berlin", city: "Berlin" },
+  { label: "London", city: "London" },
+  { label: "Riga", city: "Riga" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const MultiSelectPlaceholderExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect<IOption, "city", "label">
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={options}
+      fieldNames={{ label: "label", value: "city" }}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Avatars
+
+For user selection, set `type` to `avatar` to show avatars in both the list and the input.
+
+```tsx
+const optionsUsers = [
+  { label: "User1", value: "User1" },
+  {
+    label: "User2",
+    value: "User2",
+    url: AvatarImg
+  },
+  { label: "User3", value: "User3", url: AvatarImg },
+  { label: "User4", value: "User4" }
+];
+
+import React, { useState } from "react";
+import { MultiSelect } from "@dmitrygrigorov/components";
+
+const SelectAvatarExample: React.FC = () => {
+  const [value, setValue] = useState<typeof optionsData>([]);
+
+  return (
+    <MultiSelect
+      placeholder="Select a user"
+      value={value}
+      onChange={(val) => setValue(val)}
+      options={optionsUsers}
+      type="avatar"
+    />
+  );
+};
+```
+
+<Unstyled>
+  <MultiSelectExampleAvatar />
+  <br />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <MultiSelectExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Prop            | Type                                                                                                                 | Default                              | Required | Description                                                                |
+| --------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------- | -------------------------------------------------------------------------- |
+| id              | `string`, `number`                                                                                                   | -                                    | -        | Field ID in the DOM                                                        |
+| value           | `TOption`                                                                                                            | -                                    | -        | Selected option objects or their keys                                      |
+| isAutoFocus     | `boolean`                                                                                                            | -                                    | -        | Focuses and highlights the field automatically                             |
+| name            | `string`                                                                                                             | -                                    | -        | Field name in the DOM                                                      |
+| placeholder     | `string`                                                                                                             | Filled Label                         | -        | Hint displayed inside the field                                            |
+| isDisabled      | `boolean`                                                                                                            | `false`                              | -        | Disables the field                                                         |
+| onChange        | `onChange: (event: ChangeEvent<HTMLInputElement> \ MouseEvent<HTMLDivElement>, value: string, id?: string) => void;` | -                                    | -        | Called when the field value changes                                        |
+| onFocus         | `event: FocusEvent<HTMLInputElement>) => void`                                                                       | -                                    | -        | Called when the field receives focus                                       |
+| onBlur          | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                       | -                                    | -        | Called when the field loses focus                                          |
+| onKeyDown       | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                  | -                                    | -        | Handles key-down events                                                    |
+| className       | `string`                                                                                                             | -                                    | -        | Additional CSS class                                                       |
+| testId          | `string`                                                                                                             | -                                    | -        | ID used by automated tests                                                 |
+| status          | `default`, `error`, `warning`, `success`                                                                             | -                                    | -        | Field status styling                                                       |
+| statusText      | `string`                                                                                                             | -                                    | -        | Text describing the status                                                 |
+| fieldNames      | `{value: string; label: string}`                                                                                     | `{ value: "value", label: "label" }` | -        | Maps option fields; nested paths such as `value.value.value` are supported |
+| width           | `string`                                                                                                             | 100%                                 | -        | Select width                                                               |
+| options         | `TOption[]`                                                                                                          | []                                   | -        | Available options                                                          |
+| onInputChange   | `(newValue: string, actionMeta: InputActionMeta) => void`                                                            | -                                    | -        | Handles input changes                                                      |
+| menuIsOpen      | `boolean`                                                                                                            | false                                | -        | Whether the menu is open                                                   |
+| defaultValue    | `TOption[]`                                                                                                          | -                                    | -        | Initial value                                                              |
+| isClearable     | `boolean`                                                                                                            | true                                 | -        | Whether selected values can be cleared                                     |
+| isSearchable    | `boolean`                                                                                                            | true                                 | -        | Whether search is enabled                                                  |
+| onInnerMenuOpen | `(clientRect: ClientRect) => void`                                                                                   | -                                    | -        | Called when the menu opens                                                 |
+| isRequired      | `boolean`                                                                                                            | false                                | -        | Whether the field is required                                              |
+| iconLeft        | `React.ReactNode`                                                                                                    | -                                    | -        | Leading icon                                                               |
+| type            | `basic`, `avatar`                                                                                                    | basic                                | -        | Presentation type, including avatar lists                                  |
+| viewType        | `round`, `line`                                                                                                      | `round`                              | -        | Field appearance                                                           |
+
+:::

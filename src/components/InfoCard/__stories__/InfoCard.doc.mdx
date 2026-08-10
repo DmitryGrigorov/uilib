@@ -1,0 +1,172 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { InfoCardExamples } from "./examples";
+import {
+  InfoCardInfo,
+  InfoCardAnotherButtons,
+  InfoCardAnotherText,
+  InfoCardClosable
+} from "./examples/InfoCardExamples";
+
+:::div{.notshown}
+
+# InfoCard
+
+An information card presents important context to the user, such as a successful upload, warning, error, or general notice.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Card heading and message](#card-heading-and-message)
+- [Customizing the buttons](#customizing-the-buttons)
+- [Closable InfoCard](#closable-infocard)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InfoCard } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InfoCardExamples />
+</Unstyled>
+<br />
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <InfoCardInfo />
+</Unstyled>
+<br />
+
+```tsx
+import React from "react";
+import { InfoCard } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <InfoCard status="info" label="Info Label" message="Detailed message text" />
+);
+```
+
+:::
+
+:::div
+
+## Card heading and message
+
+Set the card heading with the `label` prop.
+Set the main card message with the `message` prop.
+
+<Unstyled>
+  <InfoCardAnotherText />
+</Unstyled>
+<br />
+
+```tsx
+import React from "react";
+import { InfoCard } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <InfoCard status="info" label="Heading" message="Different message text" />
+);
+```
+
+:::
+
+:::div
+
+## Customizing the buttons
+
+Use `moreButtonText` and `collapseButtonText` to customize the controls that show and hide the detailed message.
+
+<Unstyled>
+  <InfoCardAnotherButtons />
+</Unstyled>
+<br />
+
+```tsx
+import React from "react";
+import { InfoCard } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <InfoCard
+    status="info"
+    label="Info Label"
+    message="Detailed message text"
+    moreButtonText="Show"
+    collapseButtonText="Hide"
+  />
+);
+```
+
+:::
+
+:::div
+
+## Closable `InfoCard`
+
+Enable the close control with the `isClosableIcon` prop.
+
+<Unstyled>
+  <InfoCardClosable />
+</Unstyled>
+<br />
+
+```tsx
+import React from "react";
+import { InfoCard } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <InfoCard status="info" isClosableIcon={true} />
+);
+```
+
+:::
+
+:::div
+
+## Props
+
+| Prop               | Type                                                  | Default   | Required | Description                                             |
+| ------------------ | ----------------------------------------------------- | --------- | -------- | ------------------------------------------------------- |
+| label              | `string`                                              | -         | ✓        | Heading text                                            |
+| message            | `string`                                              | -         | -        | Detailed message text                                   |
+| moreButtonText     | `string`                                              | Show more | -        | Label for the control that reveals the detailed message |
+| collapseButtonText | `string`                                              | Collapse  | -        | Label for the control that hides the detailed message   |
+| status             | `LabelStatus`                                         | `info`    | -        | Message status                                          |
+| size               | `TInfoCardSize`                                       | `m`       | -        | Component size                                          |
+| isClosableIcon     | `boolean`                                             | `false`   | -        | Adds a control for closing the component                |
+| onCloseClick       | `(event: React.FormEvent<HTMLButtonElement>) => void` | -         | -        | Called when the close control is activated              |
+
+:::
+
+:::div
+
+### LabelStatus
+
+Available values:
+`info`, `error`, `success`, `warning`
+:::
+
+:::div
+
+### TInfoCardSize
+
+Available component sizes: `m`, `l`.
+:::

@@ -1,0 +1,46 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconTextUnderline = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3 2.75C3 2.33579 3.33579 2 3.75 2H7.75C8.16421 2 8.5 2.33579 8.5 2.75C8.5 3.16421 8.16421 3.5 7.75 3.5H3.75C3.33579 3.5 3 3.16421 3 2.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M15 2.75C15 2.33579 15.3358 2 15.75 2H19.75C20.1642 2 20.5 2.33579 20.5 2.75C20.5 3.16421 20.1642 3.5 19.75 3.5H15.75C15.3358 3.5 15 3.16421 15 2.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M5 20.75C5 20.3358 5.33579 20 5.75 20H17.75C18.1642 20 18.5 20.3358 18.5 20.75C18.5 21.1642 18.1642 21.5 17.75 21.5H5.75C5.33579 21.5 5 21.1642 5 20.75Z"
+          fill="currentColor"
+        />
+        <path
+          d="M6.5 2.75C6.5 2.33579 6.16421 2 5.75 2C5.33579 2 5 2.33579 5 2.75V11.75C5 15.4779 8.02208 18.5 11.75 18.5C15.4779 18.5 18.5 15.4779 18.5 11.75V10.5C18.5 10.0858 18.1642 9.75 17.75 9.75C17.3358 9.75 17 10.0858 17 10.5V11.75C17 14.6495 14.6495 17 11.75 17C8.85051 17 6.5 14.6495 6.5 11.75V2.75Z"
+          fill="currentColor"
+        />
+        <path
+          d="M17 7C17 7.41421 17.3358 7.75 17.75 7.75C18.1642 7.75 18.5 7.41421 18.5 7V2.75C18.5 2.33579 18.1642 2 17.75 2C17.3358 2 17 2.33579 17 2.75V7Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconTextUnderline;

@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="utils/defineResponsibleSize" id="defineResponsibleSize" />
+
+
+# defineResponsibleSize
+
+- [Description](#description)
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+
+
+
+## Description
+The `defineResponsibleWidth` and `defineResponsibleHeight` functions set width and height values. If no value is provided, the corresponding dimension defaults to 100%. Values can be passed as either `string` or `number`.
+
+## Import
+
+```tsx
+import { defineResponsibleWidth } from "@dmitrygrigorov/components";
+import { defineResponsibleHeight } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+```tsx
+import { defineResponsibleWidth } from "@dmitrygrigorov/components";
+
+${({ width }) => defineResponsibleWidth(width)};
+${({ width }) => defineResponsibleWidth("400")};
+${({ width }) => defineResponsibleWidth("400vw")};
+${({ width }) => defineResponsibleWidth(400)};
+```
+
+
+## Props
+
+| Property | Type               | Default | Required | Description |
+|----------|-------------------|--------------|----------------|----------|
+| width    | `string / number` | -            | ✓              | Width       |
+| height   | `string / number` | -            | ✓              | Height      |

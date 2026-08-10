@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="avatar-title avatar-description">
+  <title id="avatar-title">Avatar placeholder</title>
+  <desc id="avatar-description">A neutral profile silhouette on an orange background</desc>
+  <rect width="128" height="128" rx="64" fill="#F38320"/>
+  <circle cx="64" cy="46" r="24" fill="#FEFEFE"/>
+  <path d="M22 116c4-25 20-39 42-39s38 14 42 39" fill="#FEFEFE"/>
+</svg>

@@ -1,0 +1,48 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconSubtitle1 = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M5.25 18C5.25 17.5858 5.58579 17.25 6 17.25H13C13.4142 17.25 13.75 17.5858 13.75 18C13.75 18.4142 13.4142 18.75 13 18.75H6C5.58579 18.75 5.25 18.4142 5.25 18Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M11.25 15C11.25 14.5858 11.5858 14.25 12 14.25H17C17.4142 14.25 17.75 14.5858 17.75 15C17.75 15.4142 17.4142 15.75 17 15.75H12C11.5858 15.75 11.25 15.4142 11.25 15Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M15.25 18C15.25 17.5858 15.5858 17.25 16 17.25H18.5C18.9142 17.25 19.25 17.5858 19.25 18C19.25 18.4142 18.9142 18.75 18.5 18.75H16C15.5858 18.75 15.25 18.4142 15.25 18Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7.25 15C7.25 14.5858 7.58579 14.25 8 14.25H9C9.41421 14.25 9.75 14.5858 9.75 15C9.75 15.4142 9.41421 15.75 9 15.75H8C7.58579 15.75 7.25 15.4142 7.25 15Z"
+          fill="currentColor"
+        />
+        <path
+          d="M7 3.5H17C19.4853 3.5 21.5 5.51472 21.5 8V16C21.5 18.4853 19.4853 20.5 17 20.5H7C4.51472 20.5 2.5 18.4853 2.5 16V12.75C2.5 12.3358 2.16421 12 1.75 12C1.33579 12 1 12.3358 1 12.75V16C1 19.3137 3.68629 22 7 22H17C20.3137 22 23 19.3137 23 16V8C23 4.68629 20.3137 2 17 2H7C3.68629 2 1 4.68629 1 8V8.25C1 8.66421 1.33579 9 1.75 9C2.16421 9 2.5 8.66421 2.5 8.25V8C2.5 5.51472 4.51472 3.5 7 3.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconSubtitle1;

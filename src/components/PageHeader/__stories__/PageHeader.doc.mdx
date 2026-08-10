@@ -1,0 +1,112 @@
+import { PageHeaderExamples } from "./examples";
+
+import {
+  PageHeaderUsageExample,
+  PageHeaderLeadIconExamples,
+  PageHeaderTrailIconExamples
+} from "./examples/PageHeaderExamples";
+
+:::div{.notshown}
+
+# PageHeader
+
+A page heading identifies the user's current location.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { PageHeader } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+```tsx
+<PageHeader text="Heading text" />
+<PageHeader text="Heading text" isLeadIcon />
+<PageHeader text="Heading text" trailIcon={<IconSetting1 />} />
+<PageHeader text="Heading text" isLeadIcon trailIcon={<IconSetting1 />} />
+```
+
+<PageHeaderExamples />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React from "react";
+import { PageHeader } from "@dmitrygrigorov/components";
+
+export const Example: React.FC = () => <PageHeader text="Heading text" />;
+```
+
+<PageHeaderUsageExample />
+:::
+
+:::div
+
+## Adding a back icon
+
+Set `isLeadIcon` to add a back icon. Use `leadIcon` to provide a custom `JSX.Element`, and handle the back action with `onClickLead`.
+
+```tsx
+<PageHeader text="Default leading icon" isLeadIcon />
+<PageHeader
+  text="Custom leading icon"
+  isLeadIcon
+  leadIcon={<IconArrowLeft2>}
+/>
+```
+
+<PageHeaderLeadIconExamples />
+:::
+
+:::div
+
+## Adding a trailing icon
+
+Use `trailIcon` to add a trailing `JSX.Element`, and handle clicks with `onClickTrail`.
+
+```tsx
+<PageHeader text="Trailing icon" trailIcon={<IconSmileys2 />} />
+<PageHeader text="Heading" isLeadIcon trailIcon={<IconSmileys2 />} />
+```
+
+<PageHeaderTrailIconExamples />
+:::
+
+:::div
+
+## Props
+
+| Property                   | Type                                                | Default             | Required | Description                              |
+| -------------------------- | --------------------------------------------------- | ------------------- | -------- | ---------------------------------------- | --- |
+| text                       | `string`                                            | -                   | -        | Text displayed in the header             |
+| ~trailIcon~ **Deprecated** | `JSX.Element`                                       | -                   | -        | Trailing icon                            |     |
+| isLeadIcon                 | `boolean`                                           | false               | -        | Shows the back button                    |     |
+| leadIcon                   | `JSX.Element`                                       | `<IconArrowLeft />` | -        | Back icon                                |     |
+| onClickTrail               | `React.EventHandler<MouseEvent<HTMLButtonElement>>` | -                   | -        | Called when the trailing icon is clicked |
+| onClickLead                | `React.EventHandler<MouseEvent>`                    | -                   | -        | Called when the leading icon is clicked  |
+| className                  | `string`                                            | -                   | -        | Additional CSS class                     |
+| style                      | `React.CSSProperties`                               | -                   | -        | Additional style properties              |
+| width                      | `string`                                            | 430px               | -        | Sets the component width                 |
+| trailContent               | `React.ReactElement`                                | -                   | -        | Trailing content                         |     |
+
+:::

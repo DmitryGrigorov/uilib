@@ -1,0 +1,54 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconTicket1 = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 5.25C7.41421 5.25 7.75 5.58579 7.75 6V8C7.75 8.41421 7.41421 8.75 7 8.75C6.58579 8.75 6.25 8.41421 6.25 8V6C6.25 5.58579 6.58579 5.25 7 5.25Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 15.25C7.41421 15.25 7.75 15.5858 7.75 16V18C7.75 18.4142 7.41421 18.75 7 18.75C6.58579 18.75 6.25 18.4142 6.25 18V16C6.25 15.5858 6.58579 15.25 7 15.25Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 10.25C7.41421 10.25 7.75 10.5858 7.75 11V13C7.75 13.4142 7.41421 13.75 7 13.75C6.58579 13.75 6.25 13.4142 6.25 13V11C6.25 10.5858 6.58579 10.25 7 10.25Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M10.25 10C10.25 9.58579 10.5858 9.25 11 9.25H19C19.4142 9.25 19.75 9.58579 19.75 10C19.75 10.4142 19.4142 10.75 19 10.75H11C10.5858 10.75 10.25 10.4142 10.25 10Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M10.25 14C10.25 13.5858 10.5858 13.25 11 13.25H16C16.4142 13.25 16.75 13.5858 16.75 14C16.75 14.4142 16.4142 14.75 16 14.75H11C10.5858 14.75 10.25 14.4142 10.25 14Z"
+          fill="currentColor"
+        />
+        <path
+          d="M5 6.5H19C20.3807 6.5 21.5 7.61929 21.5 9V10.25C21.5 10.6642 21.8358 11 22.25 11C22.6642 11 23 10.6642 23 10.25V9C23 6.79086 21.2091 5 19 5H5C2.79086 5 1 6.79086 1 9V15C1 17.2091 2.79086 19 5 19H19C21.2091 19 23 17.2091 23 15V14.25C23 13.8358 22.6642 13.5 22.25 13.5C21.8358 13.5 21.5 13.8358 21.5 14.25V15C21.5 16.3807 20.3807 17.5 19 17.5H5C3.61929 17.5 2.5 16.3807 2.5 15V9C2.5 7.61929 3.61929 6.5 5 6.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconTicket1;

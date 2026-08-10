@@ -1,0 +1,154 @@
+import { MobileStepsExamples } from "./examples";
+import {
+  MobileStepsGalleryUseExample,
+  MobileStepsProgressUseExample,
+  MobileStepsWidthGenerateKey
+} from "./examples/MobileStepsExamples";
+
+:::div{.notshown}
+
+# MobileSteps
+
+The component helps users navigate short flows and move between steps.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Size](#size)
+- [Helper functions](#helper-functions)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { MobileSteps } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+{" "}
+<MobileStepsExamples />
+:::
+
+:::div
+
+## Usage
+
+### Gallery
+
+Use `Gallery` for flows with a small number of steps. Set the `MobileSteps` `type` prop to `gallery`.
+
+```tsx
+import React, { useState } from "react";
+import { MobileSteps, P1 } from "@dmitrygrigorov/components";
+
+const MobileStepsGalleryUseExample: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+
+  return (
+    <CenteredWrapper>
+      <ContentWrapper>
+        <P1 type="cygnus">Current step: {currentStep}</P1>
+      </ContentWrapper>
+      <MobileSteps
+        type="gallery"
+        current={currentStep}
+        steps={6}
+        onChange={(step) => setCurrentStep(step)}
+      />
+    </CenteredWrapper>
+  );
+};
+```
+
+<MobileStepsGalleryUseExample />
+
+### Progress
+
+Use `Progress` for flows with many steps. Set the `MobileSteps` `type` prop to `progress`.
+
+```tsx
+import React, { useState } from "react";
+import { MobileSteps, P1 } from "@dmitrygrigorov/components";
+
+const MobileStepsProgressUseExample: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  return (
+    <CenteredWrapper>
+      <ContentWrapper>
+        <P1 type="cygnus">Current step: {currentStep}</P1>
+      </ContentWrapper>
+      <MobileSteps
+        type="progress"
+        current={currentStep}
+        steps={6}
+        onChange={(step) => setCurrentStep(step)}
+      />
+    </CenteredWrapper>
+  );
+};
+```
+
+<MobileStepsProgressUseExample />
+:::
+
+:::div
+
+## Size
+
+When `MobileSteps` uses the `gallery` type, its width is `max-content` and therefore depends on the number of steps.
+When `MobileSteps` uses the `progress` type, it fills the layout width with a minimum width of `320px`. Set a specific width with the `width` prop.
+
+**The `width` prop only applies when `MobileSteps` uses the `progress` type.**
+
+## Helper functions
+
+`MobileSteps` accepts the following helper function:
+
+- `getStepKey` accepts a callback with a `step` parameter. It runs for every step and returns a string, number, or `undefined` for the step's `key`.
+
+```tsx
+import { MobileSteps } from "@dmitrygrigorov/components";
+
+const generateKey = (step: number): string =>
+  step + new Date().getTime().toString();
+
+<MobileSteps
+  type="progress"
+  current={1}
+  steps={6}
+  width="600px"
+  getStepKey={generateKey}
+/>;
+```
+
+<MobileStepsWidthGenerateKey />
+:::
+
+:::div
+
+## Props
+
+| Prop       | Type                                              | Default | Required | Description                                                             |
+| ---------- | ------------------------------------------------- | ------- | -------- | ----------------------------------------------------------------------- |
+| type       | `gallery` \| `progress`                           | -       | ✓        | Sets the `MobileSteps` type                                             |
+| steps      | `number`                                          | -       | ✓        | Sets the number of steps                                                |
+| current    | `number`                                          | -       | ✓        | Current step number                                                     |
+| onChange   | `(step: number) => void`                          | -       | -        | Handles changes to the current step                                     |
+| getStepKey | `(step: number) => string \| number \| undefined` | -       | -        | Returns a unique `key` for each step, or `undefined`                    |
+| className  | `string`                                          | -       | -        | Value of the `class` attribute for `MobileSteps`                        |
+| width      | `string`                                          | -       | -        | Sets the width of `MobileSteps`; only applies when `type` is `progress` |
+
+:::

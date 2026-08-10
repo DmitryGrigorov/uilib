@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="hooks/useForkRef" id="useForkRef" />
+
+# useForkRef
+
+- [Description](#description)
+- [Import](#import)
+- [Usage](#usage)
+- [Properties](#properties)
+
+## Description
+`useForkRef` attaches multiple refs to a single element.
+
+## Import
+
+```tsx
+import { useForkRef } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+```tsx
+import { useRef } from "react"
+import { useForkRef } from "@dmitrygrigorov/components";
+
+const Example = () => {
+    const firstRef = useRef();
+    const lastRef = useRef();
+    const forkRef = useForkRef([firstRef, lastRef])
+    return (
+      <div ref={forkRef}>Example</div>
+    )
+}
+```
+
+## Properties
+
+| Parameter | Type                                           | Default | Required | Description   |
+|----------|-----------------------------------------------|--------------|----------------|-------------------|
+| refs     | `RefCallback<T, null>, MutableRefObject<T,null>, ForwardedRef<T, null>, undefined` | - | ✓ | Array of refs |
+

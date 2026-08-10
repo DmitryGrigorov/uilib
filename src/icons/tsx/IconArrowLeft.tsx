@@ -1,0 +1,34 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconArrowLeft = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3.93651 10.8009C3.3545 11.2998 3.3545 12.2002 3.93651 12.6991L9.16491 17.1805C9.47941 17.4501 9.51583 17.9236 9.24626 18.2381C8.97669 18.5526 8.50322 18.589 8.18873 18.3194L2.96032 13.8379C1.67989 12.7404 1.67989 10.7595 2.96032 9.66203L8.18872 5.18054C8.50322 4.91098 8.97669 4.9474 9.24626 5.26189C9.51583 5.57639 9.47941 6.04986 9.16491 6.31943L3.93651 10.8009Z"
+          fill="currentColor"
+        />
+        <path
+          d="M3.67682 11C3.2626 11 2.92682 11.3358 2.92682 11.75C2.92682 12.1642 3.26261 12.5 3.67682 12.5L13.9268 12.5C14.341 12.5 14.6768 12.1642 14.6768 11.75C14.6768 11.3358 14.341 11 13.9268 11L3.67682 11Z"
+          fill="currentColor"
+        />
+        <path
+          d="M17.4268 11C17.0126 11 16.6768 11.3358 16.6768 11.75C16.6768 12.1642 17.0126 12.5 17.4268 12.5L20.6768 12.5C21.091 12.5 21.4268 12.1642 21.4268 11.75C21.4268 11.3358 21.091 11 20.6768 11L17.4268 11Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconArrowLeft;

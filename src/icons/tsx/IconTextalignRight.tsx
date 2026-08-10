@@ -1,0 +1,50 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconTextalignRight = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M23 17.75C23 17.3358 22.6642 17 22.25 17H19.25C18.8358 17 18.5 17.3358 18.5 17.75C18.5 18.1642 18.8358 18.5 19.25 18.5H22.25C22.6642 18.5 23 18.1642 23 17.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M23 5.75C23 5.33579 22.6642 5 22.25 5H9.25C8.83579 5 8.5 5.33579 8.5 5.75C8.5 6.16421 8.83579 6.5 9.25 6.5H22.25C22.6642 6.5 23 6.16421 23 5.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7 5.75C7 5.33579 6.66421 5 6.25 5H2.75C2.33579 5 2 5.33579 2 5.75C2 6.16421 2.33579 6.5 2.75 6.5H6.25C6.66421 6.5 7 6.16421 7 5.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M23 11.75C23 11.3358 22.6642 11 22.25 11H12.25C11.8358 11 11.5 11.3358 11.5 11.75C11.5 12.1642 11.8358 12.5 12.25 12.5H22.25C22.6642 12.5 23 12.1642 23 11.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M17 17.75C17 17.3358 16.6642 17 16.25 17H6.25C5.83579 17 5.5 17.3358 5.5 17.75C5.5 18.1642 5.83579 18.5 6.25 18.5H16.25C16.6642 18.5 17 18.1642 17 17.75Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconTextalignRight;

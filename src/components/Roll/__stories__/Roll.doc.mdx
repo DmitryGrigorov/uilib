@@ -1,0 +1,217 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { IconSetting1 } from "@dmitrygrigorov/icons";
+import HeaderRoll from "./../components/HeaderRoll";
+import SubHeaderRoll from "./../components/SubHeaderRoll";
+import Button from "../../../components/Button";
+import { RollExamples } from "./examples";
+
+:::div{.notshown}
+
+# Roll
+
+A navigation element for quickly switching between sections or panels. It contains `mainContent` and `rollContent`.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Heading](#heading)
+- [Subheading](#subheading)
+- [Footer](#footer)
+- [Switching content](#switching-content)
+- [Usage](#usage)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Roll } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Heading
+
+The component heading has two text areas on the left and trailing content on the right. Set the trailing content with `trailContentHeader`.
+
+```tsx
+<Roll
+  titleHeader="Heading"
+  subTitleHeader={23}
+  trailContentHeader={<Button icon={<IconSetting1 />} size="s" />}
+/>
+```
+
+<Unstyled>
+  <HeaderRoll
+    title="Heading"
+    textOverflow="ellipsis"
+    subTitle={23}
+    trailContent={<Button icon={<IconSetting1 />} size="s" />}
+  />
+</Unstyled>
+:::
+
+:::div
+
+## Subheading
+
+The subheading appears in `rollContent` and contains `titleSubHeader` plus the `labelSubHeader` status text.
+
+```tsx
+<Roll labelSubHeader="Hint" titleSubHeader="Subheading" isIconStatusSubHeader />
+```
+
+<Unstyled>
+  <SubHeaderRoll
+    title="Subheading"
+    textOverflow="ellipsis"
+    textLabel="Hint"
+    style={{ padding: "16px" }}
+    isIconLabel
+  />
+</Unstyled>
+:::
+
+:::div
+
+## Switching content
+
+`mainContent` is the primary content and `rollContent` is the secondary content. `isOpenRoll` controls which one is shown.
+:::
+
+:::div
+
+## Footer
+
+Roll can also render a footer, which appears together with `rollContent`.
+:::
+
+:::div
+
+## Long text
+
+Long headings are truncated with an ellipsis by default. Change the truncation behavior with `textOverflow`.
+
+```tsx
+<Roll
+  titleHeader="Long text, very long text, very"
+  subTitleHeader={23}
+  trailContentHeader={<Button icon={<IconSetting1 />} size="s" />}
+/>
+```
+
+<Unstyled>
+  <HeaderRoll
+    title="Long text, very long text, very"
+    textOverflow="ellipsis"
+    subTitle={23}
+    trailContent={<Button icon={<IconSetting1 />} size="s" />}
+    style={{ width: "300px" }}
+  />
+</Unstyled>
+<br />
+
+```tsx
+<Roll
+  titleHeader="Long text, very long text, very"
+  subTitleHeader={23}
+  trailContentHeader={<Button icon={<IconSetting1 />} size="s" />}
+  textOverflow="clip"
+/>
+```
+
+<Unstyled>
+  <HeaderRoll
+    title="Long text, very long text, very"
+    textOverflow="clip"
+    subTitle={23}
+    trailContent={<Button icon={<IconSetting1 />} size="s" />}
+    style={{ width: "300px" }}
+  />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <RollExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React, { useState } from "react";
+import { Roll, Button } from "@dmitrygrigorov/components";
+
+const RollExample: React.FC = () => {
+  const [isOpenRoll, setIsOpenRoll] = useState(false);
+
+  const handleClick = (): void => {
+    setIsOpenRoll((prevState) => !prevState);
+  };
+
+  return (
+    <Roll
+      titleHeader="H-s"
+      subTitleHeader="P2-l"
+      mainContent={<MainContent />}
+      rollContent={<RollContent />}
+      titleSubHeader="P1-s"
+      statusSubHeader="info"
+      labelSubHeader="Focused label"
+      isIconStatusSubHeader
+      footer={<Footer />}
+      isOpenRoll={isOpenRoll}
+      trailContentHeader={
+        <Button icon={<IconSetting1 />} size="s" onClick={handleClick} />
+      }
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+## Props
+
+| Property              | Type               | Default    | Required | Description                     |
+| --------------------- | ------------------ | ---------- | -------- | ------------------------------- |
+| style                 | `CSSProperties`    | -          | -        | Additional styles               |
+| titleHeader           | `string`           | -          | ✔       | Heading text                    |
+| subTitleHeader        | `string`           | -          | -        | Supporting heading text         |
+| titleSubHeader        | `string`           | -          | -        | Subheading text                 |
+| size                  | `l`, `m`           | `l`        | -        | Component size                  |
+| textOverflow          | `clip`, `ellipsis` | `ellipsis` | -        | Long-text truncation method     |
+| statusSubHeader       | `LabelStatus`      | -          | -        | Subheading status               |
+| labelSubHeader        | `string`           | -          | -        | Subheading status text          |
+| isOpenRoll            | `boolean`          | -          | -        | Whether Roll is open            |
+| isIconStatusSubHeader | `boolean`          | -          | -        | Whether to show the status icon |
+| mainContent           | `ReactElement`     | -          | ✔       | Primary content                 |
+| rollContent           | `ReactElement`     | -          | ✔       | Secondary content               |
+| footer                | `ReactElement`     | -          | -        | Footer content                  |
+| className             | `string`           | -          | -        | Additional CSS class            |
+| classNameContent      | `string`           | -          | -        | Additional content CSS class    |
+
+:::
+
+:::div
+
+### LabelStatus
+
+Available values:
+`filled`, `info`, `focused`, `error`, `success`, `warning`
+:::

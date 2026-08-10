@@ -1,0 +1,321 @@
+import { ModalWindowExamples } from "./examples";
+import {
+  BasicModalWindowExample,
+  BasicModalWindowWidthHeader,
+  BasicModalWindowWidthHiddenHeader,
+  BasicModalWindowWidthFooter,
+  BasicModalWindowWidthHiddenCloseButton,
+  ModalWindowOutsideClickCloseExample,
+  ModalWindowFullScreenExample,
+  BasicModalWindowWidth
+} from "./examples/ModalWindowExamples";
+
+:::div{.notshown}
+
+# ModalWindow
+
+An interface window that opens above the page.
+
+The window can fill the screen or occupy a smaller area, but it always blocks interaction with the interface beneath it.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Appearance](#appearance)
+- [Usage](#usage)
+- [Modal types](#modal-types)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { ModalWindow } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+{" "}
+
+<ModalWindowExamples />
+:::
+
+:::div
+
+## Usage
+
+To use `ModalWindow`, pass its content as `children` and control visibility with `isOpen`. Providing an `onClose` handler is also recommended.
+
+The basic example below manages `isOpen` state with open and close handlers, then renders a trigger and a minimally configured modal.
+
+```tsx
+import React, { useState } from "react";
+import { ModalWindow, Button } from "@dmitrygrigorov/components";
+
+const SimpleModalWindow: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(isOpen)
+
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+
+  return (
+    <>
+      <Button onClick={handleOpen}>Open basic modal window</Button>
+      <ModalWindow isOpen={isOpen} onClose={handleClose}>
+        <p>basic modal window<p/>
+      </ModalWindow>
+    </>
+  );
+};
+```
+
+<BasicModalWindowExample />
+
+### Modal footer content
+
+Pass JSX through `footerContent` to render controls such as confirm and cancel buttons in the modal footer.
+
+This example passes Confirm and Cancel buttons through `footerContent`, with Cancel closing the modal.
+
+```tsx
+import React, { useState } from "react";
+import { ModalWindow, Button } from "@dmitrygrigorov/components";
+
+const ModalWindowWidthFooter: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(isOpen)
+
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+
+  return (
+    <>
+      <Button onClick={handleOpen}>Open basic modal window with footer</Button>
+      <ModalWindow
+        footerContent={
+          </>
+            <Button>Confirm</Button>
+            <Button viewType="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          </>
+        }
+        isOpen={isOpen}
+        onClose={handleClose}>
+        <p>basic modal window<p/>
+      </ModalWindow>
+    </>
+  );
+};
+```
+
+<BasicModalWindowWidthFooter />
+
+### Modal headings
+
+The modal header can contain a `title`, `subTitle`, and short `description`, configured through the corresponding props.
+
+```tsx
+import React, { useState } from "react";
+import { ModalWindow, Button } from "@dmitrygrigorov/components";
+
+const ModalWindowWidthHeader: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(isOpen)
+
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+
+  return (
+    <>
+      <Button onClick={handleOpen}>Open basic modal window</Button>
+      <ModalWindow
+        title="Some title from ModalWindow"
+        subTitle="Some subtitle from ModalWindow"
+        description="Some description from ModalWindow"
+        isOpen={isOpen}
+        onClose={handleClose}>
+        <p>basic modal window<p/>
+      </ModalWindow>
+    </>
+  );
+};
+```
+
+<BasicModalWindowWidthHeader />
+
+Set `isHiddenHeader` to hide the header even when header content props are provided.
+
+For an `overlay` modal, this also hides the header's close button, so provide a close control in the footer.
+
+```tsx
+  <ModalWindow
+    title="Some title from ModalWindow"
+    subTitle="Some subtitle from ModalWindow"
+    description="Some description from ModalWindow"
+    footerContent={
+      </>
+        <Button>Confirm</Button>
+        <Button viewType="secondary" onClick={handleClose}>
+          Cancel
+        </Button>
+      </>
+    }
+    isHiddenHeader
+    isOpen={isOpen}
+    onClose={handleClose}>
+    <p>basic modal window<p/>
+  </ModalWindow>
+
+```
+
+<BasicModalWindowWidthHiddenHeader />
+
+### Hiding the close button
+
+Set `isHiddenCloseButton` to hide the default close control. In that case, provide a custom close control through `footerContent`.
+
+<BasicModalWindowWidthHiddenCloseButton />
+:::
+
+:::div
+
+### Setting the modal width
+
+Set the modal width with `width`.
+
+<BasicModalWindowWidth />
+:::
+
+:::div
+
+## Modal types
+
+ModalWindow supports two types:
+
+- `overlay` covers the page while the modal occupies part of the screen. The close button appears in the header.
+- `fullscreen` fills the entire screen. The close button is positioned independently of the modal content.
+
+**The default type is `overlay`.**
+
+### Overlay
+
+An overlay modal occupies part of the screen, places the close button in the header, and can close when the user clicks outside it.
+
+This example explicitly selects `overlay`, provides `title`, `subTitle`, and `description`, adds Confirm and Cancel controls, and enables outside-click closing with `isOutsideClickClose`.
+
+```tsx
+import React, { useState } from "react";
+import { ModalWindow, Button } from "@dmitrygrigorov/components";
+
+const ModalWindowTypeOverlay: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(isOpen)
+
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+
+  return (
+    <>
+      <Button onClick={handleOpen}>Open overlay type modal window</Button>
+      <ModalWindow
+        title="Some title from ModalWindow"
+        subTitle="Some subtitle from ModalWindow"
+        description="Some description from ModalWindow"
+        isOutsideClickClose
+        isOpen={isOpen}
+        footerContent={
+          </>
+            <Button>Confirm</Button>
+            <Button viewType="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          </>
+        }
+        type="overlay"
+        onClose={handleClose}>
+        {// some content }
+      </ModalWindow>
+    </>
+  );
+};
+```
+
+<ModalWindowOutsideClickCloseExample />
+
+### Fullscreen
+
+A fullscreen modal fills the entire screen and positions the close button outside the header.
+
+This example sets `type` to `fullscreen`, provides `title`, `subTitle`, and `description`, and adds Confirm and Cancel controls in the footer.
+
+```tsx
+import React, { useState } from "react";
+import { ModalWindow, Button } from "@dmitrygrigorov/components";
+
+const ModalWindowTypeFullscreen: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(isOpen)
+
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+
+  return (
+    <>
+      <Button onClick={handleOpen}>Open full screen type modal window</Button>
+      <ModalWindow
+        title="Some title from ModalWindow"
+        subTitle="Some subtitle from ModalWindow"
+        description="Some description from ModalWindow"
+        isOpen={isOpen}
+        footerContent={
+          </>
+            <Button>Confirm</Button>
+            <Button viewType="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          </>
+        }
+        type="fullscreen"
+        onClose={handleClose}>
+        {// some content }
+      </ModalWindow>
+    </>
+  );
+};
+```
+
+<ModalWindowFullScreenExample />
+:::
+
+:::div
+
+## Props
+
+| Prop                | Type                            | Default         | Required | Description                                               |
+| ------------------- | ------------------------------- | --------------- | -------- | --------------------------------------------------------- |
+| type                | `overlay` \| `fullscreen`       | `overlay`       | -        | Sets the `ModalWindow` type                               |
+| title               | `string`                        | -               | -        | Sets the modal title                                      |
+| subTitle            | `string`                        | -               | -        | Sets the modal subtitle                                   |
+| description         | `string`                        | -               | -        | Sets the modal description                                |
+| isOpen              | `boolean`                       | -               | ✓        | Controls whether `ModalWindow` is open                    |
+| onClose             | `() => void`                    | -               | -        | Called when `ModalWindow` closes                          |
+| anchorElement       | `Element` \| `DocumentFragment` | `document.body` | -        | DOM node where `ModalWindow` is rendered                  |
+| footerContent       | `JSX.Element`                   | -               | -        | JSX rendered in the modal footer                          |
+| isOutsideClickClose | `boolean`                       | -               | -        | Closes an `overlay` modal when the user clicks outside it |
+| isHiddenHeader      | `boolean`                       | -               | -        | Hides the modal header                                    |
+| isHiddenCloseButton | `boolean`                       | -               | -        | Hides the modal close button                              |
+| onChangeIsOpen      | `(isOpen: boolean) => void`     | -               | -        | Called when the open state changes                        |
+| className           | `string`                        | -               | -        | Sets the `ModalWindow` class                              |
+| classNameHeader     | `string`                        | -               | -        | Sets the header class                                     |
+| classNameContent    | `string`                        | -               | -        | Sets the content class                                    |
+| classNameFooter     | `string`                        | -               | -        | Sets the footer class                                     |
+| children            | `ReactNode`                     | -               | -        | Modal content                                             |
+| width               | `string`                        | -               | -        | Sets the modal width                                      |
+
+:::

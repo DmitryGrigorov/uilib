@@ -1,0 +1,36 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconScale2 = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          d="M9 1.75C9 1.33579 8.66421 1 8.25 1H7C3.68629 1 1 3.68629 1 7V8.25C1 8.66421 1.33579 9 1.75 9C2.16421 9 2.5 8.66421 2.5 8.25V7C2.5 4.51472 4.51472 2.5 7 2.5H8.25C8.66421 2.5 9 2.16421 9 1.75Z"
+          fill="currentColor"
+        />
+        <path
+          d="M9 22.25C9 21.8358 8.66421 21.5 8.25 21.5H7C4.51472 21.5 2.5 19.4853 2.5 17V15.75C2.5 15.3358 2.16421 15 1.75 15C1.33579 15 1 15.3358 1 15.75V17C1 20.3137 3.68629 23 7 23H8.25C8.66421 23 9 22.6642 9 22.25Z"
+          fill="currentColor"
+        />
+        <path
+          d="M15.75 23C15.3358 23 15 22.6642 15 22.25C15 21.8358 15.3358 21.5 15.75 21.5H17C19.4853 21.5 21.5 19.4853 21.5 17V15.75C21.5 15.3358 21.8358 15 22.25 15C22.6642 15 23 15.3358 23 15.75V17C23 20.3137 20.3137 23 17 23H15.75Z"
+          fill="currentColor"
+        />
+        <path
+          d="M15.75 2.5C15.3358 2.5 15 2.16421 15 1.75C15 1.33579 15.3358 1 15.75 1H17C20.3137 1 23 3.68629 23 7V8.25C23 8.66421 22.6642 9 22.25 9C21.8358 9 21.5 8.66421 21.5 8.25V7C21.5 4.51472 19.4853 2.5 17 2.5H15.75Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconScale2;

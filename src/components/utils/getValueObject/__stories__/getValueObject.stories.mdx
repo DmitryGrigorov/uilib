@@ -1,0 +1,58 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="utils/getValueObject" id="getValueObject" />
+
+
+# getValueObject
+
+- [Description](#description)
+- [Import](#import)
+- [Type definition](#type-definition)
+- [Usage](#usage)
+- [Props](#props)
+
+
+## Description
+`getValueObject` retrieves a value from an object at the specified path.
+
+## Import
+
+```tsx
+import { getValueObject } from "@dmitrygrigorov/components";
+```
+
+## Type definition
+```tsx
+export type TValueObjectType<O, P> = P extends `${infer Left}.${infer Right}`
+  ? Left extends keyof O
+    ?
+        | TValueObjectType<Exclude<O[Left], undefined>, Right>
+        | Extract<O[Left], undefined>
+    : undefined
+  : P extends keyof O
+  ? O[P]
+  : undefined;
+```
+
+## Usage
+
+```tsx
+import { getValueObject } from "@dmitrygrigorov/components";
+
+const componentData = {
+  fields: {
+     value: "Moscow",
+  }
+};
+
+getValueObject(componentData, "fields.value", "Praga")
+```
+
+
+## Props
+
+| Property     | Type                | Default | Required | Description                                            |
+|--------------|--------------------|--------------|----------------|-----------------------------------------------------|
+| data         | `TOption`          | -            | -              | Object containing the values                |
+| path         | `string`           | -            | -              | Dot-separated path to the value             |
+| defaultValue | `TValueObjectType` | -            | -              | Default value                               |

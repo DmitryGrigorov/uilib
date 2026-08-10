@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F38320" />
+    <meta name="description" content="UI Lib is a production-minded React 19 component library with TypeScript, Motion animations, and a modern orange design system." />
+    <meta property="og:title" content="UI Lib — Ship reliable interfaces at product speed" />
+    <meta property="og:description" content="Production-ready React components with precise TypeScript APIs, Motion interactions, and an expressive orange identity." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:alt" content="UI Lib — Ship reliable interfaces at product speed." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/og.png" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.svg">
+    <title>UI Lib — React components built for product speed</title>
+</head>
+
+<body>
+<div id="app"></div>
+<script>
+  for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
+    const meta = document.querySelector(selector);
+    if (meta) meta.setAttribute("content", new URL("/og.png", window.location.origin).href);
+  }
+</script>
+<script type="module" src="./root.tsx"></script>
+</body>
+</html>

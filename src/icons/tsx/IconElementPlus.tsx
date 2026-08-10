@@ -1,0 +1,54 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconElementPlus = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M19 3.5H16C15.1716 3.5 14.5 4.17157 14.5 5V8C14.5 8.82843 15.1716 9.5 16 9.5H19C19.8284 9.5 20.5 8.82843 20.5 8V5C20.5 4.17157 19.8284 3.5 19 3.5ZM16 2C14.3431 2 13 3.34315 13 5V8C13 9.65685 14.3431 11 16 11H19C20.6569 11 22 9.65685 22 8V5C22 3.34315 20.6569 2 19 2H16Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M17.25 13C17.6642 13 18 13.3358 18 13.75V15.75C18 16.1642 17.6642 16.5 17.25 16.5C16.8358 16.5 16.5 16.1642 16.5 15.75V13.75C16.5 13.3358 16.8358 13 17.25 13Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M22 17.75C22 18.1642 21.6642 18.5 21.25 18.5H19.25C18.8358 18.5 18.5 18.1642 18.5 17.75C18.5 17.3358 18.8358 17 19.25 17H21.25C21.6642 17 22 17.3358 22 17.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M13 17.75C13 17.3358 13.3358 17 13.75 17H16.25C17.2165 17 18 17.7835 18 18.75V21.25C18 21.6642 17.6642 22 17.25 22C16.8358 22 16.5 21.6642 16.5 21.25V18.75C16.5 18.6119 16.3881 18.5 16.25 18.5H13.75C13.3358 18.5 13 18.1642 13 17.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M8 14.5H5C4.17157 14.5 3.5 15.1716 3.5 16V19C3.5 19.8284 4.17157 20.5 5 20.5H8C8.82843 20.5 9.5 19.8284 9.5 19V16C9.5 15.1716 8.82843 14.5 8 14.5ZM5 13C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H8C9.65685 22 11 20.6569 11 19V16C11 14.3431 9.65685 13 8 13H5Z"
+          fill="currentColor"
+        />
+        <path
+          d="M5 3.5H8C8.82843 3.5 9.5 4.17157 9.5 5V8C9.5 8.82843 8.82843 9.5 8 9.5H5C4.17157 9.5 3.5 8.82843 3.5 8C3.5 7.72386 3.27614 7.5 3 7.5H2.5C2.22386 7.5 2 7.72386 2 8C2 9.65685 3.34315 11 5 11H8C9.65685 11 11 9.65685 11 8V5C11 3.34315 9.65685 2 8 2H5C3.34315 2 2 3.34315 2 5C2 5.27614 2.22386 5.5 2.5 5.5H3C3.27614 5.5 3.5 5.27614 3.5 5C3.5 4.17157 4.17157 3.5 5 3.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconElementPlus;

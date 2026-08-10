@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "../../publish-components/esm",
+    "baseUrl": "../../",
+    "noEmit": false,
+    "jsx": "react",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": "../../node_modules/.cache/components.tsbuildinfo"
+  },
+  "include": [
+    "index.ts",
+    "types",
+    "../shims"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.stories.tsx"
+  ]
+}

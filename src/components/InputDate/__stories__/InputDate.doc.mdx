@@ -1,0 +1,359 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import { InputDateExamples } from "./examples";
+import {
+  InputExampleUsage,
+  InputErrorUsage,
+  InputWarningUsage,
+  InputSuccessUsage,
+  InputDateMinMaxExample,
+  OptionalInputDateOptionalCalendar
+} from "./examples/inputDateExamples";
+import InputDate from "../DatePicker";
+
+:::div{.notshown}
+
+# InputDate
+
+InputDate is designed for entering and selecting dates.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InputDate } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Single-date appearance
+
+<Unstyled>
+  <InputDateExamples />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Date-range appearance
+
+<Unstyled>
+  <InputDateExamples isRangeMode={true} />
+</Unstyled>
+:::
+
+:::div
+
+## Usage
+
+<Unstyled>
+  <InputExampleUsage />
+</Unstyled>
+<br />
+
+```tsx
+import React, { useState } from "react";
+import { InputDate } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputDate
+      placeholder={["Label 1", "Label 2"]}
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Value
+
+Set the field value through `value` in `DD.MM.YYYY` format.
+
+```tsx
+<InputDate value="22.11.2021" />
+```
+
+<Unstyled>
+  <InputDate value="22.11.2021" />
+</Unstyled>
+:::
+
+:::div
+
+### Statuses
+
+Use `status` to emphasize InputDate and communicate validation feedback. Available values are `error`, `warning`, and `success`.
+
+#### status="error"
+
+<Unstyled>
+  <InputErrorUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputDate } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputDate
+      placeholder="Error label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="error"
+      statusText="Error text"
+    />
+  );
+};
+```
+
+#### status="warning"
+
+<Unstyled>
+  <InputWarningUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputDate } from "@dmitrygrigorov/components";
+
+const Example = (): JSX.Element => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputDate
+      placeholder="Warning label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="warning"
+      statusText="Warning text"
+    />
+  );
+};
+```
+
+#### status="success"
+
+<Unstyled>
+  <InputSuccessUsage />
+</Unstyled>
+
+```tsx
+import React, { useState } from "react";
+import { InputDate } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputDate
+      placeholder="Success label"
+      value={value}
+      onChange={(_e, val: string) => setValue(val)}
+      status="success"
+      statusText="Success text"
+    />
+  );
+};
+```
+
+:::
+
+:::div
+
+### Clear button
+
+Set `isShowClearIcon` to show a clear button when the field contains a value.
+
+```tsx
+<InputDate value="Value" isShowClearIcon />
+```
+
+<Unstyled>
+  <InputDate value="Value" isShowClearIcon />
+</Unstyled>
+:::
+
+:::div
+
+### Required fields
+
+Set `isRequired` to make the field required.
+
+```tsx
+<InputDate placeholder="Label 1" isRequired />
+<InputDate placeholder="Label 1" />
+```
+
+<Unstyled>
+  <InputDate placeholder="Label 1" isRequired />
+  <br />
+  <InputDate placeholder="Label 1" />
+</Unstyled>
+:::
+
+:::div
+
+### Disabled field
+
+Set `isDisabled` to prevent input.
+
+```tsx
+<InputDate placeholder="Label 1" isDisabled />
+```
+
+<Unstyled>
+  <InputDate placeholder="Label 1" isDisabled />
+</Unstyled>
+:::
+
+:::div
+
+### Toggling the calendar
+
+Set `isCalendar` to `false` to disable the calendar.
+
+```tsx
+import React, { useState } from "react";
+import { InputDate } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <InputDate
+      placeholder="Enter a date"
+      isCalendar={false}
+      value={value}
+      onChange={(_, val: string) => setValue(val)}
+    />
+  );
+};
+```
+
+<Unstyled>
+  <OptionalInputDateOptionalCalendar />
+</Unstyled>
+:::
+
+:::div
+
+### Limiting selectable dates
+
+Use `minDate` and `maxDate` to limit the selectable date range.
+
+```tsx
+<InputDate minDate={"01.12.2022"} maxDate={"01.06.2023"} />
+```
+
+<Unstyled>
+  <InputDateMinMaxExample />
+</Unstyled>
+:::
+
+:::div
+
+### Sizes
+
+Use `size` to change the field height and spacing.
+Size `m` is recommended for mobile interfaces.
+
+```tsx
+<InputDate placeholder="Size L" size="l" />
+<InputDate placeholder="Size M" size="m" />
+```
+
+<Unstyled>
+  <InputDate placeholder="Size L" size="l" />
+  <br />
+  <InputDate placeholder="Size M" size="m" />
+</Unstyled>
+:::
+
+:::div
+
+### Focus
+
+Set `isAutoFocus` to focus the field automatically.
+
+```tsx
+<InputDate placeholder="Focus" isAutoFocus />
+```
+
+<Unstyled>
+  <InputDate placeholder="Focus" isAutoFocus />
+</Unstyled>
+:::
+
+:::div
+
+### Selecting a range
+
+Set `isRangeMode` to select a date range.
+
+```tsx
+<InputDate placeholder="Select a range" isRangeMode />
+```
+
+<Unstyled>
+  <InputDate placeholder="Select a range" isRangeMode />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Prop            | Type                                                                                                                         | Default    | Required | Description                                              |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- | -------- | -------------------------------------------------------- |
+| id              | `string`, `number`                                                                                                           | -          | -        | Field ID in the DOM                                      |
+| value           | `string`                                                                                                                     | -          | -        | Field value                                              |
+| isAutoFill      | `boolean`                                                                                                                    | -          | -        | Enables browser autofill suggestions                     |
+| minDate         | `string`                                                                                                                     | 01.01.1920 | -        | Earliest selectable date in `DD.MM.YYYY` format          |
+| maxDate         | `string`                                                                                                                     | 31.12.2050 | -        | Latest selectable date in `DD.MM.YYYY` format            |
+| isAutoFocus     | `boolean`                                                                                                                    | -          | -        | Focuses and highlights the field automatically           |
+| name            | `string`                                                                                                                     | -          | -        | Field name in the DOM                                    |
+| placeholder     | `string`, `[string, string]`                                                                                                 | -          | -        | Hint displayed inside the field                          |
+| isDisabled      | `boolean`                                                                                                                    | `false`    | -        | Disables the field                                       |
+| onChange        | `onChange: (event: ChangeEvent<HTMLInputElement>` <br/> `\ MouseEvent<HTMLDivElement>, value: string, id?: string) => void;` | -          | -        | Called when the field value changes                      |
+| onFocus         | `event: FocusEvent<HTMLInputElement>) => void`                                                                               | -          | -        | Called when the field receives focus                     |
+| onBlur          | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                               | -          | -        | Called when the field loses focus                        |
+| onKeyPress      | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                          | -          | -        | Handles key presses                                      |
+| onKeyDown       | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                                          | -          | -        | Handles key-down events                                  |
+| className       | `string`                                                                                                                     | -          | -        | Additional CSS class                                     |
+| testId          | `string`                                                                                                                     | -          | -        | ID used by automated tests                               |
+| status          | `default`, `error`, `warning`, `success`                                                                                     | -          | -        | Field status styling                                     |
+| statusText      | `string`                                                                                                                     | -          | -        | Text describing the status                               |
+| isShowLabel     | `boolean`                                                                                                                    | `true`     | -        | Controls the label visibility                            |
+| isShowClearIcon | `boolean`                                                                                                                    | `true`     | -        | Controls the clear button                                |
+| isRangeMode     | `boolean`                                                                                                                    | `false`    | -        | Enables or disables date-range selection                 |
+| viewType        | `round`, `line`                                                                                                              | `round`    | -        | Field appearance                                         |
+| list            | `string`                                                                                                                     | -          | -        | Associates the field with a `<datalist>` element         |
+| isCalendar      | `boolean`                                                                                                                    | `true`     | -        | Controls calendar visibility                             |
+| autoComplete    | `string`                                                                                                                     | -          | -        | Enables or disables browser autocomplete                 |
+| accessKey       | `string`                                                                                                                     | -          | -        | Keyboard shortcut for activating or focusing the element |
+| isReadOnly      | `boolean`                                                                                                                    | -          | -        | Makes the field read-only                                |
+| form            | `string`                                                                                                                     | -          | -        | Associates the control with a form element               |
+
+:::

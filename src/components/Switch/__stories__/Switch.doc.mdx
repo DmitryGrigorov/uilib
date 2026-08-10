@@ -1,0 +1,256 @@
+import { SwitchExamples } from "./examples";
+import {
+  SwitchExample,
+  SwitchExampleText,
+  SwitchExampleIcon,
+  SwitchExampleCustomText,
+  SwitchExampleCustomIcon,
+  SwitchExampleIndeterminate
+} from "./examples/SwitchExamples";
+import Switch from "../";
+
+:::div{.notshown}
+
+# Switch
+
+A switch toggles the state of a single item.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Disabled switch](#disabled-switch)
+- [Text](#text)
+- [Default text](#default-text)
+- [Indeterminate switch](#indeterminate-switch)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Switch } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+### Appearance
+
+<SwitchExamples />
+:::
+
+:::div
+
+## Usage
+
+The `isChecked` state indicates whether the switch is selected.
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return <Switch isChecked={isChecked} onChange={handleChange}></Switch>;
+};
+```
+
+<SwitchExample />
+:::
+
+:::div
+
+## Disabled switch
+
+Set `isDisabled` to lock the `Switch` in its current position.
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <Switch
+      isChecked={isChecked}
+      isDisabled={isDisabled}
+      onChange={handleChange}></Switch>
+  );
+};
+```
+
+<Switch isDisabled />
+<br />
+<Switch isChecked isDisabled />
+:::
+
+:::div
+
+## Text
+
+Use `textBefore` and `textAfter` to provide custom text for each state.
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <Switch
+      isChecked={isChecked}
+      hasTextOrIcon
+      textBefore="text_2"
+      textAfter="text_1"
+      onChange={handleChange}></Switch>
+  );
+};
+```
+
+<SwitchExampleCustomText />
+:::
+
+:::div
+
+## Icons
+
+Use `iconAfter` and `iconBefore` to provide custom icons for each state.
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <Switch
+      isChecked={isChecked}
+      iconBefore={<IconArrowLeft1 />}
+      iconAfter={<IconCloseSquare />}
+      onChange={handleChange}></Switch>
+  );
+};
+```
+
+<SwitchExampleIcon />
+
+### Custom icons
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+import { IconCloseSquare } from "@dmitrygrigorov/icons";
+import IconBefore from "./icon.svg";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <Switch
+      isChecked={isChecked}
+      iconBefore={<IconBefore />}
+      iconAfter={<IconCloseSquare />}
+      onChange={handleChange}></Switch>
+  );
+};
+```
+
+<SwitchExampleCustomIcon />
+:::
+
+:::div
+
+## Default text
+
+Set `hasTextOrIcon` to use the default text, "On" and "Off".
+
+```tsx
+import React, { useState } from "react";
+import { Switch } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (): void => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <Switch
+      isChecked={isChecked}
+      hasTextOrIcon
+      onChange={handleChange}></Switch>
+  );
+};
+```
+
+<Switch hasTextOrIcon />
+<br />
+<Switch hasTextOrIcon isChecked />
+:::
+
+:::div
+
+## Indeterminate switch
+
+Set `isInderminate` to place the switch in an indeterminate state.
+
+```tsx
+export const Example: React.FC = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Switch
+      onChange={(_e, val) => setIsChecked(val)}
+      isChecked={isChecked}
+      hasTextOrIcon
+      isIndeterminate
+      iconAfter={<IconCloseCircle />}
+      iconBefore={<IconTickCircle />}
+    />
+  );
+};
+```
+
+<SwitchExampleIndeterminate />
+::: :::div ## Props
+
+| Property        | Type                                                   | Default | Required | Description                         |
+| --------------- | ------------------------------------------------------ | ------- | -------- | ----------------------------------- |
+| textAfter       | `string`                                               | -       | -        | Text for the on state               |
+| textBefore      | `string`                                               | -       | -        | Text for the off state              |
+| iconAfter       | `JSX.Element`                                          | -       | -        | Icon for the on state               |
+| iconBefore      | `JSX.Element`                                          | -       | -        | Icon for the off state              |
+| hasTextOrIcon   | `boolean`                                              | -       | -        | Displays text or icons              |
+| isChecked       | `boolean`                                              | `false` | -        | Whether the switch is on            |
+| isIndeterminate | `boolean`                                              | `false` | -        | Whether the switch is indeterminate |
+| isDisabled      | `boolean`                                              | `false` | -        | Disables the switch                 |
+| className       | `string`                                               | -       | -        | Value of the `class` attribute      |
+| onChange        | `(event: React.MouseEvent<HTMLButtonElement>) => void` | -       | -        | State change handler                |
+
+:::

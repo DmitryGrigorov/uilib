@@ -1,0 +1,56 @@
+import * as React from "react";
+import { IconStyled } from "../styles";
+const IconTextalignJustifycenter = ({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <IconStyled className={className}>
+    {
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M1 9.75C1 9.33579 1.33579 9 1.75 9H21.75C22.1642 9 22.5 9.33579 22.5 9.75C22.5 10.1642 22.1642 10.5 21.75 10.5H1.75C1.33579 10.5 1 10.1642 1 9.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M1 14.75C1 14.3358 1.33579 14 1.75 14H21.75C22.1642 14 22.5 14.3358 22.5 14.75C22.5 15.1642 22.1642 15.5 21.75 15.5H1.75C1.33579 15.5 1 15.1642 1 14.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M1 19.75C1 19.3358 1.33579 19 1.75 19H13.75C14.1642 19 14.5 19.3358 14.5 19.75C14.5 20.1642 14.1642 20.5 13.75 20.5H1.75C1.33579 20.5 1 20.1642 1 19.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M22.5 4.75C22.5 4.33579 22.1642 4 21.75 4H9.75C9.33579 4 9 4.33579 9 4.75C9 5.16421 9.33579 5.5 9.75 5.5H21.75C22.1642 5.5 22.5 5.16421 22.5 4.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M16 19.75C16 19.3358 16.3358 19 16.75 19H21.75C22.1642 19 22.5 19.3358 22.5 19.75C22.5 20.1642 22.1642 20.5 21.75 20.5H16.75C16.3358 20.5 16 20.1642 16 19.75Z"
+          fill="currentColor"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7.5 4.75C7.5 4.33579 7.16421 4 6.75 4H1.75C1.33579 4 1 4.33579 1 4.75C1 5.16421 1.33579 5.5 1.75 5.5H6.75C7.16421 5.5 7.5 5.16421 7.5 4.75Z"
+          fill="currentColor"
+        />
+      </svg>
+    }
+  </IconStyled>
+);
+export default IconTextalignJustifycenter;

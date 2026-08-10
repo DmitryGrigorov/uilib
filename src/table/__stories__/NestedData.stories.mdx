@@ -1,0 +1,194 @@
+import { Meta } from "@storybook/addon-docs";
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  BaseNestedTable,
+  NestedTableWithoutHeaders,
+  NestedDetailsRowTable
+} from "./examples/NestedData";
+
+<Meta title="Tables/Nested data" />
+
+# Nested data
+
+## Usage
+
+### Nested tables
+
+To use nested tables, pass `isDetailRow` and set `viewTypeDetail` to `table`. This tells the component that a row contains additional information rendered as a table.
+
+Next, define the nested table columns and provide its data through `detailRowOptions`. The following properties configure the nested table:
+
+- `columns`: an array of columns.
+- `getDetailRowData`: a callback that receives row `data` and returns the nested table data.
+
+See the [`detailRowOptions` property and type reference](#i-detail-row-options).
+
+```ts
+
+// Define the base columns
+const COLUMNS = [{ field: "a1" }, { field: "b1" }, { field: "c1" }];
+
+// Define the table data
+const ROWS = [
+ {
+    a1: "level 1 - 111",
+    b1: "level 1 - 222",
+    c1: "level 1 - 222",
+    dataNestedTable: [
+      { a2: "level 2 - 5551", b2: "level 2 - 6661", c2: "level 2 - 7771" },
+      { a2: "level 2 - 5552", b2: "level 2 - 6662", c2: "level 2 - 7772" }
+    ]
+  },
+  {
+    a1: "level 1 - 333",
+    b1: "level 1 - 444",
+    c1: "level 1 - 555",
+    dataNestedTable: [
+      { a2: "level 2 - 2some", b2: "level 2 - some", c2: "level 2 - some" },
+      { a2: "level 2 - some", b2: "level 2 - some", c2: "level 2 - some" }
+    ]
+  }
+]
+
+// Configure the columns and identify the nested table data
+const detailRowOptions = {
+  columns: [
+    {
+      field: "a2"
+    },
+    {
+      field: "b2"
+    },
+    {
+      field: "c2"
+    }
+  ],
+  getDetailRowData: ({ data }) => data.dataNestedTable
+}
+
+<Table
+  columns={COLUMNS}
+  rowData={ROWS}
+  detailRowOptions={detailRowOptions}
+  viewTypeDetail="table"
+  isDetailRow
+/>
+```
+
+<Unstyled>
+  <BaseNestedTable />
+</Unstyled>
+
+#### Hide the nested table header
+
+Set `isHiddenColumnHeader` to `true` in `detailRowOptions` to hide column headers in nested tables.
+
+```tsx
+const detailRowOptions = {
+  columns: [
+    {
+      field: "a2"
+    },
+    {
+      field: "b2"
+    },
+    {
+      field: "c2"
+    }
+  ],
+  getDetailRowData: ({ data }) => data.dataNestedTable,
+  isHiddenTableHeader: true
+}
+
+<Table
+  columns={COLUMNS}
+  rowData={ROWS}
+  detailRowOptions={detailRowOptions}
+  viewTypeDetail="table"
+  isDetailRow
+/>
+```
+
+<Unstyled>
+  <NestedTableWithoutHeaders />
+</Unstyled>
+
+### Customize nested data
+
+Nested data can use a custom layout instead of a subtable. Set `viewTypeDetail` to `info` and provide a component through `detailRowRenderer`. The component receives row data through its `data` prop.
+
+The following example creates a `DetailRowRerender` component that displays nested row data, passes it through `detailRowRenderer`, and sets `viewTypeDetail` to `info`.
+
+```tsx
+const DetailRowRerender: FC<IRowDetailRendererParams<any, any>> = ({
+  data
+}) => (
+  <DetailRowWrapper>
+    {data.dataNestedTable.map((row: any) => (
+      <div key={JSON.stringify(row)}>
+        <p>a2 {row.a2}</p>
+        <p>b2 {row.b2}</p>
+        <p>c2 {row.c2}</p>
+      </div>
+    ))}
+  </DetailRowWrapper>
+);
+
+<Table
+  columns={COLUMNS}
+  isDetailRow
+  viewTypeDetail="info"
+  rowData={ROWS}
+  detailRowRenderer={DetailRowRerender}
+/>;
+```
+
+<Unstyled>
+  <NestedDetailsRowTable />
+</Unstyled>
+
+## Available properties
+
+`Table` properties from `ITableProps`:
+
+| Property         | Type                           | Description                    |
+| ---------------- | ------------------------------ | ------------------------------ |
+| isDetailRow      | `boolean`                      | Enables row details            |
+| detailRowOptions | `IDetailRowOptions`            | Nested-table display options   |
+| detailRowOptions | `FC<IRowDetailRendererParams>` | Nested-data display options    |
+| viewTypeDetail   | `info` - `table`               | Expanded row data display mode |
+
+[Full table property reference](?path=/docs/tables-properties--documentation#column-definitions)
+
+## Additional types
+
+### IDetailRowOptions <span id="i-detail-row-options"/>
+
+Defines nested-table options.
+
+| Property             | Type                                                                               | Description                                                    |
+| -------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| columns              | `Array<{ field: string;` <br/> `title?: string;` <br/> `width?: number;` <br/>`}>` | Nested-table columns                                           |
+| getDetailRowData     | `(params: getDetailRowDataParams) => TData[]`                                      | Callback that receives a row and returns its nested-table data |
+| classNameTable       | `string`                                                                           | Sets the nested table `class`                                  |
+| isHiddenColumnHeader | `boolean`                                                                          | Hides nested-table column headers                              |
+
+### getDetailRowDataParams
+
+```tsx
+interface getDetailRowDataParams<TData = any> {
+  data: TData;
+  node?: IRowNode<TData>;
+  columns?: IColumn<TData>[];
+}
+```
+
+### IRowDetailRendererParams
+
+```tsx
+interface IRowDetailRendererParams<TData, TValue> {
+  data: TData;
+  node?: IRowNode<TData>;
+  columns?: TLocalColumn<TData, TValue>[];
+}
+```

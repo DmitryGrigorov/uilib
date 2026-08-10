@@ -1,0 +1,126 @@
+import { TooltipExamples } from "./examples";
+
+import {
+  TooltipIsTrailUsage,
+  TooltipNoTrailUsage,
+  TooltipIsShadowUsage
+} from "./examples/TooltipExamples";
+
+:::div{.notshown}
+
+# Tooltip
+
+Tooltips display supplemental explanatory text for an interface element.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Usage](#usage)
+- [Additional content](#additional-content)
+- [Adding a shadow](#adding-a-shadow)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { Tooltip } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<TooltipExamples />
+:::
+
+:::div
+
+## Usage
+
+```tsx
+import React from "react";
+import { Tooltip, Button } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <Tooltip direction="top" text="With a button">
+    <Button viewType="primary">Hover over me</Button>
+  </Tooltip>
+);
+```
+
+<TooltipNoTrailUsage />
+:::
+
+:::div
+
+## Additional content
+
+Use `isTrail` to highlight supplemental information such as keyboard shortcuts, links, or extra text. Set the content with `trailText`.
+
+```tsx
+import React from "react";
+import { Tooltip, Button } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <Tooltip direction="top" text="With a button" isTrail trailText="P">
+    <Button viewType="primary">Hover over me</Button>
+  </Tooltip>
+);
+```
+
+<TooltipIsTrailUsage />
+:::
+
+:::div
+
+### Adding a shadow
+
+Use `isShadow` to improve visual separation when the tooltip appears over other components.
+
+```tsx
+import React from "react";
+import { Tooltip, Button } from "@dmitrygrigorov/components";
+
+const Example: React.FC = () => (
+  <Tooltip direction="top" text="Helpful message" isShadow>
+    <Button viewType="primary">Hover over me</Button>
+  </Tooltip>
+);
+```
+
+<TooltipIsShadowUsage />
+:::
+
+:::div
+
+## Props
+
+| Property         | Type                         | Default | Required | Description                                            |
+| ---------------- | ---------------------------- | ------- | -------- | ------------------------------------------------------ |
+| children         | `React.ReactElement`         | -       | ✓        | Element used to position the tooltip                   |
+| direction        | [TDirection](#direction)     | `top`   | -        | Preferred tooltip direction                            |
+| text             | `string`                     | -       | ✓        | Text displayed in the tooltip                          |
+| isShadow         | `boolean`                    | `false` | -        | Adds a tooltip shadow                                  |
+| trailText        | `string`                     | -       | -        | Text for the trailing content                          |
+| defaultIsVisible | `boolean`                    | `false` | -        | Whether the tooltip is visible initially               |
+| isTrail          | `boolean`                    | `true`  |          | Displays supplemental content to the right of the text |
+| onVisibleChange  | (isVisible: boolean) => void | -       | -        | Called when tooltip visibility changes                 |
+| isShow           | `boolean`                    | -       | -        | Controls whether the tooltip is displayed              |
+
+:::
+
+:::div
+
+### Direction
+
+Available values:
+`topRight`, `topLeft`, `top`, `bottomRight`, `bottomLeft`, `bottom`, `right`, `left`
+:::

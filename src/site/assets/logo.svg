@@ -1,0 +1,7 @@
+<svg width="122" height="35" viewBox="0 0 122 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="2.5" width="30" height="30" rx="8" fill="#F38320"/>
+  <rect x="8" y="12" width="14" height="4" rx="2" fill="#FFFFFF"/>
+  <rect x="8" y="18" width="10" height="4" rx="2" fill="#FFFFFF"/>
+  <rect x="8" y="24" width="6" height="4" rx="2" fill="#FFFFFF"/>
+  <text x="40" y="24" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="19" font-weight="700" fill="#151820">UI Lib</text>
+</svg>

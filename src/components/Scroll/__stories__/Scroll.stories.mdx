@@ -1,0 +1,41 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import ScrollExample from "./assets/scroll.svg";
+
+<Meta
+  title="Components/Protons/Scroll"
+  id="scroll"
+  parameters={{
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/XRchmIvTtZ29RfhWgjK2le/%D0%91%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D0%BE%D0%B2?node-id=9265%3A46847"
+    }
+  }}
+/>
+
+# Scroll
+
+The scrollbar shows the user's current position and provides quick navigation through a list.
+
+## Import
+
+```tsx
+import { ScrollStyle } from "@dmitrygrigorov/components";
+```
+
+## Setup
+
+Render the custom scrollbar styles at the root of your application.
+
+```tsx
+import { ScrollStyle } from "@dmitrygrigorov/components";
+
+const App = () => (
+  <div>
+    <ScrollStyle />
+  </div>
+);
+```
+
+## Appearance
+
+<img alt="scroll-example" src={ScrollExample} />

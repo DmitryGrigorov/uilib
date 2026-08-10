@@ -1,0 +1,161 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
+import {
+  InputPhoneExampleDefault,
+  InputPhoneExampleStatus,
+  InputPhoneExampleIsRequired,
+  InputPhoneExampleFilled,
+  InputPhoneExampleIsDisabled
+} from "./examples/InputPhoneExamples";
+import { InputPhoneExamples } from "./examples";
+
+:::div{.notshown}
+
+# InputPhone
+
+InputPhone is used to enter phone numbers.
+:::
+
+:::div
+
+## Navigation
+
+- [Import](#import)
+- [Entering a number](#entering-a-number)
+- [Statuses](#statuses)
+- [Required fields](#required-fields)
+- [Props](#props)
+  :::
+
+:::div
+
+## Import
+
+```tsx
+import { InputPhone } from "@dmitrygrigorov/components";
+```
+
+:::
+
+:::div
+
+## Entering a number
+
+Pass the number through `value` and handle changes with `onChange`.
+
+```tsx
+import { useState } from "react";
+import { InputPhone } from "@dmitrygrigorov/components";
+
+export const Example = () => {
+  const [phone, setPhone] = useState<string>("null");
+
+  const handleChange = (event, value) => setPhone(value);
+
+  return <InputPhone value={phone} onChange={handleChange} />;
+};
+```
+
+<Unstyled>
+  <InputPhoneExampleDefault />
+</Unstyled>
+:::
+
+:::div
+
+## Statuses
+
+Use statuses to emphasize the field and communicate errors, warnings, or successful validation.
+Set `status` to `default`, `error`, `warning`, or `success`. When omitted, the field uses its default appearance.
+
+```tsx
+<InputPhone status="error" />
+<InputPhone status="warning" />
+<InputPhone status="success" />
+<InputPhone />
+```
+
+<Unstyled>
+  <InputPhoneExampleStatus status="error" />
+  <br />
+  <InputPhoneExampleStatus status="warning" />
+  <br />
+  <InputPhoneExampleStatus status="success" />
+  <br />
+  <InputPhoneExampleStatus />
+</Unstyled>
+
+Add a text explanation for the status with `statusText`.
+
+```tsx
+<InputPhone status="error" statusText="Error" />
+<InputPhone status="warning" statusText="Warning" />
+<InputPhone status="success" statusText="Success" />
+```
+
+<Unstyled>
+  <InputPhoneExampleStatus status="error" statusText="Error" />
+  <br />
+  <br />
+  <InputPhoneExampleStatus status="warning" statusText="Warning" />
+  <br />
+  <br />
+  <InputPhoneExampleStatus status="success" statusText="Success" />
+</Unstyled>
+:::
+
+:::div
+
+## Required fields
+
+Set `isRequired` to make the field required. When a `placeholder` is present, an asterisk appears beside it.
+
+```tsx
+<InputPhone isRequired />
+```
+
+<Unstyled>
+  <InputPhoneExampleIsRequired isRequired />
+</Unstyled>
+:::
+
+:::div{.notshown}
+
+## Appearance
+
+<Unstyled>
+  <InputPhoneExamples />
+</Unstyled>
+:::
+
+:::div
+
+## Props
+
+| Prop            | Type                                                                                                            | Default | Required | Description                                              |
+| --------------- | --------------------------------------------------------------------------------------------------------------- | ------- | -------- | -------------------------------------------------------- |
+| id              | `string`, `number`                                                                                              | -       | -        | Field ID in the DOM                                      |
+| value           | `string`                                                                                                        | -       | ✔       | Field value                                              |
+| isAutoFill      | `boolean`                                                                                                       | -       | -        | Enables browser autofill suggestions                     |
+| isAutoFocus     | `boolean`                                                                                                       | -       | -        | Focuses and highlights the field automatically           |
+| name            | `string`                                                                                                        | -       | -        | Field name in the DOM                                    |
+| placeholder     | `string`, `[string, string]`                                                                                    | -       | -        | Hint displayed inside the field                          |
+| isDisabled      | `boolean`                                                                                                       | `false` | -        | Disables the field                                       |
+| onChange        | `onChange: (event: ChangeEvent<HTMLInputElement>`<br/> ` \ MouseEvent<HTMLDivElement>, value: string) => void;` | ✔      | -        | Called when the field value changes                      |
+| onFocus         | `event: FocusEvent<HTMLInputElement>) => void`                                                                  | -       | -        | Called when the field receives focus                     |
+| onBlur          | `(event: FocusEvent<HTMLInputElement>, value: string) => void`                                                  | -       | -        | Called when the field loses focus                        |
+| onKeyPress      | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                             | -       | -        | Handles key presses                                      |
+| onKeyDown       | `(event: KeyboardEvent<HTMLInputElement>) => void;`                                                             | -       | -        | Handles key-down events                                  |
+| className       | `string`                                                                                                        | -       | -        | Additional CSS class                                     |
+| status          | `default`, `error`, `warning`, `success`                                                                        | -       | -        | Field status styling                                     |
+| statusText      | `string`                                                                                                        | -       | -        | Text describing the status                               |
+| isReadOnly      | `boolean`                                                                                                       | -       | -        | Makes the field read-only                                |
+| size            | `string`                                                                                                        | -       | -        | Input size                                               |
+| className       | `string`                                                                                                        | -       | -        | Additional CSS class                                     |
+| isShowClearIcon | `boolean`                                                                                                       | `true`  | -        | Controls the clear button                                |
+| viewType        | `round`, `line`                                                                                                 | `round` | -        | Field appearance                                         |
+| list            | `string`                                                                                                        | -       | -        | Associates the field with a `<datalist>` element         |
+| autoComplete    | `string`                                                                                                        | -       | -        | Enables or disables browser autocomplete                 |
+| accessKey       | `string`                                                                                                        | -       | -        | Keyboard shortcut for activating or focusing the element |
+| form            | `string`                                                                                                        | -       | -        | Associates the control with a form element               |
+
+:::

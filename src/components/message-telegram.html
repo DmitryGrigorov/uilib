@@ -1,0 +1,7 @@
+<b>A new library version is available: {{nextRelease.name}}</b>
+
+Changes:
+
+{% for commit in commits %}
+• {{ commit.subject }}
+{% endfor %}

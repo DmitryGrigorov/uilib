@@ -1,0 +1,43 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="hooks/useComponentSize" id="useComponentSize" />
+
+# useComponentSize
+
+- [Description](#description)
+- [Import](#import)
+- [Usage](#usage)
+- [Properties](#properties)
+
+## Description
+`useComponentSize` returns an element's current width and height.
+
+## Import
+
+```tsx
+import { useComponentSize } from "@dmitrygrigorov/components";
+```
+
+## Usage
+
+```tsx
+import {useEffect, useRef } from "react"
+import { useComponentSize } from "@dmitrygrigorov/components";
+const elementRef = useRef()
+const sizeElement = useComponentSize(elementRef);
+
+const Example = () => {
+    useEffect(() => {/*
+  */}, [sizeElement]);
+    return (
+      <input ref={elementRef}/>
+    )
+}
+```
+
+## Properties
+
+| Parameter | Type                                          | Default | Required | Description              |
+|----------|-----------------------------------------------|--------------|----------------|-------------------|
+| ref      | `RefObject<HTMLElement \ SVGGraphicsElement>` | -       | ✓        | Reference to the element |
+
